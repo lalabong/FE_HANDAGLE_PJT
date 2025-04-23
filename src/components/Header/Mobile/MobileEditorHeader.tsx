@@ -15,7 +15,7 @@ const MobileEditorHeader = ({ onSubmit, isSubmitting = false }: MobileEditorHead
   };
 
   return (
-    <header className="w-full bg-white border-b border-[#EEEFF1] shadow-[0px_9px_10px_0px_rgba(232,232,232,0.25)]">
+    <header className="w-full bg-white">
       <div className={`flex justify-between items-center ${responsivePaddingClass}`}>
         <div className="flex items-center gap-4">
           <button
