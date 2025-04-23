@@ -1,16 +1,17 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import App from '@/App';
 import { PATH } from '@/constants/path';
 import HomePage from '@/pages/HomePage';
 import LoginPage from '@/pages/LoginPage';
 import PostDetailPage from '@/pages/PostDetailPage';
 import CreatePostPage from '@/pages/CreatePostPage';
 import NotFoundPage from '@/pages/NotFoundPage';
+import MainLayout from '@/layouts/MainLayout';
+
 const AppRouter = () => {
   const router = createBrowserRouter([
     {
       path: PATH.ROOT,
-      element: <App />,
+      element: <MainLayout />,
       errorElement: <NotFoundPage />,
       children: [
         {
