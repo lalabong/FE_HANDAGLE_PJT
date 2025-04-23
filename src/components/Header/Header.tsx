@@ -31,8 +31,8 @@ const Header = ({ isLoggedIn = false, onLogout, userNickname = '사용자' }: He
   };
 
   return (
-    <header className="w-full bg-white border-b border-[#EEEFF1] shadow-[0px_9px_10px_0px_rgba(232,232,232,0.25)]">
-      <div className={`flex justify-between items-center ${responsivePaddingClass}`}>
+    <header className="w-full bg-white h-[var(--header-height)] border-b border-[#EEEFF1] shadow-[0px_9px_10px_0px_rgba(232,232,232,0.25)]">
+      <div className={`flex justify-between items-center h-full ${responsivePaddingClass}`}>
         <Link to={PATH.ROOT} onClick={handleLogoClick} className="flex items-center">
           <img src="/logo.png" alt="다글제작소 로고" className="h-9" />
         </Link>
