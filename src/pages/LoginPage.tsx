@@ -1,4 +1,5 @@
 import { Button } from '@/components/common/Button';
+import { useAuthStore } from '@/store/useAuthStore';
 import { useState } from 'react';
 import Input from '../components/common/Input';
 
@@ -33,6 +34,7 @@ const LoginPage = () => {
     }
   };
 
+  // 실시간 유효성 검사
   const validateField = (name: string, value: string) => {
     setFormErrors((prev) => {
       const newErrors = { ...prev };
@@ -57,6 +59,7 @@ const LoginPage = () => {
     });
   };
 
+  // 로그인 버튼 클릭 시 유효성 검사
   const validateForm = (): boolean => {
     const errors: FormErrors = {};
     let isValid = true;
@@ -75,13 +78,23 @@ const LoginPage = () => {
     return isValid;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
 
     if (validateForm()) {
-      // 로그인 로직 구현
-      console.log('로그인 시도:', formData);
+      try {
+        await useAuthStore.getState().login(formData);
+        console.log('로그인 성공');
+      } catch (error: any) {
+        if (error.status === 401) {
+          alert('비밀번호가 일치하지 않습니다.');
+        } else if (error.status === 404) {
+          alert('존재하지 않는 아이디입니다.');
+        } else {
+          alert('로그인 중 오류가 발생했습니다. 다시 시도해주세요.');
+        }
+      }
     }
   };
 
