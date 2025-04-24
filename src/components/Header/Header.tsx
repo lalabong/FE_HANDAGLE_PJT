@@ -70,11 +70,19 @@ const Header = () => {
               <div className="absolute right-0 mt-1 bg-white border border-gray-200 rounded-md shadow-lg z-10 whitespace-nowrap">
                 <div className="flex flex-col">
                   <div className="flex items-center justify-center px-6 py-4 gap-3 border-b border-[#EEEFF1]">
-                    <img
-                      src={user?.profileImageUrl || 'carousel/printi-bg.png'}
-                      alt="프로필 사진"
-                      className="h-8 w-8 rounded-full flex-shrink-0 object-cover"
-                    />
+                    {user?.profileImageUrl ? (
+                      <img
+                        src={user.profileImageUrl}
+                        alt="프로필 사진"
+                        className="h-8 w-8 rounded-full flex-shrink-0 object-cover"
+                      />
+                    ) : (
+                      <div className="h-8 w-8 rounded-full flex-shrink-0 bg-gray-300 flex items-center justify-center">
+                        <span className="text-gray-500 font-semibold text-sm">
+                          {user?.nickname?.charAt(0).toUpperCase() || '?'}
+                        </span>
+                      </div>
+                    )}
                     <div className="text-md text-gray-700 font-semibold">{user?.nickname} 님</div>
                   </div>
                   <button
