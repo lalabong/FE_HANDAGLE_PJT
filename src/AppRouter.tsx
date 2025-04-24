@@ -17,11 +17,7 @@ const AppRouter = () => {
       children: [
         {
           path: '',
-          element: (
-            <ProtectedRoute>
-              <HomePage />
-            </ProtectedRoute>
-          ),
+          element: <HomePage />,
         },
         {
           path: PATH.LOGIN,
@@ -29,11 +25,7 @@ const AppRouter = () => {
         },
         {
           path: PATH.DETAIL_POST(':postId'),
-          element: (
-            <ProtectedRoute>
-              <PostDetailPage />
-            </ProtectedRoute>
-          ),
+          element: <PostDetailPage />,
         },
         {
           path: PATH.CREATE_POST,
