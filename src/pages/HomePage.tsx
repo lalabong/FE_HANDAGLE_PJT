@@ -1,12 +1,16 @@
 import Carousel from '@/components/home/Carousel';
+import MobilePostList from '@/components/home/MobilePostList';
 import PostList from '@/components/home/PostList';
 import { useDeviceStore } from '@/store/useDeviceStore';
 
 const HomePage = () => {
   const responsivePaddingClass = useDeviceStore((state) => state.responsivePaddingClass);
+  const isMobile = useDeviceStore((state) => state.isMobile);
 
   return (
-    <main className="flex flex-col items-center gap-10 py-8 md:py-16 lg:py-24 bg-[#F5F5F5]">
+    <main
+      className={`flex flex-col items-center gap-10 py-8 md:py-16 lg:py-24 ${isMobile ? 'bg-white' : 'bg-[#F5F5F5]'}`}
+    >
       <header className="text-center mb-4">
         <h2 className="text-[#5E616E] text-md sm:text-lg font-bold mb-3">다글제작소</h2>
         <h1 className="text-2xl sm:text-3xl font-bold leading-relaxed">
@@ -20,8 +24,10 @@ const HomePage = () => {
         <Carousel />
       </section>
 
+      {isMobile && <hr className="w-full h-[12px] bg-[#F4F4F6]" />}
+
       <section className={`w-full ${responsivePaddingClass}`}>
-        <PostList />
+        {isMobile ? <MobilePostList /> : <PostList />}
       </section>
     </main>
   );
