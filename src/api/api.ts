@@ -7,10 +7,7 @@ import axios, {
   InternalAxiosRequestConfig,
 } from 'axios';
 
-const BASE_URL = process.env.REACT_APP_API_URL || '';
-
-const accessToken = useAuthStore((state) => state.accessToken);
-const refreshToken = useAuthStore((state) => state.refreshToken);
+const BASE_URL = process.env.REACT_APP_API_URL;
 
 const apiClient = axios.create({
   baseURL: BASE_URL,
@@ -23,6 +20,7 @@ const apiClient = axios.create({
 // 요청 인터셉터
 apiClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
+    const accessToken = useAuthStore.getState().accessToken;
     if (accessToken) {
       config.headers['Authorization'] = `Bearer ${accessToken}`;
     }
@@ -111,7 +109,7 @@ apiClient.interceptors.response.use(
       originalRequest._retry = true;
       isRefreshing = true;
 
-      const currentRefreshToken = refreshToken || useAuthStore.getState().refreshToken;
+      const currentRefreshToken = useAuthStore.getState().refreshToken;
 
       if (!currentRefreshToken) {
         useAuthStore.getState().logout();

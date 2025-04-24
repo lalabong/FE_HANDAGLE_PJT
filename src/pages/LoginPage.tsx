@@ -85,7 +85,6 @@ const LoginPage = () => {
     if (validateForm()) {
       try {
         await useAuthStore.getState().login(formData);
-        console.log('로그인 성공');
       } catch (error: any) {
         if (error.status === 401) {
           alert('비밀번호가 일치하지 않습니다.');

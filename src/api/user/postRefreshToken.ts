@@ -1,4 +1,4 @@
-import { api } from '../api';
+import api from '@/api/api';
 
 interface RefreshTokenResponse {
   accessToken: string;
@@ -6,5 +6,5 @@ interface RefreshTokenResponse {
 }
 
 export const postRefreshToken = async (refreshToken: string): Promise<RefreshTokenResponse> => {
-  return api.post<RefreshTokenResponse>('/auth/refresh', { refreshToken });
+  return api.post<RefreshTokenResponse>('/api/auth/refresh', { refreshToken });
 };

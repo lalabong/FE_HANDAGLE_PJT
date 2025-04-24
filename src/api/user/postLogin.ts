@@ -15,5 +15,5 @@ export interface LoginRequest {
 }
 
 export const postLogin = async (loginRequest: LoginRequest): Promise<LoginResponse> => {
-  return api.post<LoginResponse>('/auth/login', loginRequest);
+  return api.post<LoginResponse>('/api/auth/login', loginRequest);
 };

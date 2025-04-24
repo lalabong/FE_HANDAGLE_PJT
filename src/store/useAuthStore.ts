@@ -1,4 +1,5 @@
 import { LoginRequest, LoginResponse, postLogin } from '@/api/user/postLogin';
+import { postLogout } from '@/api/user/postLogout';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -59,13 +60,22 @@ export const useAuthStore = create<AuthState>()(
 
       updateAccessToken: (newToken) => set({ accessToken: newToken }),
 
-      logout: () =>
-        set({
-          accessToken: null,
-          refreshToken: null,
-          user: null,
-          isAuthenticated: false,
-        }),
+      logout: async () => {
+        try {
+          if (get().refreshToken) {
+            await postLogout(get().refreshToken);
+          }
+        } catch (error) {
+          throw error;
+        } finally {
+          set({
+            accessToken: null,
+            refreshToken: null,
+            user: null,
+            isAuthenticated: false,
+          });
+        }
+      },
     }),
     {
       name: 'auth-storage',

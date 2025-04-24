@@ -1,17 +1,15 @@
-import { Link, useLocation } from 'react-router-dom';
 import { PATH } from '@/constants/path';
+import { useAuthStore } from '@/store/useAuthStore';
 import { useDeviceStore } from '@/store/useDeviceStore';
 import { useMenuStore } from '@/store/useMenuStore';
+import { Link, useLocation } from 'react-router-dom';
 
-export interface HeaderProps {
-  isLoggedIn?: boolean;
-  userNickname?: string;
-  onLogout?: () => void;
-}
-
-const Header = ({ isLoggedIn = false, onLogout, userNickname = '사용자' }: HeaderProps) => {
+const Header = () => {
   const { responsivePaddingClass } = useDeviceStore();
   const { isNicknamePopoverOpen, toggleNicknamePopover, closeNicknamePopover } = useMenuStore();
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const user = useAuthStore((state) => state.user);
+  const logout = useAuthStore((state) => state.logout);
 
   const location = useLocation();
   const isHomePage = location.pathname === PATH.ROOT;
@@ -22,11 +20,18 @@ const Header = ({ isLoggedIn = false, onLogout, userNickname = '사용자' }: He
     }
   };
 
-  // 로그아웃 핸들러
-  const handleLogout = () => {
-    if (onLogout) {
-      onLogout();
+  const handleLogout = async () => {
+    try {
+      await logout();
       closeNicknamePopover();
+    } catch (error: any) {
+      if (error) {
+        if (error.status === 401) {
+          alert('인증되지 않은 사용자입니다.');
+        } else {
+          alert('로그아웃 중 오류가 발생했습니다. 다시 시도해주세요.');
+        }
+      }
     }
   };
 
@@ -37,7 +42,7 @@ const Header = ({ isLoggedIn = false, onLogout, userNickname = '사용자' }: He
           <img src="/logo.png" alt="다글제작소 로고" className="h-9" />
         </Link>
 
-        {isLoggedIn ? (
+        {isAuthenticated ? (
           <div className="relative">
             <button
               aria-label="사용자 메뉴"
@@ -66,11 +71,11 @@ const Header = ({ isLoggedIn = false, onLogout, userNickname = '사용자' }: He
                 <div className="flex flex-col">
                   <div className="flex items-center justify-center px-6 py-4 gap-3 border-b border-[#EEEFF1]">
                     <img
-                      src={'carousel/printi-bg.png'}
+                      src={user?.profileImageUrl || 'carousel/printi-bg.png'}
                       alt="프로필 사진"
-                      className="h-8 w-8 rounded-full flex-shrink-0"
+                      className="h-8 w-8 rounded-full flex-shrink-0 object-cover"
                     />
-                    <div className="text-md text-gray-700 font-semibold">{userNickname} 님</div>
+                    <div className="text-md text-gray-700 font-semibold">{user?.nickname} 님</div>
                   </div>
                   <button
                     onClick={handleLogout}
