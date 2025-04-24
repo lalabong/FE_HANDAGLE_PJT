@@ -1,6 +1,7 @@
 import { Button } from '@/components/common/Button';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Input from '../components/common/Input';
 
 interface FormState {
@@ -14,6 +15,8 @@ interface FormErrors {
 }
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [formData, setFormData] = useState<FormState>({
     loginId: '',
     password: '',
@@ -21,6 +24,11 @@ const LoginPage = () => {
 
   const [formErrors, setFormErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
+
+  const getRedirectPath = () => {
+    const searchParams = new URLSearchParams(location.search);
+    return searchParams.get('redirect') || '/';
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -85,6 +93,7 @@ const LoginPage = () => {
     if (validateForm()) {
       try {
         await useAuthStore.getState().login(formData);
+        navigate(getRedirectPath());
       } catch (error: any) {
         if (error.status === 401) {
           alert('비밀번호가 일치하지 않습니다.');

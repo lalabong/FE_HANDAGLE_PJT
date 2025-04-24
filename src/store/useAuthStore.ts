@@ -38,7 +38,7 @@ export const useAuthStore = create<AuthState>()(
       login: async (loginRequest: LoginRequest) => {
         try {
           const data = await postLogin(loginRequest);
-
+          set({ isAuthenticated: true });
           get().setLoginData(data);
         } catch (error: any) {
           set({ isAuthenticated: false });

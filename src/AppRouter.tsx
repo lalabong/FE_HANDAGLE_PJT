@@ -1,11 +1,12 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import ProtectedRoute from '@/components/auth/ProtectedRoute';
 import { PATH } from '@/constants/path';
+import MainLayout from '@/layouts/MainLayout';
+import CreatePostPage from '@/pages/CreatePostPage';
 import HomePage from '@/pages/HomePage';
 import LoginPage from '@/pages/LoginPage';
-import PostDetailPage from '@/pages/PostDetailPage';
-import CreatePostPage from '@/pages/CreatePostPage';
 import NotFoundPage from '@/pages/NotFoundPage';
-import MainLayout from '@/layouts/MainLayout';
+import PostDetailPage from '@/pages/PostDetailPage';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 const AppRouter = () => {
   const router = createBrowserRouter([
@@ -16,7 +17,11 @@ const AppRouter = () => {
       children: [
         {
           path: '',
-          element: <HomePage />,
+          element: (
+            <ProtectedRoute>
+              <HomePage />
+            </ProtectedRoute>
+          ),
         },
         {
           path: PATH.LOGIN,
@@ -24,11 +29,19 @@ const AppRouter = () => {
         },
         {
           path: PATH.DETAIL_POST(':postId'),
-          element: <PostDetailPage />,
+          element: (
+            <ProtectedRoute>
+              <PostDetailPage />
+            </ProtectedRoute>
+          ),
         },
         {
           path: PATH.CREATE_POST,
-          element: <CreatePostPage />,
+          element: (
+            <ProtectedRoute>
+              <CreatePostPage />
+            </ProtectedRoute>
+          ),
         },
       ],
     },
