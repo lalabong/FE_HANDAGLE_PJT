@@ -1,39 +1,39 @@
+import { Post } from '@/api/home/getPosts';
 import { Button } from '@/components/common/Button';
 import Pagination from '@/components/common/Pagination';
+import { API_DEFAULTS } from '@/constants/api';
 import { PATH } from '@/constants/path';
+import { usePostsQuery } from '@/hooks/queries/usePostsQuery';
 import { useAuthStore } from '@/store/useAuthStore';
 import { formatDateToYYMMDD } from '@/utils/dateFormat';
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const dummyPosts = Array(8)
-  .fill(null)
-  .map((_, index) => ({
-    id: index + 1,
-    title:
-      '제목이 들어갑니다. 제목이 들어갑니다. 제목이 들어갑니다. 제목이 들어갑니다. 제목이 들어갑니다. 제목이 들어갑니다.',
-    createdAt: '2025-04-24T07:47:36.713Z',
-    commentCount: 0,
-    isAuthor: true,
-  }));
-
 const PostList = () => {
   const navigate = useNavigate();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 10; // 데이터 호출 후 받아오는 값(임시)
+
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const limit = API_DEFAULTS.POSTS.LIMIT;
+
+  const { data, isLoading, error, refetch, isFetching } = usePostsQuery({
+    page: currentPage,
+    limit,
+  });
+
+  const posts = data?.items || [];
+  const totalPages = data?.meta?.totalPages || 0;
 
   const handleWriteButtonClick = () => {
     navigate(PATH.CREATE_POST);
   };
 
-  const handlePostClick = (postId: number) => {
-    navigate(PATH.DETAIL_POST(postId.toString()));
+  const handlePostClick = (postId: string) => {
+    navigate(PATH.DETAIL_POST(postId));
   };
 
   const handlePageChange = useCallback((page: number) => {
     setCurrentPage(page);
-    // 데이터 호출 로직 추가
   }, []);
 
   return (
@@ -48,35 +48,59 @@ const PostList = () => {
           )}
         </header>
 
-        <ul className="divide-y divide-[#EEEFF1]">
-          {dummyPosts.map((post) => (
-            <li
-              key={post.id}
-              className="px-6 py-4 flex justify-between items-center hover:bg-gray-50 cursor-pointer"
-              onClick={() => handlePostClick(post.id)}
-            >
-              <h3 className="text-lg font-normal flex-1 truncate">{post.title}</h3>
-              <div className="flex items-center gap-2 text-[#A7A9B4]">
-                <time dateTime={post.createdAt} className="text-base">
-                  {formatDateToYYMMDD(post.createdAt)}
-                </time>
-                <div className="flex items-center gap-1">
-                  <img src="/icon/comment-icon.png" alt="댓글 아이콘" />
-                  <span>{post.commentCount}</span>
-                </div>
-                <div className="h-8 w-8 rounded-full flex-shrink-0 bg-gray-300 flex items-center justify-center">
-                  <span className="text-gray-500 font-semibold text-sm">?</span>
-                </div>
+        {isLoading ? (
+          <div className="py-12 text-center">
+            <p className="text-gray-500">게시글을 불러오는 중입니다...</p>
+          </div>
+        ) : error ? (
+          <div className="py-12 text-center">
+            <p className="text-red-500">게시글을 불러오는 중 오류가 발생했습니다.</p>
+            <button className="mt-4 text-purple-600 hover:underline" onClick={() => refetch()}>
+              다시 시도하기
+            </button>
+          </div>
+        ) : posts.length === 0 ? (
+          <div className="py-12 text-center">
+            <p className="text-gray-500">게시글이 없습니다.</p>
+          </div>
+        ) : (
+          <ul className="divide-y divide-[#EEEFF1] relative">
+            {isFetching && (
+              <div className="absolute inset-0 bg-white bg-opacity-70 flex items-center justify-center">
+                <p className="text-gray-500">업데이트 중...</p>
               </div>
-            </li>
-          ))}
-        </ul>
+            )}
+            {posts.map((post: Post) => (
+              <li
+                key={post.id}
+                className="px-6 py-4 flex justify-between items-center hover:bg-gray-50 cursor-pointer"
+                onClick={() => handlePostClick(post.id)}
+              >
+                <h3 className="text-lg font-normal flex-1 truncate">{post.title}</h3>
+                <div className="flex items-center gap-2 text-[#A7A9B4]">
+                  <time dateTime={post.createdAt} className="text-base">
+                    {formatDateToYYMMDD(post.createdAt)}
+                  </time>
+                  <div className="flex items-center gap-1">
+                    <img src="/icon/comment-icon.png" alt="댓글 아이콘" />
+                    <span>{post.commentCount}</span>
+                  </div>
+                  <div className="h-8 w-8 rounded-full flex-shrink-0 bg-gray-300 flex items-center justify-center">
+                    <span className="text-gray-500 font-semibold text-sm">?</span>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
 
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-        />
+        {!isLoading && !error && posts.length > 0 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        )}
       </article>
     </section>
   );
