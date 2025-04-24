@@ -83,7 +83,9 @@ const Header = () => {
                         </span>
                       </div>
                     )}
-                    <div className="text-md text-gray-700 font-semibold">{user?.nickname} 님</div>
+                    <div className="text-md text-gray-700 font-semibold">
+                      {user?.nickname || '사용자'} 님
+                    </div>
                   </div>
                   <button
                     onClick={handleLogout}

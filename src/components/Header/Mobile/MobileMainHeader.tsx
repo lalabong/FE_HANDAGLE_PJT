@@ -1,24 +1,29 @@
 import { PATH } from '@/constants/path';
+import { useAuthStore } from '@/store/useAuthStore';
 import { useDeviceStore } from '@/store/useDeviceStore';
 import { useMenuStore } from '@/store/useMenuStore';
 import { Link } from 'react-router-dom';
 
-interface MobileMainHeaderProps {
-  isLoggedIn?: boolean;
-  userNickname?: string;
-}
-
-const MobileMainHeader = ({
-  isLoggedIn = false,
-  userNickname = '사용자',
-}: MobileMainHeaderProps) => {
+const MobileMainHeader = () => {
   const { responsivePaddingClass } = useDeviceStore();
   const { isMobileMenuOpen, toggleMobileMenu, closeMobileMenu } = useMenuStore();
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const user = useAuthStore((state) => state.user);
+  const logout = useAuthStore((state) => state.logout);
 
-  // 로그아웃 핸들러
-  const handleLogout = () => {
-    alert('로그아웃 되었습니다.');
-    closeMobileMenu();
+  const handleLogout = async () => {
+    try {
+      await logout();
+      closeMobileMenu();
+    } catch (error: any) {
+      if (error) {
+        if (error.status === 401) {
+          alert('인증되지 않은 사용자입니다.');
+        } else {
+          alert('로그아웃 중 오류가 발생했습니다. 다시 시도해주세요.');
+        }
+      }
+    }
   };
 
   return (
@@ -49,7 +54,6 @@ const MobileMainHeader = ({
         </div>
       </header>
 
-      {/* 모바일 사이드메뉴 */}
       <div
         className={`fixed inset-0 bg-black bg-opacity-70 z-40 transition-opacity duration-300 ${
           isMobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
@@ -79,19 +83,27 @@ const MobileMainHeader = ({
             </button>
           </div>
 
-          {isLoggedIn && (
+          {isAuthenticated && (
             <div className="flex items-center border-b border-[#EEEFF1] pb-6 mb-6 gap-2">
-              <img
-                src={'carousel/printi-bg.png'}
-                alt="프로필 사진"
-                className="h-8 w-8 rounded-full flex-shrink-0"
-              />
-              <span className="font-bold">{userNickname}</span>
+              {user?.profileImageUrl ? (
+                <img
+                  src={user.profileImageUrl}
+                  alt="프로필 사진"
+                  className="h-8 w-8 rounded-full flex-shrink-0 object-cover"
+                />
+              ) : (
+                <div className="h-8 w-8 rounded-full flex-shrink-0 bg-gray-300 flex items-center justify-center">
+                  <span className="text-gray-500 font-semibold text-sm">
+                    {user?.nickname?.charAt(0).toUpperCase() || '?'}
+                  </span>
+                </div>
+              )}
+              <span className="font-bold">{user?.nickname || '사용자'}</span>
             </div>
           )}
 
           <div className="flex flex-col space-y-6">
-            {!isLoggedIn ? (
+            {!isAuthenticated ? (
               <Link to={PATH.LOGIN} onClick={closeMobileMenu}>
                 로그인
               </Link>
