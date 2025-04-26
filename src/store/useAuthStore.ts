@@ -1,17 +1,8 @@
 import { LoginRequest, LoginResponse, postLogin } from '@/api/user/postLogin';
 import { postLogout } from '@/api/user/postLogout';
+import { Tokens, User } from '@/types/user';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-
-export interface User {
-  id: string;
-  loginId: string;
-  nickname: string;
-  profileImageUrl: string;
-  createdAt: string;
-  updatedAt: string;
-  deletedAt: string;
-}
 
 interface AuthState {
   accessToken: string | null;
@@ -22,7 +13,7 @@ interface AuthState {
   login: (loginRequest: LoginRequest) => Promise<void>;
   setLoginData: (data: LoginResponse) => void;
   setUser: (user: User) => void;
-  setTokens: (accessToken: string, refreshToken: string) => void;
+  setTokens: (tokens: Tokens) => void;
   updateAccessToken: (newToken: string) => void;
   logout: () => void;
 }
@@ -53,8 +44,7 @@ export const useAuthStore = create<AuthState>()(
           refreshToken: data.tokens.refreshToken,
         }),
 
-      setTokens: (accessToken, refreshToken) =>
-        set({ accessToken, refreshToken, isAuthenticated: true }),
+      setTokens: (tokens) => set({ ...tokens, isAuthenticated: true }),
 
       setUser: (user) => set({ user }),
 

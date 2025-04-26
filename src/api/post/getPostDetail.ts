@@ -1,5 +1,5 @@
 import { api } from '@/api/api';
-import { User } from '@/store/useAuthStore';
+import { User } from '@/types/user';
 
 export interface PostDetail {
   id: string;

@@ -1,12 +1,9 @@
 import { api } from '@/api/api';
-import { User } from '@/store/useAuthStore';
+import { Tokens, User } from '@/types/user';
 
 export interface LoginResponse {
   user: User;
-  tokens: {
-    accessToken: string;
-    refreshToken: string;
-  };
+  tokens: Tokens;
 }
 
 export interface LoginRequest {

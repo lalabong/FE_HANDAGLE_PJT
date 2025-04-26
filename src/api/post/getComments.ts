@@ -1,9 +1,5 @@
 import { api } from '@/api/api';
-
-export interface CommentUser {
-  id: string;
-  nickname: string;
-}
+import { CommentUser } from '@/types/user';
 
 export interface Comment {
   id: string;

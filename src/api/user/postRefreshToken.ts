@@ -1,10 +1,6 @@
 import api from '@/api/api';
+import { Tokens } from '@/types/user';
 
-interface RefreshTokenResponse {
-  accessToken: string;
-  refreshToken: string;
-}
-
-export const postRefreshToken = async (refreshToken: string): Promise<RefreshTokenResponse> => {
-  return api.post<RefreshTokenResponse>('/api/auth/refresh', { refreshToken });
+export const postRefreshToken = async (refreshToken: string): Promise<Tokens> => {
+  return api.post<Tokens>('/api/auth/refresh', { refreshToken });
 };
