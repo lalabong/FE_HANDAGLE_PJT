@@ -20,9 +20,17 @@ export const useCreatePostMutation = () => {
       navigate(`${PATH.DETAIL_POST(data.id)}`);
     },
 
-    onError: (error) => {
-      alert('게시글 등록 중 오류가 발생했습니다.');
-      console.error('게시글 등록 오류:', error);
+    onError: (error: any) => {
+      if (error.response) {
+        const status = error.response.status;
+        if (status === 400) {
+          alert('필수 입력 항목이 누락되었습니다.');
+        } else if (status === 401) {
+          alert('로그인이 필요합니다.');
+        }
+      } else {
+        alert('네트워크 오류가 발생했습니다. 다시 시도해주세요.');
+      }
     },
   });
 };

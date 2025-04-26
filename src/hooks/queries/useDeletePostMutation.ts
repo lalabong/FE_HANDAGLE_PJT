@@ -21,8 +21,10 @@ export const useDeletePostMutation = () => {
     onError: (error: any) => {
       if (error.response) {
         const status = error.response.status;
-        if (status === 401) {
-          alert('삭제 권한이 없습니다.');
+        if (status === 400) {
+          alert('필수 입력 항목이 누락되었습니다.');
+        } else if (status === 401) {
+          alert('로그인이 필요합니다.');
         } else if (status === 404) {
           alert('게시글을 찾을 수 없습니다.');
         } else {
