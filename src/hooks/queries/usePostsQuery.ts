@@ -9,7 +9,7 @@ interface UsePostsQueryParams {
 
 export const usePostsQuery = ({ page, limit }: UsePostsQueryParams) => {
   return useQuery({
-    queryKey: [QUERY_KEYS.POSTS, { page, limit }],
+    queryKey: [QUERY_KEYS.GET_POSTS, { page, limit }],
     queryFn: () => getPosts({ page, limit }),
     placeholderData: (previousData) => previousData,
   });
