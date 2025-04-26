@@ -68,14 +68,3 @@
     @apply bg-background text-foreground;
   }
 }
-
-#root {
-  min-height: 100vh;
-  height: 100%;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-}

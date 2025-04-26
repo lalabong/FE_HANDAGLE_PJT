@@ -1,5 +1,6 @@
-import { Header, MobileDetailHeader, MobileMainHeader } from '@/components/header';
-
+import Header from '@/components/header/Header';
+import MobileDetailHeader from '@/components/header/mobile/MobileDetailHeader';
+import MobileMainHeader from '@/components/header/mobile/MobileMainHeader';
 import { useDeviceStore } from '@/stores/useDeviceStore';
 import { Outlet, useLocation } from 'react-router-dom';
 
