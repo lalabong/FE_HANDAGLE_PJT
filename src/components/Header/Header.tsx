@@ -2,6 +2,8 @@ import { Link, useLocation } from 'react-router-dom';
 
 import { PATH } from '@constants/path';
 
+import { useLogoutMutation } from '@hooks/queries/useLogoutMutation';
+
 import { useAuthStore } from '@stores/useAuthStore';
 import { useDeviceStore } from '@stores/useDeviceStore';
 import { useMenuStore } from '@stores/useMenuStore';
@@ -11,7 +13,8 @@ const Header = () => {
   const { isNicknamePopoverOpen, toggleNicknamePopover, closeNicknamePopover } = useMenuStore();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const user = useAuthStore((state) => state.user);
-  const logout = useAuthStore((state) => state.logout);
+
+  const logoutMutation = useLogoutMutation();
 
   const location = useLocation();
   const isHomePage = location.pathname === PATH.ROOT;
@@ -22,19 +25,12 @@ const Header = () => {
     }
   };
 
-  const handleLogout = async () => {
-    try {
-      await logout();
-      closeNicknamePopover();
-    } catch (error: any) {
-      if (error) {
-        if (error.status === 401) {
-          alert('인증되지 않은 사용자입니다.');
-        } else {
-          alert('로그아웃 중 오류가 발생했습니다. 다시 시도해주세요.');
-        }
-      }
-    }
+  const handleLogout = () => {
+    logoutMutation.mutate(undefined, {
+      onSuccess: () => {
+        closeNicknamePopover();
+      },
+    });
   };
 
   return (
@@ -88,8 +84,9 @@ const Header = () => {
                   <button
                     onClick={handleLogout}
                     className="text-left px-6 py-4 hover:bg-gray-50 w-full text-gray-700"
+                    disabled={logoutMutation.isPending}
                   >
-                    로그아웃
+                    {logoutMutation.isPending ? '로그아웃 중...' : '로그아웃'}
                   </button>
                 </div>
               </div>

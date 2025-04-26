@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 
 import { PATH } from '@constants/path';
 
+import { useLogoutMutation } from '@hooks/queries/useLogoutMutation';
+
 import { useAuthStore } from '@stores/useAuthStore';
 import { useDeviceStore } from '@stores/useDeviceStore';
 import { useMenuStore } from '@stores/useMenuStore';
@@ -11,21 +13,15 @@ const MobileMainHeader = () => {
   const { isMobileMenuOpen, toggleMobileMenu, closeMobileMenu } = useMenuStore();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const user = useAuthStore((state) => state.user);
-  const logout = useAuthStore((state) => state.logout);
 
-  const handleLogout = async () => {
-    try {
-      await logout();
-      closeMobileMenu();
-    } catch (error: any) {
-      if (error) {
-        if (error.status === 401) {
-          alert('인증되지 않은 사용자입니다.');
-        } else {
-          alert('로그아웃 중 오류가 발생했습니다. 다시 시도해주세요.');
-        }
-      }
-    }
+  const logoutMutation = useLogoutMutation();
+
+  const handleLogout = () => {
+    logoutMutation.mutate(undefined, {
+      onSuccess: () => {
+        closeMobileMenu();
+      },
+    });
   };
 
   return (
@@ -112,8 +108,12 @@ const MobileMainHeader = () => {
                 <Link to={PATH.ROOT} onClick={closeMobileMenu}>
                   커뮤니티
                 </Link>
-                <button onClick={handleLogout} className="text-left">
-                  로그아웃
+                <button
+                  onClick={handleLogout}
+                  className="text-left"
+                  disabled={logoutMutation.isPending}
+                >
+                  {logoutMutation.isPending ? '로그아웃 중...' : '로그아웃'}
                 </button>
               </>
             )}

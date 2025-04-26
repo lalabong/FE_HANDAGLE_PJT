@@ -1,14 +1,12 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-
 import { Button } from '@components/common/Button';
+import Input from '@components/common/Input';
 
-import { useAuthStore } from '@stores/useAuthStore';
+import { useLoginMutation } from '@hooks/queries/useLoginMutation';
+
 import { useDeviceStore } from '@stores/useDeviceStore';
-
-import Input from '../components/common/Input';
-
 
 interface FormState {
   loginId: string;
@@ -31,6 +29,8 @@ const LoginPage = () => {
 
   const [formErrors, setFormErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
+
+  const loginMutation = useLoginMutation();
 
   const getRedirectPath = () => {
     const searchParams = new URLSearchParams(location.search);
@@ -98,18 +98,14 @@ const LoginPage = () => {
     setSubmitted(true);
 
     if (validateForm()) {
-      try {
-        await useAuthStore.getState().login(formData.loginId, formData.password);
-        navigate(getRedirectPath());
-      } catch (error: any) {
-        if (error.status === 401) {
-          alert('비밀번호가 일치하지 않습니다.');
-        } else if (error.status === 404) {
-          alert('존재하지 않는 아이디입니다.');
-        } else {
-          alert('로그인 중 오류가 발생했습니다. 다시 시도해주세요.');
-        }
-      }
+      loginMutation.mutate(
+        { loginId: formData.loginId, password: formData.password },
+        {
+          onSuccess: () => {
+            navigate(getRedirectPath());
+          },
+        },
+      );
     }
   };
 
@@ -151,8 +147,13 @@ const LoginPage = () => {
               </div>
             </div>
 
-            <Button type="submit" variant="black" className="w-full rounded-xl">
-              로그인
+            <Button
+              type="submit"
+              variant="black"
+              className="w-full rounded-xl"
+              disabled={loginMutation.isPending}
+            >
+              {loginMutation.isPending ? '로그인 중...' : '로그인'}
             </Button>
           </form>
         </div>
@@ -197,8 +198,13 @@ const LoginPage = () => {
             </div>
           </div>
 
-          <Button type="submit" variant="black" className="w-full rounded-xl">
-            로그인
+          <Button
+            type="submit"
+            variant="black"
+            className="w-full rounded-xl"
+            disabled={loginMutation.isPending}
+          >
+            {loginMutation.isPending ? '로그인 중...' : '로그인'}
           </Button>
         </form>
       </div>

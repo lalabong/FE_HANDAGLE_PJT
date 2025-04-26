@@ -20,6 +20,7 @@ interface PostsResponse {
   };
 }
 
+// 게시글 목록 조회
 export const getPosts = async (page: number, limit: number): Promise<PostsResponse> => {
   return api.get<PostsResponse>('/api/posts', {
     params: {

@@ -22,7 +22,7 @@ const apiClient = axios.create({
 // 요청 인터셉터
 apiClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const accessToken = useAuthStore.getState().accessToken;
+    const accessToken = useAuthStore.getState().tokens?.accessToken;
     if (accessToken) {
       config.headers['Authorization'] = `Bearer ${accessToken}`;
     }
@@ -65,7 +65,7 @@ const refreshAuthToken = async (currentRefreshToken: string): Promise<string> =>
 
     return accessToken;
   } catch (error) {
-    useAuthStore.getState().logout();
+    useAuthStore.getState().clearAuth();
     throw error;
   }
 };
@@ -111,10 +111,10 @@ apiClient.interceptors.response.use(
       originalRequest._retry = true;
       isRefreshing = true;
 
-      const currentRefreshToken = useAuthStore.getState().refreshToken;
+      const currentRefreshToken = useAuthStore.getState().tokens?.refreshToken;
 
       if (!currentRefreshToken) {
-        useAuthStore.getState().logout();
+        useAuthStore.getState().clearAuth();
         processQueue(new Error('리프레시 토큰이 없습니다.') as AxiosError);
         redirectToLogin();
         return Promise.reject(error);
@@ -130,7 +130,7 @@ apiClient.interceptors.response.use(
 
         return apiClient(originalRequest);
       } catch (refreshError) {
-        useAuthStore.getState().logout();
+        useAuthStore.getState().clearAuth();
         processQueue(refreshError as AxiosError);
         redirectToLogin();
         return Promise.reject(refreshError);

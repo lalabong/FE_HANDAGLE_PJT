@@ -1,79 +1,52 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-import { LoginResponse, postLogin } from '@api/user/postLogin';
-import { postLogout } from '@api/user/postLogout';
-
-import { Tokens, User } from '@types/user';
+import { Tokens, User } from '@/types/user';
 
 interface AuthState {
-  accessToken: string | null;
-  refreshToken: string | null;
   user: User | null;
   isAuthenticated: boolean;
+  tokens: Tokens | null;
 
-  login: (loginId: string, password: string) => Promise<void>;
-  setLoginData: (data: LoginResponse) => void;
   setUser: (user: User) => void;
   setTokens: (tokens: Tokens) => void;
   updateAccessToken: (newToken: string) => void;
-  logout: () => void;
+  clearAuth: () => void;
 }
 
 export const useAuthStore = create<AuthState>()(
   persist(
-    (set, get) => ({
-      accessToken: null,
-      refreshToken: null,
+    (set) => ({
       user: null,
       isAuthenticated: false,
-
-      login: async (loginId: string, password: string) => {
-        try {
-          const data = await postLogin(loginId, password);
-          set({ isAuthenticated: true });
-          get().setLoginData(data);
-        } catch (error: unknown) {
-          set({ isAuthenticated: false });
-          throw error;
-        }
-      },
-
-      setLoginData: (data) =>
-        set({
-          user: data.user,
-          accessToken: data.tokens.accessToken,
-          refreshToken: data.tokens.refreshToken,
-        }),
-
-      setTokens: (tokens) => set({ ...tokens, isAuthenticated: true }),
+      tokens: null,
 
       setUser: (user) => set({ user }),
 
-      updateAccessToken: (newToken) => set({ accessToken: newToken }),
+      setTokens: (tokens) =>
+        set({
+          tokens,
+          isAuthenticated: true,
+        }),
 
-      logout: async () => {
-        try {
-          if (get().refreshToken) {
-            await postLogout(get().refreshToken);
-          }
-        } finally {
-          set({
-            accessToken: null,
-            refreshToken: null,
-            user: null,
-            isAuthenticated: false,
-          });
-        }
-      },
+      updateAccessToken: (newToken) =>
+        set((state) => ({
+          tokens: state.tokens ? { ...state.tokens, accessToken: newToken } : null,
+        })),
+
+      clearAuth: () =>
+        set({
+          user: null,
+          isAuthenticated: false,
+          tokens: null,
+        }),
     }),
     {
       name: 'auth-storage',
       partialize: (state) => ({
-        accessToken: state.accessToken,
-        refreshToken: state.refreshToken,
         user: state.user,
         isAuthenticated: state.isAuthenticated,
+        tokens: state.tokens,
       }),
     },
   ),
