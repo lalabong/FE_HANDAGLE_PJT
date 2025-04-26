@@ -28,7 +28,7 @@ const AppRouter = () => {
           element: <PostDetailPage />,
         },
         {
-          path: PATH.CREATE_POST,
+          path: PATH.CREATE_AND_EDIT_POST(':postId'),
           element: (
             <ProtectedRoute>
               <CreatePostPage />

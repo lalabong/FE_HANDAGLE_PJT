@@ -2,5 +2,5 @@ export const PATH = {
   ROOT: '/',
   LOGIN: '/login',
   DETAIL_POST: (postId: string = ':postId') => `/post/${postId}`,
-  CREATE_POST: '/post/create',
+  CREATE_AND_EDIT_POST: (postId: string = ':postId') => `/post/create?postId=${postId}`,
 };
