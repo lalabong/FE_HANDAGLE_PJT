@@ -40,7 +40,6 @@ const CommentItem = ({
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="w-6 h-6 rounded-full bg-[#A7A9B4] flex items-center justify-center">
-              <span className="text-black text-sm"></span>
             </div>
             <span className="text-base font-normal text-black">{author || '익명'}</span>
           </div>
@@ -57,7 +56,12 @@ const CommentItem = ({
           <Button variant="black" size="sm" onClick={onEditCancel}>
             취소
           </Button>
-          <Button variant="purple" size="sm" onClick={onEditSubmit}>
+          <Button
+            variant="purple"
+            size="sm"
+            onClick={onEditSubmit}
+            disabled={editContent === content}
+          >
             저장
           </Button>
         </div>
@@ -77,23 +81,17 @@ const CommentItem = ({
 
         {isAuthor && (
           <div className="flex items-center gap-3">
-            <button
-              onClick={onEditStart}
-              className="text-[16px] text-[#A7A9B4] rounded-lg hover:bg-gray-50"
-            >
+            <button onClick={onEditStart} className="text-[16px] text-[#A7A9B4] hover:opacity-70">
               수정
             </button>
-            <button
-              onClick={onDelete}
-              className="text-[16px] text-[#A7A9B4] rounded-lg hover:bg-gray-50"
-            >
+            <button onClick={onDelete} className="text-[16px] text-[#A7A9B4] hover:opacity-70">
               삭제
             </button>
           </div>
         )}
       </div>
 
-      <p className="text-base text-[#474953] whitespace-pre-wrap">{content}</p>
+      <p className="text-base text-[#474953] whitespace-pre-wrap break-words">{content}</p>
 
       <span className="text-sm text-[#A7A9B4]">{formatDateToYYMMDD(createdAt)}</span>
     </div>
