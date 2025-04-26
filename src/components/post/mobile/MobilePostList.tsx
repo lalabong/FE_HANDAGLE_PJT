@@ -159,7 +159,7 @@ const MobilePostList = () => {
           <FAB
             variant="purple"
             icon={pencilIcon}
-            onClick={() => handleWriteButtonClick()}
+            onClick={handleWriteButtonClick}
             aria-label="새 글 작성하기 버튼"
           />
         </div>

@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@components/common/Button';
 import Pagination from '@components/common/Pagination';
 
-import { Post } from '@api/post/getPosts';
-
 import { API_DEFAULTS } from '@constants/api';
 import { PATH } from '@constants/path';
 
@@ -14,6 +12,8 @@ import { usePostsQuery } from '@hooks/queries/usePostsQuery';
 import { useAuthStore } from '@stores/useAuthStore';
 
 import { formatDateToYYMMDD } from '@utils/formatDateToYYMMDD';
+
+import { Post } from '@/types/post';
 
 const PostList = () => {
   const navigate = useNavigate();
@@ -48,7 +48,7 @@ const PostList = () => {
         <header className="flex justify-between items-center px-6 py-6 border-b border-[#EEEFF1]">
           <h2 className="text-2xl font-bold leading-9 text-black">게시판</h2>
           {isAuthenticated && (
-            <Button variant="purple" size="sm" onClick={() => handleWriteButtonClick()}>
+            <Button variant="purple" size="sm" onClick={handleWriteButtonClick}>
               글쓰기
             </Button>
           )}

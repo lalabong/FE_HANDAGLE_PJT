@@ -40,7 +40,7 @@ const Pagination = memo(
           <button
             className="p-2"
             aria-label="이전 페이지 세트"
-            onClick={() => handlePrevSet()}
+            onClick={handlePrevSet}
             disabled={startPage <= 1}
           >
             <svg
@@ -77,7 +77,7 @@ const Pagination = memo(
           <button
             className="p-2 rotate-180"
             aria-label="다음 페이지 세트"
-            onClick={() => handleNextSet()}
+            onClick={handleNextSet}
             disabled={endPage >= totalPages}
           >
             <svg

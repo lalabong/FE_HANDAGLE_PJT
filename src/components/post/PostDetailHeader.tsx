@@ -44,13 +44,13 @@ const PostDetailHeader = ({
         {isAuthor && (
           <div className="flex items-center gap-3">
             <button
-              onClick={() => onEdit?.()}
+              onClick={onEdit}
               className="text-[16px] text-gray-700 hover:opacity-70"
             >
               수정
             </button>
             <button
-              onClick={() => onDelete?.()}
+              onClick={onDelete}
               className="text-[16px] text-gray-700 hover:opacity-70"
             >
               삭제

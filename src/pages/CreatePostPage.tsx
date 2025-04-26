@@ -142,7 +142,7 @@ const CreatePostPage = () => {
                   <Button
                     variant="black"
                     size="lg"
-                    onClick={() => handleSubmit()}
+                    onClick={handleSubmit}
                     disabled={isEditMode && !hasChanges}
                     aria-disabled={isEditMode && !hasChanges}
                     type="button"

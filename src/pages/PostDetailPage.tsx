@@ -131,7 +131,7 @@ const PostDetailPage = () => {
           게시글을 불러오는 중 오류가 발생했습니다.
         </p>
         <button
-          onClick={() => handleBackClick()}
+          onClick={handleBackClick}
           className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
           aria-label="홈으로 돌아가기"
         >
