@@ -12,11 +12,7 @@ const MobileDetailHeader = () => {
   return (
     <header className="w-full bg-white">
       <div className={`flex items-center gap-3 ${responsivePaddingClass}`}>
-        <button
-          onClick={handleGoBack}
-          aria-label="뒤로 가기"
-          className="p-2 rounded-full hover:bg-gray-100"
-        >
+        <button onClick={handleGoBack} aria-label="뒤로 가기" className="p-2 hover:opacity-70">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"

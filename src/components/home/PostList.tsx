@@ -85,7 +85,7 @@ const PostList = () => {
                     <img src="/icon/comment-icon.png" alt="댓글 아이콘" />
                     <span>{post.commentCount}</span>
                   </div>
-                  <div className="h-8 w-8 rounded-full flex-shrink-0 bg-gray-300 flex items-center justify-center">
+                  <div className="h-6 w-6 rounded-full flex-shrink-0 bg-gray-300 flex items-center justify-center">
                     <span className="text-gray-500 font-semibold text-sm"></span>
                   </div>
                 </div>

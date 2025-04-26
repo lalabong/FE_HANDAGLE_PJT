@@ -122,7 +122,7 @@ const MobilePostList = () => {
                       {formatDateToYYMMDD(post.createdAt)}
                     </span>
                     <div className="flex items-center gap-1">
-                      <img src="/icon/comment-icon.png" alt="댓글 아이콘" className="w-4 h-4" />
+                      <img src="/icon/comment-icon.png" alt="댓글 아이콘" />
                       <span className="text-sm text-[#A7A9B4]">{post.commentCount}</span>
                     </div>
                   </div>

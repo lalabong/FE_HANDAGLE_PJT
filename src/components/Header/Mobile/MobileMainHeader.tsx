@@ -93,12 +93,10 @@ const MobileMainHeader = () => {
                 />
               ) : (
                 <div className="h-8 w-8 rounded-full flex-shrink-0 bg-gray-300 flex items-center justify-center">
-                  <span className="text-gray-500 font-semibold text-sm">
-                    {user?.nickname?.charAt(0).toUpperCase() || '?'}
-                  </span>
+                  <span className="text-gray-500 font-semibold text-sm"></span>
                 </div>
               )}
-              <span className="font-bold">{user?.nickname || '사용자'}</span>
+              <span className="font-bold">{user?.nickname || '익명'}</span>
             </div>
           )}
 
