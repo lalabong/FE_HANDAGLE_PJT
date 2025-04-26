@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { postComment } from '@api/post/comment/postComment';
+import { postComment, PostCommentParams } from '@api/post/comment/postComment';
 
 import { QUERY_KEYS } from '@constants/api';
 
@@ -9,7 +9,7 @@ export const useCreateCommentMutation = ({ postId }: { postId: string }) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (content: string) => postComment(postId, content),
+    mutationFn: ({ postId, content }: PostCommentParams) => postComment({ postId, content }),
     onSuccess: () => {
       alert('댓글이 등록되었습니다.');
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.GET_COMMENTS, postId] });

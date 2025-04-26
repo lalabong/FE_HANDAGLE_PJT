@@ -32,7 +32,7 @@ const CreatePostPage = () => {
   const isMobile = useDeviceStore((state) => state.isMobile);
   const responsivePaddingClass = useDeviceStore((state) => state.responsivePaddingClass);
 
-  const { data: post } = usePostDetailQuery(postId || '');
+  const { data: post } = usePostDetailQuery({ postId: postId || '' });
   const { mutate: createPost } = useCreatePostMutation();
   const { mutate: editPost } = useEditPostMutation();
 

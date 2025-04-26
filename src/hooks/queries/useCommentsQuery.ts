@@ -1,15 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
-import { getComments } from '@api/post/comment/getComments';
+import { getComments, GetCommentsParams } from '@api/post/comment/getComments';
 
 import { QUERY_KEYS } from '@constants/api';
 
 // 댓글 목록 조회
-export const useGetCommentsQuery = (postId: string) => {
+export const useGetCommentsQuery = ({ postId }: GetCommentsParams) => {
   const query = useQuery({
     queryKey: [QUERY_KEYS.GET_COMMENTS, postId],
-    queryFn: () => getComments(postId),
+    queryFn: () => getComments({ postId }),
     enabled: !!postId,
   });
 

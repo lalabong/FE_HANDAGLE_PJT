@@ -9,7 +9,7 @@ export const useLogoutMutation = () => {
   const { clearAuth, tokens } = useAuthStore();
 
   return useMutation({
-    mutationFn: () => postLogout(tokens?.refreshToken || null),
+    mutationFn: () => postLogout({ refreshToken: tokens?.refreshToken || null }),
     onSuccess: () => {
       clearAuth();
       alert('로그아웃 되었습니다.');

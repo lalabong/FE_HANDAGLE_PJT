@@ -1,20 +1,15 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { LoginResponse, postLogin } from '@api/user/postLogin';
+import { LoginParams, LoginResponse, postLogin } from '@api/user/postLogin';
 
 import { useAuthStore } from '@stores/useAuthStore';
-
-interface LoginCredentials {
-  loginId: string;
-  password: string;
-}
 
 // 로그인
 export const useLoginMutation = () => {
   const { setUser, setTokens } = useAuthStore();
 
   return useMutation({
-    mutationFn: ({ loginId, password }: LoginCredentials) => postLogin(loginId, password),
+    mutationFn: (credentials: LoginParams) => postLogin(credentials),
     onSuccess: (data: LoginResponse) => {
       setUser(data.user);
       setTokens(data.tokens);

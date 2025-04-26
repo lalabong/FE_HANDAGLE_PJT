@@ -12,7 +12,7 @@ export const useDeletePostMutation = () => {
   const navigate = useNavigate();
 
   return useMutation({
-    mutationFn: (postId: string) => deletePost(postId),
+    mutationFn: (postId: string) => deletePost({ postId }),
     onSuccess: () => {
       alert('게시글이 삭제되었습니다.');
       navigate(PATH.ROOT);

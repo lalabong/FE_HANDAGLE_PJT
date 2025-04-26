@@ -52,7 +52,7 @@ const processQueue = (error: AxiosError | null, token: string | null = null) => 
 
 const refreshAuthToken = async (currentRefreshToken: string): Promise<string> => {
   try {
-    const response = await postRefreshToken(currentRefreshToken);
+    const response = await postRefreshToken({ refreshToken: currentRefreshToken });
     const { accessToken, refreshToken } = response;
 
     if (!accessToken) {

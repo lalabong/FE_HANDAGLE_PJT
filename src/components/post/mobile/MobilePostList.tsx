@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { FAB } from '@components/common/Button';
 
-import { getPosts, Post } from '@api/post/getPosts';
+import { getPosts } from '@api/post/getPosts';
 
 import { API_DEFAULTS, QUERY_KEYS } from '@constants/api';
 import { PATH } from '@constants/path';
@@ -12,6 +12,8 @@ import { PATH } from '@constants/path';
 import { useAuthStore } from '@stores/useAuthStore';
 
 import { formatDateToYYMMDD } from '@utils/formatDateToYYMMDD';
+
+import { Post } from '@/types/post';
 
 const MobilePostList = () => {
   const navigate = useNavigate();
@@ -31,7 +33,7 @@ const MobilePostList = () => {
     isFetching,
   } = useInfiniteQuery({
     queryKey: [QUERY_KEYS.GET_POSTS, { limit }],
-    queryFn: ({ pageParam = 1 }) => getPosts(pageParam, limit),
+    queryFn: ({ pageParam = 1 }) => getPosts({ page: pageParam, limit }),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
       const { currentPage, totalPages } = lastPage.meta;

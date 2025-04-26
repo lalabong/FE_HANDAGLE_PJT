@@ -1,20 +1,16 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { deleteComment } from '@api/post/comment/deleteComment';
+import { deleteComment, DeleteCommentParams } from '@api/post/comment/deleteComment';
 
 import { QUERY_KEYS } from '@constants/api';
-
-interface DeleteCommentParams {
-  postId: string;
-  commentId: string;
-}
 
 // 댓글 삭제
 export const useDeleteCommentMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ postId, commentId }: DeleteCommentParams) => deleteComment(postId, commentId),
+    mutationFn: ({ postId, commentId }: DeleteCommentParams) =>
+      deleteComment({ postId, commentId }),
     onSuccess: (_, variables) => {
       alert('댓글이 삭제되었습니다.');
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.GET_COMMENTS, variables.postId] });

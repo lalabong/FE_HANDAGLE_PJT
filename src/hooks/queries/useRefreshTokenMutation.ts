@@ -13,7 +13,7 @@ export const useRefreshTokenMutation = () => {
       if (!tokens?.refreshToken) {
         throw new Error('리프레시 토큰이 없습니다.');
       }
-      return postRefreshToken(tokens.refreshToken);
+      return postRefreshToken({ refreshToken: tokens.refreshToken });
     },
     onSuccess: (newTokens) => {
       setTokens(newTokens);

@@ -10,7 +10,7 @@ const PostContent = ({ content, commentCount }: PostContentProps) => {
         <p className="text-base text-[#474953] whitespace-pre-wrap">{content}</p>
 
         <div className="flex items-center gap-2">
-          <img src="/icon/comment-icon.png" alt="댓글 아이콘"/>
+          <img src="/icon/comment-icon.png" alt="댓글 아이콘" />
           <span className="text-base text-[#474953]">{commentCount}개</span>
         </div>
       </div>

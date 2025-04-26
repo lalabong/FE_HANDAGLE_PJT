@@ -2,17 +2,13 @@ import { api } from '@api/api';
 
 import { API_ENDPOINTS } from '@constants/endpoints';
 
-import { CommentUser } from '@/types/user';
+import { Comment } from '@/types/comment';
 
-export interface Comment {
-  id: string;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-  user: CommentUser;
+export interface GetCommentsParams {
+  postId: string;
 }
 
 // 댓글 목록 조회
-export const getComments = async (postId: string): Promise<Comment[]> => {
+export const getComments = async ({ postId }: GetCommentsParams): Promise<Comment[]> => {
   return api.get<Comment[]>(API_ENDPOINTS.POSTS.COMMENTS.BASE(postId));
 };

@@ -2,14 +2,14 @@ import { api } from '@api/api';
 
 import { API_ENDPOINTS } from '@constants/endpoints';
 
-export interface EditPostParams {
-  postId: string;
-  payload: EditPostPayload;
-}
-
 export interface EditPostPayload {
   title: string;
   content: string;
+}
+
+export interface EditPostParams {
+  postId: string;
+  payload: EditPostPayload;
 }
 
 // 게시글 수정

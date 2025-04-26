@@ -1,15 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
-import { getPostDetail } from '@api/post/getPostDetail';
+import { getPostDetail, GetPostDetailParams } from '@api/post/getPostDetail';
 
 import { QUERY_KEYS } from '@constants/api';
 
 // 게시글 상세 조회
-export const usePostDetailQuery = (postId: string) => {
+export const usePostDetailQuery = ({ postId }: GetPostDetailParams) => {
   const query = useQuery({
     queryKey: [QUERY_KEYS.GET_POST_DETAIL, postId],
-    queryFn: () => getPostDetail(postId),
+    queryFn: () => getPostDetail({ postId }),
     enabled: !!postId,
   });
 

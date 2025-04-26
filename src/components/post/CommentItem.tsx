@@ -7,7 +7,6 @@ import { formatDateToYYMMDD } from '@utils/formatDateToYYMMDD';
 import { Button } from '../common/Button';
 import TextArea from '../common/TextArea';
 
-
 interface CommentItemProps {
   author: string;
   authorId: string;

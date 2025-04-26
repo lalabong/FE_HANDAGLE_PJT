@@ -30,12 +30,12 @@ const PostDetailPage = () => {
     data: post,
     isPending: isPostPending,
     error: postError,
-  } = usePostDetailQuery(postId || '');
+  } = usePostDetailQuery({ postId: postId || '' });
   const {
     data: comments,
     isPending: isCommentsPending,
     error: commentsError,
-  } = useGetCommentsQuery(postId || '');
+  } = useGetCommentsQuery({ postId: postId || '' });
 
   const commentMutation = useCreateCommentMutation({ postId: postId || '' });
   const editCommentMutation = useEditCommentMutation();
@@ -45,9 +45,9 @@ const PostDetailPage = () => {
 
   const handleCommentSubmit = useCallback(
     (content: string) => {
-      commentMutation.mutate(content);
+      commentMutation.mutate({ postId: postId || '', content });
     },
-    [commentMutation],
+    [commentMutation, postId],
   );
 
   const handleEditCommentStart = useCallback((commentId: string, content: string) => {
