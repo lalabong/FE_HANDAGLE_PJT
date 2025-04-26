@@ -6,11 +6,6 @@ export interface LoginResponse {
   tokens: Tokens;
 }
 
-export interface LoginRequest {
-  loginId: string;
-  password: string;
-}
-
-export const postLogin = async (loginRequest: LoginRequest): Promise<LoginResponse> => {
-  return api.post<LoginResponse>('/api/auth/login', loginRequest);
+export const postLogin = async (loginId: string, password: string): Promise<LoginResponse> => {
+  return api.post<LoginResponse>('/api/auth/login', { loginId, password });
 };

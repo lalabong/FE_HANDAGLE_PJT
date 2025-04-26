@@ -16,7 +16,7 @@ const PostList = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const limit = API_DEFAULTS.POSTS.LIMIT;
 
-  const { data, isLoading, error, refetch, isFetching } = usePostsQuery({
+  const { data, isPending, error, refetch, isFetching } = usePostsQuery({
     page: currentPage,
     limit,
   });
@@ -48,7 +48,7 @@ const PostList = () => {
           )}
         </header>
 
-        {isLoading ? (
+        {isPending ? (
           <div className="py-12 text-center">
             <p className="text-gray-500">게시글을 불러오는 중입니다...</p>
           </div>
@@ -94,7 +94,7 @@ const PostList = () => {
           </ul>
         )}
 
-        {!isLoading && !error && posts.length > 0 && (
+        {!isPending && !error && posts.length > 0 && (
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}

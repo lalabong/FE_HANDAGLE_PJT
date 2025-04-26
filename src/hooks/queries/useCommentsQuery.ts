@@ -1,4 +1,4 @@
-import { getComments } from '@/api/post/getComments';
+import { getComments } from '@/api/post/comment/getComments';
 import { QUERY_KEYS } from '@/constants/api';
 import { useQuery } from '@tanstack/react-query';
 

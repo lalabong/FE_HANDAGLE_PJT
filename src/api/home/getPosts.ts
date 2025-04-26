@@ -20,12 +20,7 @@ interface PostsResponse {
   };
 }
 
-interface GetPostsParams {
-  page: number;
-  limit: number;
-}
-
-export const getPosts = async ({ page, limit }: GetPostsParams): Promise<PostsResponse> => {
+export const getPosts = async (page: number, limit: number): Promise<PostsResponse> => {
   return api.get<PostsResponse>('/api/posts', {
     params: {
       page,
