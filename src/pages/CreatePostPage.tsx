@@ -12,7 +12,7 @@ import { usePostDetailQuery } from '@hooks/queries/usePostDetailQuery';
 
 import { useDeviceStore } from '@stores/useDeviceStore';
 
-interface FormErrors {
+interface CreatePostFormErrors {
   title?: string;
   content?: string;
 }
@@ -27,7 +27,7 @@ const CreatePostPage = () => {
   const [originalTitle, setOriginalTitle] = useState('');
   const [originalContent, setOriginalContent] = useState('');
 
-  const [formErrors, setFormErrors] = useState<FormErrors>({});
+  const [formErrors, setFormErrors] = useState<CreatePostFormErrors>({});
 
   const isMobile = useDeviceStore((state) => state.isMobile);
   const responsivePaddingClass = useDeviceStore((state) => state.responsivePaddingClass);
@@ -54,7 +54,7 @@ const CreatePostPage = () => {
   };
 
   const validateForm = (): boolean => {
-    const errors: FormErrors = {};
+    const errors: CreatePostFormErrors = {};
     let isValid = true;
 
     if (title.trim().length === 0) {
@@ -81,7 +81,7 @@ const CreatePostPage = () => {
     if (validateForm()) {
       try {
         if (isEditMode && postId) {
-          editPost({ postId, title, content });
+          editPost({ postId, payload: { title, content } });
         } else {
           createPost({ title, content });
         }

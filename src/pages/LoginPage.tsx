@@ -8,12 +8,12 @@ import { useLoginMutation } from '@hooks/queries/useLoginMutation';
 
 import { useDeviceStore } from '@stores/useDeviceStore';
 
-interface FormState {
+interface LoginFormState {
   loginId: string;
   password: string;
 }
 
-interface FormErrors {
+interface LoginFormErrors {
   loginId?: string;
   password?: string;
 }
@@ -22,12 +22,12 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { isMobile } = useDeviceStore();
-  const [formData, setFormData] = useState<FormState>({
+  const [formData, setFormData] = useState<LoginFormState>({
     loginId: '',
     password: '',
   });
 
-  const [formErrors, setFormErrors] = useState<FormErrors>({});
+  const [formErrors, setFormErrors] = useState<LoginFormErrors>({});
   const [submitted, setSubmitted] = useState(false);
 
   const loginMutation = useLoginMutation();
@@ -39,7 +39,7 @@ const LoginPage = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setFormData((prev: LoginFormState) => ({
       ...prev,
       [name]: value,
     }));
@@ -51,7 +51,7 @@ const LoginPage = () => {
 
   // 실시간 유효성 검사
   const validateField = (name: string, value: string) => {
-    setFormErrors((prev) => {
+    setFormErrors((prev: LoginFormErrors) => {
       const newErrors = { ...prev };
 
       if (name === 'loginId') {
@@ -76,7 +76,7 @@ const LoginPage = () => {
 
   // 로그인 버튼 클릭 시 유효성 검사
   const validateForm = (): boolean => {
-    const errors: FormErrors = {};
+    const errors: LoginFormErrors = {};
     let isValid = true;
 
     if (!formData.loginId.trim()) {
