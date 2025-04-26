@@ -94,7 +94,7 @@ const LoginPage = () => {
 
     if (validateForm()) {
       try {
-        await useAuthStore.getState().login(formData);
+        await useAuthStore.getState().login(formData.loginId, formData.password);
         navigate(getRedirectPath());
       } catch (error: any) {
         if (error.status === 401) {

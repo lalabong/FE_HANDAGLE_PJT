@@ -1,4 +1,4 @@
-import { LoginRequest, LoginResponse, postLogin } from '@/api/user/postLogin';
+import { LoginResponse, postLogin } from '@/api/user/postLogin';
 import { postLogout } from '@/api/user/postLogout';
 import { Tokens, User } from '@/types/user';
 import { create } from 'zustand';
@@ -10,7 +10,7 @@ interface AuthState {
   user: User | null;
   isAuthenticated: boolean;
 
-  login: (loginRequest: LoginRequest) => Promise<void>;
+  login: (loginId: string, password: string) => Promise<void>;
   setLoginData: (data: LoginResponse) => void;
   setUser: (user: User) => void;
   setTokens: (tokens: Tokens) => void;
@@ -26,9 +26,9 @@ export const useAuthStore = create<AuthState>()(
       user: null,
       isAuthenticated: false,
 
-      login: async (loginRequest: LoginRequest) => {
+      login: async (loginId: string, password: string) => {
         try {
-          const data = await postLogin(loginRequest);
+          const data = await postLogin(loginId, password);
           set({ isAuthenticated: true });
           get().setLoginData(data);
         } catch (error: any) {
