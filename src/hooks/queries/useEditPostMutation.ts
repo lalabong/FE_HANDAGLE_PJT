@@ -1,23 +1,17 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
-import { patchPost } from '@api/post/patchPost';
+import { EditPostParams, patchPost } from '@api/post/patchPost';
 
 import { QUERY_KEYS } from '@constants/api';
 import { PATH } from '@constants/path';
-
-interface EditPostParams {
-  postId: string;
-  title: string;
-  content: string;
-}
 
 // 게시글 수정
 export const useEditPostMutation = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   return useMutation({
-    mutationFn: ({ postId, title, content }: EditPostParams) => patchPost(postId, title, content),
+    mutationFn: ({ postId, payload }: EditPostParams) => patchPost({ postId, payload }),
     onSuccess: (_, variables) => {
       alert('게시글이 수정되었습니다.');
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.GET_POST_DETAIL, variables.postId] });

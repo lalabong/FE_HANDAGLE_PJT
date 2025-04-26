@@ -1,16 +1,18 @@
 import { api } from '@api/api';
 
+import { API_ENDPOINTS } from '@constants/endpoints';
+
 import { CommentUser } from '@/types/user';
 
-export interface PostCommentResponse {
+export interface CommentResponse {
   id: string;
   content: string;
   createdAt: string;
   updatedAt: string;
-  author: CommentUser;
+  user: CommentUser;
 }
 
-// 댓글 생성
-export const postComment = async (postId: string, content: string): Promise<PostCommentResponse> => {
-  return api.post<PostCommentResponse>(`/api/posts/${postId}/comments`, { content });
+// 댓글 작성
+export const postComment = async (postId: string, content: string): Promise<CommentResponse> => {
+  return api.post<CommentResponse>(API_ENDPOINTS.POSTS.COMMENTS.BASE(postId), { content });
 };

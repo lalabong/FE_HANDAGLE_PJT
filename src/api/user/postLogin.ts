@@ -1,5 +1,7 @@
 import { api } from '@api/api';
 
+import { API_ENDPOINTS } from '@constants/endpoints';
+
 import { Tokens, User } from '@/types/user';
 
 export interface LoginResponse {
@@ -8,5 +10,5 @@ export interface LoginResponse {
 }
 
 export const postLogin = async (loginId: string, password: string): Promise<LoginResponse> => {
-  return api.post<LoginResponse>('/api/auth/login', { loginId, password });
+  return api.post<LoginResponse>(API_ENDPOINTS.AUTH.LOGIN, { loginId, password });
 };

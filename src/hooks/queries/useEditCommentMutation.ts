@@ -1,14 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { patchComment } from '@api/post/comment/patchComment';
+import { EditCommentParams, patchComment } from '@api/post/comment/patchComment';
 
 import { QUERY_KEYS } from '@constants/api';
-
-interface EditCommentParams {
-  postId: string;
-  commentId: string;
-  content: string;
-}
 
 // 댓글 수정
 export const useEditCommentMutation = () => {
@@ -16,7 +10,7 @@ export const useEditCommentMutation = () => {
 
   return useMutation({
     mutationFn: ({ postId, commentId, content }: EditCommentParams) =>
-      patchComment(postId, commentId, content),
+      patchComment({ postId, commentId, content }),
     onSuccess: (_, variables) => {
       alert('댓글이 수정되었습니다.');
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.GET_COMMENTS, variables.postId] });

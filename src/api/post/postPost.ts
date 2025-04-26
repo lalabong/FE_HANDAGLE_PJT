@@ -1,8 +1,13 @@
 import { api } from '@api/api';
 
-import { PostDetail } from '@/types/user';
+import { API_ENDPOINTS } from '@constants/endpoints';
+
+interface CreatePostPayload {
+  title: string;
+  content: string;
+}
 
 // 게시글 작성
-export const postPost = async (title: string, content: string): Promise<PostDetail> => {
-  return api.post<PostDetail>('/api/posts', { title, content });
+export const postPost = async (payload: CreatePostPayload): Promise<{ id: string }> => {
+  return api.post<{ id: string }>(API_ENDPOINTS.POSTS.BASE, payload);
 };

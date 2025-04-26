@@ -1,5 +1,7 @@
 import { api } from '@api/api';
 
+import { API_ENDPOINTS } from '@constants/endpoints';
+
 import { CommentUser } from '@/types/user';
 
 export interface Comment {
@@ -12,5 +14,5 @@ export interface Comment {
 
 // 댓글 목록 조회
 export const getComments = async (postId: string): Promise<Comment[]> => {
-  return api.get<Comment[]>(`/api/posts/${postId}/comments`);
+  return api.get<Comment[]>(API_ENDPOINTS.POSTS.COMMENTS.BASE(postId));
 };

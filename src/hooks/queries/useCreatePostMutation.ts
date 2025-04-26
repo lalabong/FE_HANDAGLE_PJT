@@ -12,7 +12,7 @@ export const useCreatePostMutation = () => {
   const navigate = useNavigate();
   return useMutation({
     mutationFn: ({ title, content }: { title: string; content: string }) =>
-      postPost(title, content),
+      postPost({ title, content }),
 
     onSuccess: (data) => {
       alert('게시글이 등록되었습니다.');
