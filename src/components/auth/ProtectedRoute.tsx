@@ -1,5 +1,5 @@
 import { PATH } from '@/constants/path';
-import { useAuthStore } from '@/store/useAuthStore';
+import { useAuthStore } from '@/stores/useAuthStore';
 import { Navigate, useLocation } from 'react-router-dom';
 
 interface ProtectedRouteProps {

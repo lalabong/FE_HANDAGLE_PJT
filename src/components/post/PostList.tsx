@@ -1,11 +1,11 @@
-import { Post } from '@/api/home/getPosts';
+import { Post } from '@/api/post/getPosts';
 import { Button } from '@/components/common/Button';
 import Pagination from '@/components/common/Pagination';
 import { API_DEFAULTS } from '@/constants/api';
 import { PATH } from '@/constants/path';
 import { usePostsQuery } from '@/hooks/queries/usePostsQuery';
-import { useAuthStore } from '@/store/useAuthStore';
-import { formatDateToYYMMDD } from '@/utils/dateFormat';
+import { useAuthStore } from '@/stores/useAuthStore';
+import { formatDateToYYMMDD } from '@/utils/formatDateToYYMMDD';
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 

@@ -1,6 +1,6 @@
-import { Header, MobileDetailHeader, MobileMainHeader } from '@/components/Header';
+import { Header, MobileDetailHeader, MobileMainHeader } from '@/components/header';
 
-import { useDeviceStore } from '@/store/useDeviceStore';
+import { useDeviceStore } from '@/stores/useDeviceStore';
 import { Outlet, useLocation } from 'react-router-dom';
 
 const MainLayout = () => {

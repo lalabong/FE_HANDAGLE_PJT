@@ -1,5 +1,5 @@
-import { useAuthStore } from '@/store/useAuthStore';
-import { useDeviceStore } from '@/store/useDeviceStore';
+import { useAuthStore } from '@/stores/useAuthStore';
+import { useDeviceStore } from '@/stores/useDeviceStore';
 import { useState } from 'react';
 import { Button } from '../common/Button';
 

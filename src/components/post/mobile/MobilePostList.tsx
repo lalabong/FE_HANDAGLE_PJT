@@ -1,9 +1,9 @@
-import { getPosts, Post } from '@/api/home/getPosts';
+import { getPosts, Post } from '@/api/post/getPosts';
 import { FAB } from '@/components/common/Button';
 import { API_DEFAULTS, QUERY_KEYS } from '@/constants/api';
 import { PATH } from '@/constants/path';
-import { useAuthStore } from '@/store/useAuthStore';
-import { formatDateToYYMMDD } from '@/utils/dateFormat';
+import { useAuthStore } from '@/stores/useAuthStore';
+import { formatDateToYYMMDD } from '@/utils/formatDateToYYMMDD';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';

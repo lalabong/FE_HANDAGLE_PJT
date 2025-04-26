@@ -1,5 +1,5 @@
+import { useDeviceStore } from '@/stores/useDeviceStore';
 import { useNavigate } from 'react-router-dom';
-import { useDeviceStore } from '@/store/useDeviceStore';
 
 const MobileDetailHeader = () => {
   const navigate = useNavigate();

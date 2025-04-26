@@ -1,7 +1,7 @@
 import { PATH } from '@/constants/path';
-import { useAuthStore } from '@/store/useAuthStore';
-import { useDeviceStore } from '@/store/useDeviceStore';
-import { useMenuStore } from '@/store/useMenuStore';
+import { useAuthStore } from '@/stores/useAuthStore';
+import { useDeviceStore } from '@/stores/useDeviceStore';
+import { useMenuStore } from '@/stores/useMenuStore';
 import { Link, useLocation } from 'react-router-dom';
 
 const Header = () => {
@@ -39,7 +39,7 @@ const Header = () => {
     <header className="w-full bg-white h-[var(--header-height)] border-b border-[#EEEFF1] shadow-[0px_9px_10px_0px_rgba(232,232,232,0.25)]">
       <div className={`flex justify-between items-center h-full ${responsivePaddingClass}`}>
         <Link to={PATH.ROOT} onClick={handleLogoClick} className="flex items-center">
-          <img src="/logo.png" alt="다글제작소 로고" className="h-9" />
+          <img src="/logo/logo.png" alt="다글제작소 로고" className="h-9" />
         </Link>
 
         {isAuthenticated ? (

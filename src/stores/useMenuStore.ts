@@ -12,9 +12,6 @@ interface MenuStore {
   openNicknamePopover: () => void;
   closeNicknamePopover: () => void;
   toggleNicknamePopover: () => void;
-
-  // 모든 메뉴 닫기
-  closeAllMenus: () => void;
 }
 
 export const useMenuStore = create<MenuStore>((set) => ({
@@ -28,6 +25,4 @@ export const useMenuStore = create<MenuStore>((set) => ({
   closeNicknamePopover: () => set({ isNicknamePopoverOpen: false }),
   toggleNicknamePopover: () =>
     set((state) => ({ isNicknamePopoverOpen: !state.isNicknamePopoverOpen })),
-
-  closeAllMenus: () => set({ isMobileMenuOpen: false, isNicknamePopoverOpen: false }),
 }));

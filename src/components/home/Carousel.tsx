@@ -1,4 +1,4 @@
-import { useDeviceStore } from '@/store/useDeviceStore';
+import { useDeviceStore } from '@/stores/useDeviceStore';
 import { useEffect, useRef, useState } from 'react';
 
 const carouselContents = [

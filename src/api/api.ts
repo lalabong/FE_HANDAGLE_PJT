@@ -1,5 +1,5 @@
 import { postRefreshToken } from '@/api/user/postRefreshToken';
-import { useAuthStore } from '@/store/useAuthStore';
+import { useAuthStore } from '@/stores/useAuthStore';
 import axios, {
   AxiosError,
   AxiosRequestConfig,
@@ -57,7 +57,9 @@ const refreshAuthToken = async (currentRefreshToken: string): Promise<string> =>
       throw new Error('유효하지 않은 토큰 응답 형식입니다.');
     }
 
-    useAuthStore.getState().setTokens(accessToken, refreshToken || currentRefreshToken);
+    useAuthStore
+      .getState()
+      .setTokens({ accessToken, refreshToken: refreshToken || currentRefreshToken });
 
     return accessToken;
   } catch (error) {
@@ -87,13 +89,11 @@ apiClient.interceptors.response.use(
     if (error.response?.status === 401 && originalRequest.retryCount < 3) {
       originalRequest.retryCount += 1;
 
-      // 이미 재시도 중인 요청은 건너뜀
       if (originalRequest._retry) {
         return Promise.reject(error);
       }
 
       if (isRefreshing) {
-        // 이미 토큰 갱신 중이면 큐에 추가
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
         })

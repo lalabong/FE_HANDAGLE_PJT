@@ -4,12 +4,12 @@ import PostContent from '@/components/post/PostContent';
 import PostDetailHeader from '@/components/post/PostDetailHeader';
 import { PATH } from '@/constants/path';
 import { useGetCommentsQuery } from '@/hooks/queries/useCommentsQuery';
+import { useCreateCommentMutation } from '@/hooks/queries/useCreateCommentMutation';
 import { useDeleteCommentMutation } from '@/hooks/queries/useDeleteCommentMutation';
 import { useDeletePostMutation } from '@/hooks/queries/useDeletePostMutation';
 import { useEditCommentMutation } from '@/hooks/queries/useEditCommentMutation';
-import { useCreateCommentMutation } from '@/hooks/queries/useCreateCommentMutation';
 import { usePostDetailQuery } from '@/hooks/queries/usePostDetailQuery';
-import { useDeviceStore } from '@/store/useDeviceStore';
+import { useDeviceStore } from '@/stores/useDeviceStore';
 import { useCallback, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 

@@ -1,5 +1,5 @@
-import { useAuthStore } from '@/store/useAuthStore';
-import { formatDateToYYMMDD } from '@/utils/dateFormat';
+import { useAuthStore } from '@/stores/useAuthStore';
+import { formatDateToYYMMDD } from '@/utils/formatDateToYYMMDD';
 import { ChangeEvent } from 'react';
 import { Button } from '../common/Button';
 import TextArea from '../common/TextArea';
@@ -39,8 +39,7 @@ const CommentItem = ({
       <div className="flex flex-col gap-4 p-6 bg-[#F9FAFA] border-b border-[#EEEFF1]">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-full bg-[#A7A9B4] flex items-center justify-center">
-            </div>
+            <div className="w-6 h-6 rounded-full bg-[#A7A9B4] flex items-center justify-center"></div>
             <span className="text-base font-normal text-black">{author || '익명'}</span>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import { PATH } from '@/constants/path';
-import { useAuthStore } from '@/store/useAuthStore';
-import { useDeviceStore } from '@/store/useDeviceStore';
-import { useMenuStore } from '@/store/useMenuStore';
+import { useAuthStore } from '@/stores/useAuthStore';
+import { useDeviceStore } from '@/stores/useDeviceStore';
+import { useMenuStore } from '@/stores/useMenuStore';
 import { Link } from 'react-router-dom';
 
 const MobileMainHeader = () => {

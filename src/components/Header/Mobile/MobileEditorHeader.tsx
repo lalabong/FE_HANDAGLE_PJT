@@ -1,4 +1,4 @@
-import { useDeviceStore } from '@/store/useDeviceStore';
+import { useDeviceStore } from '@/stores/useDeviceStore';
 import { useNavigate } from 'react-router-dom';
 
 interface MobileEditorHeaderProps {

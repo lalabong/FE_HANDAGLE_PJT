@@ -1,6 +1,6 @@
 import { Button } from '@/components/common/Button';
-import { useAuthStore } from '@/store/useAuthStore';
-import { useDeviceStore } from '@/store/useDeviceStore';
+import { useAuthStore } from '@/stores/useAuthStore';
+import { useDeviceStore } from '@/stores/useDeviceStore';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Input from '../components/common/Input';
