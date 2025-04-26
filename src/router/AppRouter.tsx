@@ -1,4 +1,4 @@
-import ProtectedRoute from '@/components/auth/ProtectedRoute';
+import ProtectedRoute from '@/router/ProtectedRoute';
 import { PATH } from '@/constants/path';
 import MainLayout from '@/layouts/MainLayout';
 import CreatePostPage from '@/pages/CreatePostPage';
