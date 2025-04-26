@@ -5,6 +5,7 @@ import CommentForm from '@components/post/CommentForm';
 import CommentItem from '@components/post/CommentItem';
 import PostContent from '@components/post/PostContent';
 import PostDetailHeader from '@components/post/PostDetailHeader';
+import PostDetailSkeleton from '@components/skeleton/PostDetailSkeleton';
 
 import { PATH } from '@constants/path';
 
@@ -111,12 +112,15 @@ const PostDetailPage = () => {
   if (isPostPending || isCommentsPending) {
     return (
       <main
-        className="flex justify-center items-center min-h-screen bg-[#F5F5F5]"
+        className={`flex flex-col items-center min-h-[calc(100vh-var(--header-height,0px))] ${isMobile ? 'bg-white' : 'bg-[#F5F5F5]'}`}
         aria-labelledby="loading-status"
       >
-        <p id="loading-status" className="text-gray-500" aria-live="polite">
-          게시글을 불러오는 중입니다...
-        </p>
+        <div className={`w-full ${isMobile ? 'pb-[80px]' : responsivePaddingClass}`}>
+          <PostDetailSkeleton />
+          <span id="loading-status" className="sr-only">
+            게시글을 불러오는 중입니다
+          </span>
+        </div>
       </main>
     );
   }

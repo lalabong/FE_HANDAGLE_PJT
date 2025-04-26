@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Button } from '@components/common/Button';
 import Pagination from '@components/common/Pagination';
+import PostListSkeleton from '@components/skeleton/PostListSkeleton';
 
 import { API_DEFAULTS } from '@constants/api';
 import { PATH } from '@constants/path';
@@ -48,20 +49,31 @@ const PostList = () => {
         <header className="flex justify-between items-center px-6 py-6 border-b border-[#EEEFF1]">
           <h2 className="text-2xl font-bold leading-9 text-black">게시판</h2>
           {isAuthenticated && (
-            <Button variant="purple" size="sm" onClick={handleWriteButtonClick}>
+            <Button
+              variant="purple"
+              size="sm"
+              onClick={handleWriteButtonClick}
+              aria-label="게시글 작성하기"
+            >
               글쓰기
             </Button>
           )}
         </header>
 
         {isPending ? (
-          <div className="py-12 text-center">
-            <p className="text-gray-500">게시글을 불러오는 중입니다...</p>
+          <div className="py-6" aria-label="로딩 중" aria-live="polite">
+            <PostListSkeleton count={10} />
           </div>
         ) : error ? (
           <div className="py-12 text-center">
-            <p className="text-red-500">게시글을 불러오는 중 오류가 발생했습니다.</p>
-            <button className="mt-4 text-purple-600 hover:underline" onClick={() => refetch()}>
+            <p className="text-red-500" aria-live="assertive">
+              게시글을 불러오는 중 오류가 발생했습니다.
+            </p>
+            <button
+              className="mt-4 text-purple-600 hover:underline"
+              onClick={() => refetch()}
+              aria-label="게시글 다시 불러오기"
+            >
               다시 시도하기
             </button>
           </div>
@@ -72,7 +84,10 @@ const PostList = () => {
         ) : (
           <ul className="divide-y divide-[#EEEFF1] relative">
             {isFetching && (
-              <div className="absolute inset-0 bg-white bg-opacity-70 flex items-center justify-center">
+              <div
+                className="absolute inset-0 bg-white bg-opacity-70 flex items-center justify-center"
+                aria-live="polite"
+              >
                 <p className="text-gray-500">업데이트 중...</p>
               </div>
             )}
@@ -81,17 +96,31 @@ const PostList = () => {
                 key={post.id}
                 className="px-6 py-4 flex justify-between items-center hover:bg-gray-50 cursor-pointer"
                 onClick={() => handlePostClick(post.id)}
+                role="button"
+                tabIndex={0}
+                aria-label={`제목: ${post.title}, 작성일: ${formatDateToYYMMDD(post.createdAt)}, 댓글 수: ${post.commentCount}개`}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    handlePostClick(post.id);
+                  }
+                }}
               >
                 <h3 className="text-lg font-normal flex-1 truncate">{post.title}</h3>
                 <div className="flex items-center gap-2 text-[#A7A9B4]">
                   <time dateTime={post.createdAt} className="text-base">
                     {formatDateToYYMMDD(post.createdAt)}
                   </time>
-                  <div className="flex items-center gap-1">
-                    <img src="/icon/comment-icon.png" alt="댓글 아이콘" />
+                  <div
+                    className="flex items-center gap-1"
+                    aria-label={`댓글 ${post.commentCount}개`}
+                  >
+                    <img src="/icon/comment-icon.png" alt="" aria-hidden="true" />
                     <span>{post.commentCount}</span>
                   </div>
-                  <div className="h-6 w-6 rounded-full flex-shrink-0 bg-gray-300 flex items-center justify-center">
+                  <div
+                    className="h-6 w-6 rounded-full flex-shrink-0 bg-gray-300 flex items-center justify-center"
+                    aria-hidden="true"
+                  >
                     <span className="text-gray-500 font-semibold text-sm"></span>
                   </div>
                 </div>
