@@ -3,7 +3,7 @@ import { QUERY_KEYS } from '@/constants/api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 // 댓글 생성
-export const usePostCommentMutation = ({ postId }: { postId: string }) => {
+export const useCreateCommentMutation = ({ postId }: { postId: string }) => {
   const queryClient = useQueryClient();
 
   return useMutation({
