@@ -94,32 +94,48 @@ const CreatePostPage = () => {
   return (
     <>
       {isMobile && <MobileEditorHeader isEditMode={isEditMode} handleSubmit={handleSubmit} />}
-      <div className={`w-full ${responsivePaddingClass} ${!isMobile && 'bg-[#F5F5F5]'}`}>
-        <div className="w-full">
+      <main
+        className={`w-full ${responsivePaddingClass} ${!isMobile && 'bg-[#F5F5F5]'}`}
+        aria-labelledby="form-heading"
+      >
+        <section className="w-full">
           <div className={`${!isMobile && 'bg-white border border-[#EEEFF1] rounded-xl p-6'}`}>
             {!isMobile && (
-              <h1 className="text-xl font-bold mb-6">
+              <h1 id="form-heading" className="text-xl font-bold mb-6">
                 {isEditMode ? '게시글 수정' : '게시글 작성'}
               </h1>
             )}
 
-            <div className="flex flex-col gap-4">
-              <Input
-                placeholder="제목을 입력해주세요."
-                value={title}
-                onChange={(e) => handleTitleChange(e)}
-                name="title"
-                error={formErrors.title}
-              />
+            <form
+              className="flex flex-col gap-4"
+              aria-label={isEditMode ? '게시글 수정 양식' : '게시글 작성 양식'}
+            >
+              <div>
+                <Input
+                  placeholder="제목을 입력해주세요."
+                  value={title}
+                  onChange={(e) => handleTitleChange(e)}
+                  name="title"
+                  error={formErrors.title}
+                  aria-label="게시글 제목"
+                  aria-required="true"
+                  aria-invalid={!!formErrors.title}
+                />
+              </div>
 
-              <TextArea
-                placeholder="내용을 입력해주세요."
-                value={content}
-                onChange={(e) => handleContentChange(e)}
-                name="content"
-                maxLength={300}
-                error={formErrors.content}
-              />
+              <div>
+                <TextArea
+                  placeholder="내용을 입력해주세요."
+                  value={content}
+                  onChange={(e) => handleContentChange(e)}
+                  name="content"
+                  maxLength={300}
+                  error={formErrors.content}
+                  aria-label="게시글 내용"
+                  aria-required="true"
+                  aria-invalid={!!formErrors.content}
+                />
+              </div>
 
               {!isMobile && (
                 <div className="flex justify-center mt-6">
@@ -128,15 +144,17 @@ const CreatePostPage = () => {
                     size="lg"
                     onClick={() => handleSubmit()}
                     disabled={isEditMode && !hasChanges}
+                    aria-disabled={isEditMode && !hasChanges}
+                    type="button"
                   >
                     {isEditMode ? '수정하기' : '등록하기'}
                   </Button>
                 </div>
               )}
-            </div>
+            </form>
           </div>
-        </div>
-      </div>
+        </section>
+      </main>
     </>
   );
 };

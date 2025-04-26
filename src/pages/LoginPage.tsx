@@ -111,10 +111,16 @@ const LoginPage = () => {
 
   if (isMobile) {
     return (
-      <div className="flex flex-col min-h-[calc(100vh-var(--header-height,0px))] w-full bg-white">
-        <div className="flex flex-col px-4 pt-6 pb-12 gap-6">
-          <div>
-            <h1 className="text-[32px] font-bold leading-[1.6em] tracking-[-1.5%]">
+      <main className="flex flex-col min-h-[calc(100vh-var(--header-height,0px))] w-full bg-white">
+        <section
+          className="flex flex-col px-4 pt-6 pb-12 gap-6"
+          aria-labelledby="login-heading-mobile"
+        >
+          <header>
+            <h1
+              id="login-heading-mobile"
+              className="text-[32px] font-bold leading-[1.6em] tracking-[-1.5%]"
+            >
               안녕하세요
               <br />
               <span className="text-[#320397]">한다글다글</span>입니다.
@@ -122,9 +128,9 @@ const LoginPage = () => {
             <p className="text-base font-semibold leading-6 text-[#A7A9B4] tracking-[-0.3%]">
               로그인을 통해 더 많은 기능을 이용하세요
             </p>
-          </div>
+          </header>
 
-          <form onSubmit={handleSubmit} className="w-full space-y-6">
+          <form onSubmit={handleSubmit} className="w-full space-y-6" aria-label="로그인 폼">
             <div className="flex flex-col gap-3">
               <div>
                 <Input
@@ -133,6 +139,9 @@ const LoginPage = () => {
                   onChange={handleChange}
                   placeholder="아이디를 입력해주세요."
                   error={formErrors.loginId}
+                  aria-label="아이디"
+                  aria-required="true"
+                  aria-invalid={!!formErrors.loginId}
                 />
               </div>
               <div>
@@ -143,6 +152,9 @@ const LoginPage = () => {
                   onChange={handleChange}
                   placeholder="비밀번호를 입력해주세요."
                   error={formErrors.password}
+                  aria-label="비밀번호"
+                  aria-required="true"
+                  aria-invalid={!!formErrors.password}
                 />
               </div>
             </div>
@@ -152,20 +164,24 @@ const LoginPage = () => {
               variant="black"
               className="w-full rounded-xl"
               disabled={loginMutation.isPending}
+              aria-busy={loginMutation.isPending}
             >
               {loginMutation.isPending ? '로그인 중...' : '로그인'}
             </Button>
           </form>
-        </div>
-      </div>
+        </section>
+      </main>
     );
   }
 
   return (
-    <div className="flex justify-center items-center h-[calc(100vh-var(--header-height,0px))] w-full bg-[#F5F5F5]">
-      <div className="flex flex-col justify-center items-center p-10 gap-4 bg-white border border-[#EEEFF1] rounded-xl shadow-[0px_18px_30px_0px_rgba(177,177,177,0.06)] max-w-md w-full">
-        <div className="w-full">
-          <h1 className="text-[32px] font-bold leading-[1.6em] tracking-[-1.5%]">
+    <main className="flex justify-center items-center h-[calc(100vh-var(--header-height,0px))] w-full bg-[#F5F5F5]">
+      <section
+        className="flex flex-col justify-center items-center p-10 gap-4 bg-white border border-[#EEEFF1] rounded-xl shadow-[0px_18px_30px_0px_rgba(177,177,177,0.06)] max-w-md w-full"
+        aria-labelledby="login-heading"
+      >
+        <header className="w-full">
+          <h1 id="login-heading" className="text-[32px] font-bold leading-[1.6em] tracking-[-1.5%]">
             안녕하세요
             <br />
             <span className="text-[#320397]">한다글다글</span>입니다.
@@ -173,9 +189,9 @@ const LoginPage = () => {
           <p className="text-base font-semibold leading-6 text-[#A7A9B4] tracking-[-0.3%]">
             로그인을 통해 더 많은 기능을 이용하세요
           </p>
-        </div>
+        </header>
 
-        <form onSubmit={handleSubmit} className="w-full space-y-6">
+        <form onSubmit={handleSubmit} className="w-full space-y-6" aria-label="로그인 양식">
           <div className="flex flex-col gap-3">
             <div>
               <Input
@@ -184,6 +200,9 @@ const LoginPage = () => {
                 onChange={handleChange}
                 placeholder="아이디를 입력해주세요."
                 error={formErrors.loginId}
+                aria-label="아이디"
+                aria-required="true"
+                aria-invalid={!!formErrors.loginId}
               />
             </div>
             <div>
@@ -194,6 +213,9 @@ const LoginPage = () => {
                 onChange={handleChange}
                 placeholder="비밀번호를 입력해주세요."
                 error={formErrors.password}
+                aria-label="비밀번호"
+                aria-required="true"
+                aria-invalid={!!formErrors.password}
               />
             </div>
           </div>
@@ -203,12 +225,13 @@ const LoginPage = () => {
             variant="black"
             className="w-full rounded-xl"
             disabled={loginMutation.isPending}
+            aria-busy={loginMutation.isPending}
           >
             {loginMutation.isPending ? '로그인 중...' : '로그인'}
           </Button>
         </form>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 };
 

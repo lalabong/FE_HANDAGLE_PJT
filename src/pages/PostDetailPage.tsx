@@ -38,8 +38,8 @@ const PostDetailPage = () => {
   } = useGetCommentsQuery({ postId: postId || '' });
 
   const commentMutation = useCreateCommentMutation({ postId: postId || '' });
-  const editCommentMutation = useEditCommentMutation();
-  const deleteCommentMutation = useDeleteCommentMutation();
+  const editCommentMutation = useEditCommentMutation({ postId: postId || '' });
+  const deleteCommentMutation = useDeleteCommentMutation({ postId: postId || '' });
 
   const deletePostMutation = useDeletePostMutation();
 
@@ -110,32 +110,44 @@ const PostDetailPage = () => {
 
   if (isPostPending || isCommentsPending) {
     return (
-      <div className="flex justify-center items-center min-h-screen bg-[#F5F5F5]">
-        <p className="text-gray-500">게시글을 불러오는 중입니다...</p>
-      </div>
+      <main
+        className="flex justify-center items-center min-h-screen bg-[#F5F5F5]"
+        aria-labelledby="loading-status"
+      >
+        <p id="loading-status" className="text-gray-500" aria-live="polite">
+          게시글을 불러오는 중입니다...
+        </p>
+      </main>
     );
   }
 
   if (postError || commentsError || !post || !comments) {
     return (
-      <div className="flex flex-col justify-center items-center min-h-screen gap-4 bg-[#F5F5F5]">
-        <p className="text-red-500">게시글을 불러오는 중 오류가 발생했습니다.</p>
+      <main
+        className="flex flex-col justify-center items-center min-h-screen gap-4 bg-[#F5F5F5]"
+        aria-labelledby="error-status"
+      >
+        <p id="error-status" className="text-red-500" aria-live="assertive">
+          게시글을 불러오는 중 오류가 발생했습니다.
+        </p>
         <button
           onClick={() => handleBackClick()}
           className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+          aria-label="홈으로 돌아가기"
         >
           홈으로 돌아가기
         </button>
-      </div>
+      </main>
     );
   }
 
   return (
     <main
       className={`flex flex-col items-center min-h-[calc(100vh-var(--header-height,0px))] ${isMobile ? 'bg-white' : 'bg-[#F5F5F5]'}`}
+      aria-labelledby="post-title"
     >
       <div className={`w-full ${isMobile ? 'pb-[80px]' : responsivePaddingClass}`}>
-        <div
+        <article
           className={`w-full overflow-hidden bg-white ${!isMobile && 'rounded-xl border border-[#EEEFF1]'}`}
         >
           <PostDetailHeader
@@ -149,25 +161,36 @@ const PostDetailPage = () => {
 
           <PostContent content={post.content} commentCount={post.commentCount} />
 
-          {comments.map((comment) => (
-            <CommentItem
-              key={comment.id}
-              author={comment.user.nickname}
-              authorId={comment.user.id}
-              content={comment.content}
-              createdAt={comment.createdAt}
-              isEditing={editingCommentId === comment.id}
-              editContent={editingCommentId === comment.id ? editCommentContent : ''}
-              onEditChange={(e) => setEditCommentContent(e.target.value)}
-              onEditStart={() => handleEditCommentStart(comment.id, comment.content)}
-              onEditCancel={handleEditCommentCancel}
-              onEditSubmit={() => handleEditCommentSubmit(comment.id)}
-              onDelete={() => handleDeleteComment(comment.id)}
-            />
-          ))}
+          <section aria-label="댓글 목록">
+            {comments.length === 0 ? (
+              <p className="text-center text-gray-500 py-4">첫 댓글을 작성해보세요!</p>
+            ) : (
+              <ul aria-label={`총 ${comments.length}개의 댓글`}>
+                {comments.map((comment) => (
+                  <li key={comment.id}>
+                    <CommentItem
+                      author={comment.user.nickname}
+                      authorId={comment.user.id}
+                      content={comment.content}
+                      createdAt={comment.createdAt}
+                      isEditing={editingCommentId === comment.id}
+                      editContent={editingCommentId === comment.id ? editCommentContent : ''}
+                      onEditChange={(e) => setEditCommentContent(e.target.value)}
+                      onEditStart={() => handleEditCommentStart(comment.id, comment.content)}
+                      onEditCancel={handleEditCommentCancel}
+                      onEditSubmit={() => handleEditCommentSubmit(comment.id)}
+                      onDelete={() => handleDeleteComment(comment.id)}
+                    />
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
 
-          <CommentForm onSubmit={handleCommentSubmit} />
-        </div>
+          <section aria-label="댓글 작성">
+            <CommentForm onSubmit={handleCommentSubmit} />
+          </section>
+        </article>
       </div>
     </main>
   );
