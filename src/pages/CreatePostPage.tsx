@@ -1,9 +1,13 @@
 import { Button } from '@/components/common/Button';
 import Input from '@/components/common/Input';
 import TextArea from '@/components/common/TextArea';
+import MobileEditorHeader from '@/components/Header/Mobile/MobileEditorHeader';
+import { usePostDetailQuery } from '@/hooks/queries/usePostDetailQuery';
 import { useDeviceStore } from '@/store/useDeviceStore';
-import { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useEffect, useState, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { useCreatePostMutation } from '@/hooks/queries/useCreatePostMutation';
+import { useEditPostMutation } from '@/hooks/queries/useEditPostMutation';
 
 interface FormErrors {
   title?: string;
@@ -15,21 +19,28 @@ const CreatePostPage = () => {
   const postId = searchParams.get('postId');
   const isEditMode = Boolean(postId);
 
-  const navigate = useNavigate();
-
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [originalTitle, setOriginalTitle] = useState('');
+  const [originalContent, setOriginalContent] = useState('');
 
   const [formErrors, setFormErrors] = useState<FormErrors>({});
 
   const isMobile = useDeviceStore((state) => state.isMobile);
   const responsivePaddingClass = useDeviceStore((state) => state.responsivePaddingClass);
 
+  const { data: post } = usePostDetailQuery(postId || '');
+  const { mutate: createPost } = useCreatePostMutation();
+  const { mutate: editPost } = useEditPostMutation();
+
   useEffect(() => {
-    if (isEditMode) {
-      // 원본 글 내용 가져오기
+    if (isEditMode && post) {
+      setTitle(post.title || '');
+      setContent(post.content || '');
+      setOriginalTitle(post.title || '');
+      setOriginalContent(post.content || '');
     }
-  }, [isEditMode, postId]);
+  }, [isEditMode, postId, post]);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -57,13 +68,20 @@ const CreatePostPage = () => {
     return isValid;
   };
 
-  const handleSubmit = async () => {
+  const hasChanges = useMemo(() => {
+    if (!isEditMode) return true;
+
+    return title.trim() !== originalTitle.trim() || content.trim() !== originalContent.trim();
+  }, [isEditMode, title, content, originalTitle, originalContent]);
+
+  const handleSubmit = () => {
     if (validateForm()) {
       try {
-        // 글 수정 or 작성 로직
-        alert(isEditMode ? '게시글이 수정되었습니다.' : '게시글이 등록되었습니다.');
-        // 수정이면 해당 글로, 작성이면 작성한 글의 상세 페이지로 이동
-        navigate(isEditMode ? `/posts/${postId}` : '/posts');
+        if (isEditMode && postId) {
+          editPost({ postId, title, content });
+        } else {
+          createPost({ title, content });
+        }
       } catch (error) {
         alert('게시글 등록 중 오류가 발생했습니다.');
       }
@@ -72,6 +90,7 @@ const CreatePostPage = () => {
 
   return (
     <>
+      {isMobile && <MobileEditorHeader isEditMode={isEditMode} handleSubmit={handleSubmit} />}
       <div className={`w-full ${responsivePaddingClass} ${!isMobile && 'bg-[#F5F5F5]'}`}>
         <div className="w-full">
           <div className={`${!isMobile && 'bg-white border border-[#EEEFF1] rounded-xl p-6'}`}>
@@ -101,7 +120,12 @@ const CreatePostPage = () => {
 
               {!isMobile && (
                 <div className="flex justify-center mt-6">
-                  <Button variant="black" size="lg" onClick={() => handleSubmit()}>
+                  <Button
+                    variant="black"
+                    size="lg"
+                    onClick={() => handleSubmit()}
+                    disabled={isEditMode && !hasChanges}
+                  >
                     {isEditMode ? '수정하기' : '등록하기'}
                   </Button>
                 </div>
