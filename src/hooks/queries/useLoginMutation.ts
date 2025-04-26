@@ -2,6 +2,9 @@ import { useMutation } from '@tanstack/react-query';
 
 import { LoginParams, LoginResponse, postLogin } from '@api/user/postLogin';
 
+import { ERROR_MESSAGES, SUCCESS_MESSAGES } from '@constants/messages';
+import { STATUS_CODES } from '@constants/statusCodes';
+
 import { useAuthStore } from '@stores/useAuthStore';
 
 // 로그인
@@ -10,23 +13,25 @@ export const useLoginMutation = () => {
 
   return useMutation({
     mutationFn: (credentials: LoginParams) => postLogin(credentials),
+
     onSuccess: (data: LoginResponse) => {
       setUser(data.user);
       setTokens(data.tokens);
-      alert('로그인이 완료되었습니다.');
+      alert(SUCCESS_MESSAGES.LOGIN);
     },
+
     onError: (error: any) => {
       if (error.response) {
         const status = error.response.status;
-        if (status === 400) {
-          alert('아이디 또는 비밀번호가 입력되지 않았습니다.');
-        } else if (status === 401) {
-          alert('아이디 또는 비밀번호가 일치하지 않습니다.');
-        } else if (status === 404) {
-          alert('존재하지 않는 아이디입니다.');
+        if (status === STATUS_CODES.BAD_REQUEST) {
+          alert(ERROR_MESSAGES.COMMON.REQUIRED_FIELD);
+        } else if (status === STATUS_CODES.UNAUTHORIZED) {
+          alert(ERROR_MESSAGES.AUTH.INVALID_CREDENTIALS);
+        } else if (status === STATUS_CODES.NOT_FOUND) {
+          alert(ERROR_MESSAGES.AUTH.NO_USER);
         }
       } else {
-        alert('네트워크 오류가 발생했습니다. 다시 시도해주세요.');
+        alert(ERROR_MESSAGES.COMMON.NETWORK);
       }
     },
   });

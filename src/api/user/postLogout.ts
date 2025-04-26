@@ -1,6 +1,7 @@
 import api from '@api/api';
 
 import { API_ENDPOINTS } from '@constants/endpoints';
+import { ERROR_MESSAGES } from '@constants/messages';
 
 export interface LogoutParams {
   refreshToken: string | null;
@@ -8,7 +9,7 @@ export interface LogoutParams {
 
 export const postLogout = ({ refreshToken }: LogoutParams): Promise<void> => {
   if (!refreshToken) {
-    throw new Error('리프레시 토큰이 없습니다.');
+    throw new Error(ERROR_MESSAGES.AUTH.NO_REFRESH_TOKEN);
   }
   return api.post(API_ENDPOINTS.AUTH.LOGOUT, { refreshToken });
 };

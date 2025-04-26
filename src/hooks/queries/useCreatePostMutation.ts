@@ -4,18 +4,20 @@ import { useNavigate } from 'react-router-dom';
 import { postPost } from '@api/post/postPost';
 
 import { QUERY_KEYS } from '@constants/api';
+import { ERROR_MESSAGES, SUCCESS_MESSAGES } from '@constants/messages';
 import { PATH } from '@constants/path';
+import { STATUS_CODES } from '@constants/statusCodes';
 
-// 게시글 생성
+// 게시글 작성
 export const useCreatePostMutation = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+
   return useMutation({
-    mutationFn: ({ title, content }: { title: string; content: string }) =>
-      postPost({ title, content }),
+    mutationFn: (payload: { title: string; content: string }) => postPost(payload),
 
     onSuccess: (data) => {
-      alert('게시글이 등록되었습니다.');
+      alert(SUCCESS_MESSAGES.POST.CREATE);
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.GET_POSTS] });
       navigate(`${PATH.DETAIL_POST(data.id)}`);
     },
@@ -23,13 +25,13 @@ export const useCreatePostMutation = () => {
     onError: (error: any) => {
       if (error.response) {
         const status = error.response.status;
-        if (status === 400) {
-          alert('필수 입력 항목이 누락되었습니다.');
-        } else if (status === 401) {
-          alert('로그인이 필요합니다.');
+        if (status === STATUS_CODES.BAD_REQUEST) {
+          alert(ERROR_MESSAGES.COMMON.REQUIRED_FIELD);
+        } else if (status === STATUS_CODES.UNAUTHORIZED) {
+          alert(ERROR_MESSAGES.COMMON.UNAUTHORIZED);
         }
       } else {
-        alert('네트워크 오류가 발생했습니다. 다시 시도해주세요.');
+        alert(ERROR_MESSAGES.COMMON.NETWORK);
       }
     },
   });

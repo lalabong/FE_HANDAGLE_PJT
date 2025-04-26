@@ -4,32 +4,38 @@ import { useNavigate } from 'react-router-dom';
 import { EditPostParams, patchPost } from '@api/post/patchPost';
 
 import { QUERY_KEYS } from '@constants/api';
+import { ERROR_MESSAGES, SUCCESS_MESSAGES } from '@constants/messages';
 import { PATH } from '@constants/path';
+import { STATUS_CODES } from '@constants/statusCodes';
 
 // 게시글 수정
 export const useEditPostMutation = () => {
   const queryClient = useQueryClient();
+
   const navigate = useNavigate();
+
   return useMutation({
     mutationFn: ({ postId, payload }: EditPostParams) => patchPost({ postId, payload }),
+
     onSuccess: (_, variables) => {
-      alert('게시글이 수정되었습니다.');
+      alert(SUCCESS_MESSAGES.POST.UPDATE);
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.GET_POST_DETAIL, variables.postId] });
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.GET_POSTS] });
       navigate(`${PATH.DETAIL_POST(variables.postId)}`);
     },
+
     onError: (error: any) => {
       if (error.response) {
         const status = error.response.status;
-        if (status === 400) {
-          alert('필수 입력 항목이 누락되었습니다.');
-        } else if (status === 401) {
-          alert('로그인이 필요합니다.');
-        } else if (status === 404) {
-          alert('게시글을 찾을 수 없습니다.');
+        if (status === STATUS_CODES.BAD_REQUEST) {
+          alert(ERROR_MESSAGES.COMMON.REQUIRED_FIELD);
+        } else if (status === STATUS_CODES.UNAUTHORIZED) {
+          alert(ERROR_MESSAGES.COMMON.UNAUTHORIZED);
+        } else if (status === STATUS_CODES.NOT_FOUND) {
+          alert(ERROR_MESSAGES.POST.NOT_FOUND);
         }
       } else {
-        alert('네트워크 오류가 발생했습니다. 다시 시도해주세요.');
+        alert(ERROR_MESSAGES.COMMON.NETWORK);
       }
     },
   });

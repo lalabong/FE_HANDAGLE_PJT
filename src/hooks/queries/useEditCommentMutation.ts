@@ -3,30 +3,34 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { EditCommentParams, patchComment } from '@api/post/comment/patchComment';
 
 import { QUERY_KEYS } from '@constants/api';
+import { ERROR_MESSAGES, SUCCESS_MESSAGES } from '@constants/messages';
+import { STATUS_CODES } from '@constants/statusCodes';
 
 // 댓글 수정
-export const useEditCommentMutation = () => {
+export const useEditCommentMutation = ({ postId }: { postId: string }) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: ({ postId, commentId, content }: EditCommentParams) =>
       patchComment({ postId, commentId, content }),
-    onSuccess: (_, variables) => {
-      alert('댓글이 수정되었습니다.');
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.GET_COMMENTS, variables.postId] });
+
+    onSuccess: () => {
+      alert(SUCCESS_MESSAGES.COMMENT.UPDATE);
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.GET_COMMENTS, postId] });
     },
+
     onError: (error: any) => {
       if (error.response) {
         const status = error.response.status;
-        if (status === 401) {
-          alert('로그인이 필요합니다.');
-        } else if (status === 403) {
-          alert('댓글 수정 권한이 없습니다.');
-        } else if (status === 404) {
-          alert('게시글이나 댓글, 또는 사용자를 찾을 수 없습니다.');
+        if (status === STATUS_CODES.BAD_REQUEST) {
+          alert(ERROR_MESSAGES.COMMON.REQUIRED_FIELD);
+        } else if (status === STATUS_CODES.UNAUTHORIZED) {
+          alert(ERROR_MESSAGES.COMMON.UNAUTHORIZED);
+        } else if (status === STATUS_CODES.NOT_FOUND) {
+          alert(ERROR_MESSAGES.COMMENT.NOT_FOUND);
         }
       } else {
-        alert('네트워크 오류가 발생했습니다. 다시 시도해주세요.');
+        alert(ERROR_MESSAGES.COMMON.NETWORK);
       }
     },
   });

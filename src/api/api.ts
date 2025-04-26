@@ -7,6 +7,9 @@ import axios, {
 
 import { postRefreshToken } from '@api/user/postRefreshToken';
 
+import { ERROR_MESSAGES } from '@constants/messages';
+import { STATUS_CODES } from '@constants/statusCodes';
+
 import { useAuthStore } from '@stores/useAuthStore';
 
 const BASE_URL = import.meta.env.VITE_API_URL;
@@ -56,7 +59,7 @@ const refreshAuthToken = async (currentRefreshToken: string): Promise<string> =>
     const { accessToken, refreshToken } = response;
 
     if (!accessToken) {
-      throw new Error('유효하지 않은 토큰 응답 형식입니다.');
+      throw new Error(ERROR_MESSAGES.AUTH.INVALID_TOKEN_RESPONSE);
     }
 
     useAuthStore
@@ -88,7 +91,7 @@ apiClient.interceptors.response.use(
     // 재시도 횟수 제한 설정
     originalRequest.retryCount = originalRequest.retryCount || 0;
 
-    if (error.response?.status === 401 && originalRequest.retryCount < 3) {
+    if (error.response?.status === STATUS_CODES.UNAUTHORIZED && originalRequest.retryCount < 3) {
       originalRequest.retryCount += 1;
 
       if (originalRequest._retry) {
@@ -115,7 +118,7 @@ apiClient.interceptors.response.use(
 
       if (!currentRefreshToken) {
         useAuthStore.getState().clearAuth();
-        processQueue(new Error('리프레시 토큰이 없습니다.') as AxiosError);
+        processQueue(new Error(ERROR_MESSAGES.AUTH.NO_REFRESH_TOKEN) as AxiosError);
         redirectToLogin();
         return Promise.reject(error);
       }
