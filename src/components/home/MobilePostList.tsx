@@ -26,7 +26,7 @@ const MobilePostList = () => {
     isFetching,
   } = useInfiniteQuery({
     queryKey: [QUERY_KEYS.GET_POSTS, { limit }],
-    queryFn: ({ pageParam = 1 }) => getPosts({ page: pageParam, limit }),
+    queryFn: ({ pageParam = 1 }) => getPosts(pageParam, limit),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
       const { currentPage, totalPages } = lastPage.meta;
