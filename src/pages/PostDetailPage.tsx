@@ -4,10 +4,12 @@ import PostContent from '@/components/post/PostContent';
 import PostDetailHeader from '@/components/post/PostDetailHeader';
 import { PATH } from '@/constants/path';
 import { useGetCommentsQuery } from '@/hooks/queries/useCommentsQuery';
+import { useDeleteCommentMutation } from '@/hooks/queries/useDeleteCommentMutation';
+import { useEditCommentMutation } from '@/hooks/queries/useEditCommentMutation';
 import { usePostCommentMutation } from '@/hooks/queries/usePostCommentMutation';
 import { usePostDetailQuery } from '@/hooks/queries/usePostDetailQuery';
 import { useDeviceStore } from '@/store/useDeviceStore';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const PostDetailPage = () => {
@@ -15,6 +17,10 @@ const PostDetailPage = () => {
   const navigate = useNavigate();
   const responsivePaddingClass = useDeviceStore((state) => state.responsivePaddingClass);
   const isMobile = useDeviceStore((state) => state.isMobile);
+
+  // 댓글 수정 상태
+  const [editingCommentId, setEditingCommentId] = useState<string | null>(null);
+  const [editCommentContent, setEditCommentContent] = useState('');
 
   const {
     data: post,
@@ -26,7 +32,10 @@ const PostDetailPage = () => {
     isPending: isCommentsPending,
     error: commentsError,
   } = useGetCommentsQuery(postId || '');
+
   const commentMutation = usePostCommentMutation({ postId: postId || '' });
+  const editCommentMutation = useEditCommentMutation();
+  const deleteCommentMutation = useDeleteCommentMutation();
 
   const handleCommentSubmit = useCallback(
     (content: string) => {
@@ -35,13 +44,47 @@ const PostDetailPage = () => {
     [commentMutation],
   );
 
-  const handleEditComment = useCallback(() => {
-    // 댓글 수정 로직
+  const handleEditCommentStart = useCallback((commentId: string, content: string) => {
+    setEditingCommentId(commentId);
+    setEditCommentContent(content);
   }, []);
 
-  const handleDeleteComment = useCallback(() => {
-    // 댓글 삭제 로직
+  const handleEditCommentCancel = useCallback(() => {
+    setEditingCommentId(null);
+    setEditCommentContent('');
   }, []);
+
+  const handleEditCommentSubmit = useCallback(
+    (commentId: string) => {
+      if (!postId || !editCommentContent.trim()) return;
+
+      editCommentMutation.mutate(
+        {
+          postId,
+          commentId,
+          content: editCommentContent,
+        },
+        {
+          onSuccess: () => {
+            setEditingCommentId(null);
+            setEditCommentContent('');
+          },
+        },
+      );
+    },
+    [editCommentContent, editCommentMutation, postId],
+  );
+
+  const handleDeleteComment = useCallback(
+    (commentId: string) => {
+      if (!postId) return;
+
+      if (window.confirm('댓글을 삭제하시겠습니까?')) {
+        deleteCommentMutation.mutate({ postId, commentId });
+      }
+    },
+    [deleteCommentMutation, postId],
+  );
 
   const handleBackClick = () => {
     navigate(PATH.ROOT);
@@ -100,17 +143,24 @@ const PostDetailPage = () => {
 
           <PostContent content={post.content} commentCount={post.commentCount} />
 
-          {comments.map((comment) => (
-            <CommentItem
-              key={comment.id}
-              author={comment.user.nickname}
-              authorId={comment.user.id}
-              content={comment.content}
-              createdAt={comment.createdAt}
-              onEdit={handleEditComment}
-              onDelete={handleDeleteComment}
-            />
-          ))}
+          <div className="comments-container">
+            {comments.map((comment) => (
+              <CommentItem
+                key={comment.id}
+                author={comment.user.nickname}
+                authorId={comment.user.id}
+                content={comment.content}
+                createdAt={comment.createdAt}
+                isEditing={editingCommentId === comment.id}
+                editContent={editingCommentId === comment.id ? editCommentContent : ''}
+                onEditChange={(e) => setEditCommentContent(e.target.value)}
+                onEditStart={() => handleEditCommentStart(comment.id, comment.content)}
+                onEditCancel={handleEditCommentCancel}
+                onEditSubmit={() => handleEditCommentSubmit(comment.id)}
+                onDelete={() => handleDeleteComment(comment.id)}
+              />
+            ))}
+          </div>
 
           <CommentForm onSubmit={handleCommentSubmit} />
         </div>

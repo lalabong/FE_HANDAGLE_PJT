@@ -3,6 +3,10 @@ export const QUERY_KEYS = {
   GET_POST_DETAIL: 'get-post-detail',
   GET_COMMENTS: 'get-comments',
   POST_COMMENT: 'post-comment',
+  EDIT_COMMENT: 'edit-comment',
+  DELETE_COMMENT: 'delete-comment',
+  EDIT_POST: 'edit-post',
+  DELETE_POST: 'delete-post',
 };
 
 export const API_DEFAULTS = {

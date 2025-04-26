@@ -1,13 +1,21 @@
 import { useAuthStore } from '@/store/useAuthStore';
 import { formatDateToYYMMDD } from '@/utils/dateFormat';
+import { ChangeEvent } from 'react';
+import { Button } from '../common/Button';
+import TextArea from '../common/TextArea';
 
 interface CommentItemProps {
   author: string;
   authorId: string;
   content: string;
   createdAt: string;
-  onEdit: () => void;
-  onDelete: () => void;
+  isEditing?: boolean;
+  editContent?: string;
+  onEditStart?: () => void;
+  onEditCancel?: () => void;
+  onEditSubmit?: () => void;
+  onEditChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+  onDelete?: () => void;
 }
 
 const CommentItem = ({
@@ -15,11 +23,48 @@ const CommentItem = ({
   authorId,
   content,
   createdAt,
-  onEdit,
+  isEditing = false,
+  editContent = '',
+  onEditStart,
+  onEditCancel,
+  onEditSubmit,
+  onEditChange,
   onDelete,
 }: CommentItemProps) => {
   const currentUser = useAuthStore((state) => state.user);
   const isAuthor = currentUser?.id === authorId;
+
+  if (isEditing) {
+    return (
+      <div className="flex flex-col gap-4 p-6 bg-[#F9FAFA] border-b border-[#EEEFF1]">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 rounded-full bg-[#A7A9B4] flex items-center justify-center">
+              <span className="text-black text-sm"></span>
+            </div>
+            <span className="text-base font-normal text-black">{author || '익명'}</span>
+          </div>
+        </div>
+
+        <TextArea
+          value={editContent}
+          onChange={onEditChange}
+          placeholder="댓글을 수정해주세요"
+          height="h-[100px]"
+        />
+
+        <div className="flex justify-end gap-2">
+          <Button variant="black" size="sm" onClick={onEditCancel}>
+            취소
+          </Button>
+          <Button variant="purple" size="sm" onClick={onEditSubmit}>
+            저장
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-4 p-6 bg-[#F9FAFA] border-b border-[#EEEFF1]">
       <div className="flex items-center justify-between">
@@ -33,7 +78,7 @@ const CommentItem = ({
         {isAuthor && (
           <div className="flex items-center gap-3">
             <button
-              onClick={onEdit}
+              onClick={onEditStart}
               className="text-[16px] text-[#A7A9B4] rounded-lg hover:bg-gray-50"
             >
               수정
