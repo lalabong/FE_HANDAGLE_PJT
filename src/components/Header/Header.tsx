@@ -1,8 +1,10 @@
-import { PATH } from '@/constants/path';
-import { useAuthStore } from '@/stores/useAuthStore';
-import { useDeviceStore } from '@/stores/useDeviceStore';
-import { useMenuStore } from '@/stores/useMenuStore';
 import { Link, useLocation } from 'react-router-dom';
+
+import { PATH } from '@constants/path';
+
+import { useAuthStore } from '@stores/useAuthStore';
+import { useDeviceStore } from '@stores/useDeviceStore';
+import { useMenuStore } from '@stores/useMenuStore';
 
 const Header = () => {
   const { responsivePaddingClass } = useDeviceStore();

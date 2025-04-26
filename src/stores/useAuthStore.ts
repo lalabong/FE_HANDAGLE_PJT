@@ -1,8 +1,10 @@
-import { LoginResponse, postLogin } from '@/api/user/postLogin';
-import { postLogout } from '@/api/user/postLogout';
-import { Tokens, User } from '@/types/user';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+
+import { LoginResponse, postLogin } from '@api/user/postLogin';
+import { postLogout } from '@api/user/postLogout';
+
+import { Tokens, User } from '@types/user';
 
 interface AuthState {
   accessToken: string | null;
@@ -31,7 +33,7 @@ export const useAuthStore = create<AuthState>()(
           const data = await postLogin(loginId, password);
           set({ isAuthenticated: true });
           get().setLoginData(data);
-        } catch (error: any) {
+        } catch (error: unknown) {
           set({ isAuthenticated: false });
           throw error;
         }
@@ -55,8 +57,6 @@ export const useAuthStore = create<AuthState>()(
           if (get().refreshToken) {
             await postLogout(get().refreshToken);
           }
-        } catch (error) {
-          throw error;
         } finally {
           set({
             accessToken: null,

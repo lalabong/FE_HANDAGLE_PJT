@@ -1,4 +1,4 @@
-import { api } from '@/api/api';
+import { api } from '@api/api';
 
 // 댓글 삭제
 export const deleteComment = async (postId: string, commentId: string) => {

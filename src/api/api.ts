@@ -1,11 +1,13 @@
-import { postRefreshToken } from '@/api/user/postRefreshToken';
-import { useAuthStore } from '@/stores/useAuthStore';
 import axios, {
   AxiosError,
   AxiosRequestConfig,
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from 'axios';
+
+import { postRefreshToken } from '@api/user/postRefreshToken';
+
+import { useAuthStore } from '@stores/useAuthStore';
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 

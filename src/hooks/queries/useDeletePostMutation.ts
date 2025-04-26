@@ -1,8 +1,10 @@
-import { deletePost } from '@/api/post/deletePost';
-import { QUERY_KEYS } from '@/constants/api';
-import { PATH } from '@/constants/path';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+
+import { deletePost } from '@api/post/deletePost';
+
+import { QUERY_KEYS } from '@constants/api';
+import { PATH } from '@constants/path';
 
 // 게시글 삭제
 export const useDeletePostMutation = () => {

@@ -1,8 +1,12 @@
-import { useAuthStore } from '@/stores/useAuthStore';
-import { formatDateToYYMMDD } from '@/utils/formatDateToYYMMDD';
 import { ChangeEvent } from 'react';
+
+import { useAuthStore } from '@stores/useAuthStore';
+
+import { formatDateToYYMMDD } from '@utils/formatDateToYYMMDD';
+
 import { Button } from '../common/Button';
 import TextArea from '../common/TextArea';
+
 
 interface CommentItemProps {
   author: string;

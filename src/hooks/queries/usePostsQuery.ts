@@ -1,6 +1,8 @@
-import { getPosts } from '@/api/post/getPosts';
-import { QUERY_KEYS } from '@/constants/api';
 import { useQuery } from '@tanstack/react-query';
+
+import { getPosts } from '@api/post/getPosts';
+
+import { QUERY_KEYS } from '@constants/api';
 
 interface UsePostsQueryParams {
   page: number;

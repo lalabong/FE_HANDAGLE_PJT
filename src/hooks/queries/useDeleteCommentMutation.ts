@@ -1,6 +1,8 @@
-import { deleteComment } from '@/api/post/comment/deleteComment';
-import { QUERY_KEYS } from '@/constants/api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+import { deleteComment } from '@api/post/comment/deleteComment';
+
+import { QUERY_KEYS } from '@constants/api';
 
 interface DeleteCommentParams {
   postId: string;

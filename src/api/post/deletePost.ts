@@ -1,4 +1,4 @@
-import { api } from '@/api/api';
+import { api } from '@api/api';
 
 // 게시글 삭제
 export const deletePost = async (postId: string) => {

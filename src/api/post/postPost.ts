@@ -1,4 +1,5 @@
-import { api } from '@/api/api';
+import { api } from '@api/api';
+
 import { PostDetail } from '@/types/user';
 
 // 게시글 작성

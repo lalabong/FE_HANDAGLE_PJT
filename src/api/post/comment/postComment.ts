@@ -1,4 +1,5 @@
-import { api } from '@/api/api';
+import { api } from '@api/api';
+
 import { CommentUser } from '@/types/user';
 
 export interface PostCommentResponse {

@@ -1,5 +1,6 @@
-import { api } from '@/api/api';
-import { Tokens, User } from '@/types/user';
+import { api } from '@api/api';
+
+import { Tokens, User } from '@types/user';
 
 export interface LoginResponse {
   user: User;

@@ -1,6 +1,8 @@
-import { getPostDetail } from '@/api/post/getPostDetail';
-import { QUERY_KEYS } from '@/constants/api';
 import { useQuery } from '@tanstack/react-query';
+
+import { getPostDetail } from '@api/post/getPostDetail';
+
+import { QUERY_KEYS } from '@constants/api';
 
 // 게시글 상세 조회
 export const usePostDetailQuery = (postId: string) => {

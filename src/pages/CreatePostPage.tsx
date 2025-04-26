@@ -1,13 +1,16 @@
-import { Button } from '@/components/common/Button';
-import Input from '@/components/common/Input';
-import TextArea from '@/components/common/TextArea';
-import MobileEditorHeader from '@/components/header/mobile/MobileEditorHeader';
-import { useCreatePostMutation } from '@/hooks/queries/useCreatePostMutation';
-import { useEditPostMutation } from '@/hooks/queries/useEditPostMutation';
-import { usePostDetailQuery } from '@/hooks/queries/usePostDetailQuery';
-import { useDeviceStore } from '@/stores/useDeviceStore';
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+
+import { Button } from '@components/common/Button';
+import Input from '@components/common/Input';
+import TextArea from '@components/common/TextArea';
+import MobileEditorHeader from '@components/header/mobile/MobileEditorHeader';
+
+import { useCreatePostMutation } from '@hooks/queries/useCreatePostMutation';
+import { useEditPostMutation } from '@hooks/queries/useEditPostMutation';
+import { usePostDetailQuery } from '@hooks/queries/usePostDetailQuery';
+
+import { useDeviceStore } from '@stores/useDeviceStore';
 
 interface FormErrors {
   title?: string;
@@ -83,7 +86,7 @@ const CreatePostPage = () => {
           createPost({ title, content });
         }
       } catch (error) {
-        alert('게시글 등록 중 오류가 발생했습니다.');
+        alert(error);
       }
     }
   };

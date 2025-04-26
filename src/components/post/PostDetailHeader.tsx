@@ -1,6 +1,7 @@
-import { useAuthStore } from '@/stores/useAuthStore';
-import { useDeviceStore } from '@/stores/useDeviceStore';
-import { formatDateToYYMMDD } from '@/utils/formatDateToYYMMDD';
+import { useAuthStore } from '@stores/useAuthStore';
+import { useDeviceStore } from '@stores/useDeviceStore';
+
+import { formatDateToYYMMDD } from '@utils/formatDateToYYMMDD';
 
 interface PostDetailHeaderProps {
   title: string;

@@ -1,5 +1,6 @@
-import { useDeviceStore } from '@/stores/useDeviceStore';
 import { useEffect, useRef, useState } from 'react';
+
+import { useDeviceStore } from '@stores/useDeviceStore';
 
 const carouselContents = [
   {

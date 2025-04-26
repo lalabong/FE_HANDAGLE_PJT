@@ -1,6 +1,8 @@
-import { patchComment } from '@/api/post/comment/patchComment';
-import { QUERY_KEYS } from '@/constants/api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+import { patchComment } from '@api/post/comment/patchComment';
+
+import { QUERY_KEYS } from '@constants/api';
 
 interface EditCommentParams {
   postId: string;

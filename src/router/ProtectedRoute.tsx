@@ -1,6 +1,8 @@
-import { PATH } from '@/constants/path';
-import { useAuthStore } from '@/stores/useAuthStore';
 import { Navigate, useLocation } from 'react-router-dom';
+
+import { PATH } from '@constants/path';
+
+import { useAuthStore } from '@stores/useAuthStore';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;

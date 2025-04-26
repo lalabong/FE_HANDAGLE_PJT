@@ -1,17 +1,21 @@
-import CommentForm from '@/components/post/CommentForm';
-import CommentItem from '@/components/post/CommentItem';
-import PostContent from '@/components/post/PostContent';
-import PostDetailHeader from '@/components/post/PostDetailHeader';
-import { PATH } from '@/constants/path';
-import { useGetCommentsQuery } from '@/hooks/queries/useCommentsQuery';
-import { useCreateCommentMutation } from '@/hooks/queries/useCreateCommentMutation';
-import { useDeleteCommentMutation } from '@/hooks/queries/useDeleteCommentMutation';
-import { useDeletePostMutation } from '@/hooks/queries/useDeletePostMutation';
-import { useEditCommentMutation } from '@/hooks/queries/useEditCommentMutation';
-import { usePostDetailQuery } from '@/hooks/queries/usePostDetailQuery';
-import { useDeviceStore } from '@/stores/useDeviceStore';
 import { useCallback, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+
+import CommentForm from '@components/post/CommentForm';
+import CommentItem from '@components/post/CommentItem';
+import PostContent from '@components/post/PostContent';
+import PostDetailHeader from '@components/post/PostDetailHeader';
+
+import { PATH } from '@constants/path';
+
+import { useGetCommentsQuery } from '@hooks/queries/useCommentsQuery';
+import { useCreateCommentMutation } from '@hooks/queries/useCreateCommentMutation';
+import { useDeleteCommentMutation } from '@hooks/queries/useDeleteCommentMutation';
+import { useDeletePostMutation } from '@hooks/queries/useDeletePostMutation';
+import { useEditCommentMutation } from '@hooks/queries/useEditCommentMutation';
+import { usePostDetailQuery } from '@hooks/queries/usePostDetailQuery';
+
+import { useDeviceStore } from '@stores/useDeviceStore';
 
 const PostDetailPage = () => {
   const { postId } = useParams<{ postId: string }>();
@@ -102,7 +106,7 @@ const PostDetailPage = () => {
     if (window.confirm('게시글을 삭제하시겠습니까?')) {
       deletePostMutation.mutate(postId || '');
     }
-  }, [navigate, postId, deletePostMutation]);
+  }, [deletePostMutation, postId]);
 
   if (isPostPending || isCommentsPending) {
     return (

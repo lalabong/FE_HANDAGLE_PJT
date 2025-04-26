@@ -1,9 +1,14 @@
-import { Button } from '@/components/common/Button';
-import { useAuthStore } from '@/stores/useAuthStore';
-import { useDeviceStore } from '@/stores/useDeviceStore';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+
+
+import { Button } from '@components/common/Button';
+
+import { useAuthStore } from '@stores/useAuthStore';
+import { useDeviceStore } from '@stores/useDeviceStore';
+
 import Input from '../components/common/Input';
+
 
 interface FormState {
   loginId: string;

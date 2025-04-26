@@ -1,6 +1,9 @@
-import { useDeviceStore } from '@/stores/useDeviceStore';
 import { useEffect } from 'react';
+
+import { useDeviceStore } from '@stores/useDeviceStore';
+
 import AppRouter from './router/AppRouter';
+
 
 const App = () => {
   const checkDeviceType = useDeviceStore((state) => state.checkDeviceType);

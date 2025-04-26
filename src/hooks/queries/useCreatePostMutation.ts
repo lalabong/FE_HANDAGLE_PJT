@@ -1,8 +1,10 @@
-import { postPost } from '@/api/post/postPost';
-import { QUERY_KEYS } from '@/constants/api';
-import { PATH } from '@/constants/path';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+
+import { postPost } from '@api/post/postPost';
+
+import { QUERY_KEYS } from '@constants/api';
+import { PATH } from '@constants/path';
 
 // 게시글 생성
 export const useCreatePostMutation = () => {

@@ -1,7 +1,8 @@
-import Carousel from '@/components/home/Carousel';
-import MobilePostList from '@/components/post/mobile/MobilePostList';
-import PostList from '@/components/post/PostList';
-import { useDeviceStore } from '@/stores/useDeviceStore';
+import Carousel from '@components/home/Carousel';
+import PostList from '@components/post/PostList';
+import MobilePostList from '@components/post/mobile/MobilePostList';
+
+import { useDeviceStore } from '@stores/useDeviceStore';
 
 const HomePage = () => {
   const responsivePaddingClass = useDeviceStore((state) => state.responsivePaddingClass);

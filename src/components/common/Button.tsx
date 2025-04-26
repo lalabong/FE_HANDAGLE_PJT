@@ -1,6 +1,7 @@
-import { cn } from '@/lib/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { forwardRef } from 'react';
+
+import { cn } from '@lib/cn';
 
 // Figma 디자인에 맞는 버튼 스타일 정의
 const buttonVariants = cva(
