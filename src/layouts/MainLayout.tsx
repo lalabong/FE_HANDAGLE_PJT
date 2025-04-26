@@ -1,10 +1,4 @@
-import {
-  Header,
-  MobileDetailHeader,
-  MobileEditorHeader,
-  MobileMainHeader,
-} from '@/components/Header';
-import { PATH } from '@/constants/path';
+import { Header, MobileDetailHeader, MobileMainHeader } from '@/components/Header';
 
 import { useDeviceStore } from '@/store/useDeviceStore';
 import { Outlet, useLocation } from 'react-router-dom';
@@ -13,14 +7,14 @@ const MainLayout = () => {
   const { isMobile } = useDeviceStore();
   const location = useLocation();
 
-  const isEditorPage = location.pathname === PATH.CREATE_POST;
-  const isDetailPage = location.pathname.includes('/post/') && !isEditorPage;
+  const isEditorPage = location.pathname.includes('create');
+  const isDetailPage = location.pathname.includes('post');
 
   const renderMobileHeader = () => {
-    if (isDetailPage) {
+    if (isEditorPage) {
+      return null;
+    } else if (isDetailPage) {
       return <MobileDetailHeader />;
-    } else if (isEditorPage) {
-      return <MobileEditorHeader />;
     } else {
       return <MobileMainHeader />;
     }
