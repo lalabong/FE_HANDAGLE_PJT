@@ -5,8 +5,9 @@ import PostDetailHeader from '@/components/post/PostDetailHeader';
 import { PATH } from '@/constants/path';
 import { useGetCommentsQuery } from '@/hooks/queries/useCommentsQuery';
 import { useDeleteCommentMutation } from '@/hooks/queries/useDeleteCommentMutation';
+import { useDeletePostMutation } from '@/hooks/queries/useDeletePostMutation';
 import { useEditCommentMutation } from '@/hooks/queries/useEditCommentMutation';
-import { usePostCommentMutation } from '@/hooks/queries/usePostCommentMutation';
+import { useCreateCommentMutation } from '@/hooks/queries/useCreateCommentMutation';
 import { usePostDetailQuery } from '@/hooks/queries/usePostDetailQuery';
 import { useDeviceStore } from '@/store/useDeviceStore';
 import { useCallback, useState } from 'react';
@@ -18,7 +19,6 @@ const PostDetailPage = () => {
   const responsivePaddingClass = useDeviceStore((state) => state.responsivePaddingClass);
   const isMobile = useDeviceStore((state) => state.isMobile);
 
-  // 댓글 수정 상태
   const [editingCommentId, setEditingCommentId] = useState<string | null>(null);
   const [editCommentContent, setEditCommentContent] = useState('');
 
@@ -33,9 +33,11 @@ const PostDetailPage = () => {
     error: commentsError,
   } = useGetCommentsQuery(postId || '');
 
-  const commentMutation = usePostCommentMutation({ postId: postId || '' });
+  const commentMutation = useCreateCommentMutation({ postId: postId || '' });
   const editCommentMutation = useEditCommentMutation();
   const deleteCommentMutation = useDeleteCommentMutation();
+
+  const deletePostMutation = useDeletePostMutation();
 
   const handleCommentSubmit = useCallback(
     (content: string) => {
@@ -97,10 +99,10 @@ const PostDetailPage = () => {
   }, [navigate, postId]);
 
   const handleDeletePost = useCallback(() => {
-    // 게시글 삭제 로직
-    alert('게시글이 삭제되었습니다.');
-    navigate(PATH.ROOT);
-  }, [navigate]);
+    if (window.confirm('게시글을 삭제하시겠습니까?')) {
+      deletePostMutation.mutate(postId || '');
+    }
+  }, [navigate, postId, deletePostMutation]);
 
   if (isPostPending || isCommentsPending) {
     return (
@@ -143,24 +145,22 @@ const PostDetailPage = () => {
 
           <PostContent content={post.content} commentCount={post.commentCount} />
 
-          <div className="comments-container">
-            {comments.map((comment) => (
-              <CommentItem
-                key={comment.id}
-                author={comment.user.nickname}
-                authorId={comment.user.id}
-                content={comment.content}
-                createdAt={comment.createdAt}
-                isEditing={editingCommentId === comment.id}
-                editContent={editingCommentId === comment.id ? editCommentContent : ''}
-                onEditChange={(e) => setEditCommentContent(e.target.value)}
-                onEditStart={() => handleEditCommentStart(comment.id, comment.content)}
-                onEditCancel={handleEditCommentCancel}
-                onEditSubmit={() => handleEditCommentSubmit(comment.id)}
-                onDelete={() => handleDeleteComment(comment.id)}
-              />
-            ))}
-          </div>
+          {comments.map((comment) => (
+            <CommentItem
+              key={comment.id}
+              author={comment.user.nickname}
+              authorId={comment.user.id}
+              content={comment.content}
+              createdAt={comment.createdAt}
+              isEditing={editingCommentId === comment.id}
+              editContent={editingCommentId === comment.id ? editCommentContent : ''}
+              onEditChange={(e) => setEditCommentContent(e.target.value)}
+              onEditStart={() => handleEditCommentStart(comment.id, comment.content)}
+              onEditCancel={handleEditCommentCancel}
+              onEditSubmit={() => handleEditCommentSubmit(comment.id)}
+              onDelete={() => handleDeleteComment(comment.id)}
+            />
+          ))}
 
           <CommentForm onSubmit={handleCommentSubmit} />
         </div>
