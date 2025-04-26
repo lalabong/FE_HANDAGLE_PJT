@@ -25,7 +25,7 @@ const MobilePostList = () => {
     refetch,
     isFetching,
   } = useInfiniteQuery({
-    queryKey: [QUERY_KEYS.POSTS, { limit }],
+    queryKey: [QUERY_KEYS.GET_POSTS, { limit }],
     queryFn: ({ pageParam = 1 }) => getPosts({ page: pageParam, limit }),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
@@ -67,7 +67,7 @@ const MobilePostList = () => {
   };
 
   const handleWriteButtonClick = () => {
-    navigate(PATH.CREATE_POST);
+    navigate(PATH.CREATE_AND_EDIT_POST());
   };
 
   const pencilIcon = (
@@ -127,8 +127,8 @@ const MobilePostList = () => {
                     </div>
                   </div>
                   <div className="flex items-center gap-2 flex-shrink-0">
-                    <div className="h-5 w-5 rounded-full bg-[#D6D7DC] flex items-center justify-center flex-shrink-0">
-                      <span className="text-sm text-black">?</span>
+                    <div className="h-6 w-6 rounded-full bg-[#D6D7DC] flex items-center justify-center flex-shrink-0">
+                      <span className="text-sm text-black"></span>
                     </div>
                     <span className="text-sm text-black truncate max-w-[100px]">글쓴이닉네임</span>
                   </div>

@@ -1,5 +1,8 @@
 export const QUERY_KEYS = {
-  POSTS: 'posts',
+  GET_POSTS: 'get-posts',
+  GET_POST_DETAIL: 'get-post-detail',
+  GET_COMMENTS: 'get-comments',
+  POST_COMMENT: 'post-comment',
 };
 
 export const API_DEFAULTS = {

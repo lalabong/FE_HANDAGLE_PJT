@@ -77,14 +77,10 @@ const Header = () => {
                         className="h-8 w-8 rounded-full flex-shrink-0 object-cover"
                       />
                     ) : (
-                      <div className="h-8 w-8 rounded-full flex-shrink-0 bg-gray-300 flex items-center justify-center">
-                        <span className="text-gray-500 font-semibold text-sm">
-                          {user?.nickname?.charAt(0).toUpperCase() || '?'}
-                        </span>
-                      </div>
+                      <div className="h-8 w-8 rounded-full flex-shrink-0 bg-gray-300 flex items-center justify-center"></div>
                     )}
                     <div className="text-md text-gray-700 font-semibold">
-                      {user?.nickname || '사용자'} 님
+                      {user?.nickname || '익명'} 님
                     </div>
                   </div>
                   <button

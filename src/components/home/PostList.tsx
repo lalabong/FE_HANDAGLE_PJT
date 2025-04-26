@@ -25,7 +25,7 @@ const PostList = () => {
   const totalPages = data?.meta?.totalPages || 0;
 
   const handleWriteButtonClick = () => {
-    navigate(PATH.CREATE_POST);
+    navigate(PATH.CREATE_AND_EDIT_POST());
   };
 
   const handlePostClick = (postId: string) => {
@@ -86,7 +86,7 @@ const PostList = () => {
                     <span>{post.commentCount}</span>
                   </div>
                   <div className="h-8 w-8 rounded-full flex-shrink-0 bg-gray-300 flex items-center justify-center">
-                    <span className="text-gray-500 font-semibold text-sm">?</span>
+                    <span className="text-gray-500 font-semibold text-sm"></span>
                   </div>
                 </div>
               </li>
