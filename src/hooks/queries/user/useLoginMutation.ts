@@ -20,8 +20,8 @@ export const useLoginMutation = () => {
     },
 
     onError: (error: any) => {
-      if (error.response) {
-        const status = error.response.status;
+      if (error.status) {
+        const status = error.status;
         if (status === STATUS_CODES.BAD_REQUEST) {
           alert(ERROR_MESSAGES.COMMON.REQUIRED_FIELD);
         } else if (status === STATUS_CODES.UNAUTHORIZED) {
