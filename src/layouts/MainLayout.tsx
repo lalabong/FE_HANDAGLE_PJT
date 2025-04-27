@@ -1,6 +1,6 @@
 import { Outlet, useLocation } from 'react-router-dom';
 
-import Header from '@components/header/Header';
+import Header from '@components/header/Header.tsx';
 import MobileDetailHeader from '@components/header/mobile/MobileDetailHeader';
 import MobileMainHeader from '@components/header/mobile/MobileMainHeader';
 
