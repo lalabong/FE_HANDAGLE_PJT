@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import DataStateHandler from '@components/common/DataStateHandler';
@@ -21,6 +21,11 @@ const PostDetailPage = () => {
 
   const responsivePaddingClass = useDeviceStore((state) => state.responsivePaddingClass);
   const isMobile = useDeviceStore((state) => state.isMobile);
+
+  // 페이지 진입 시 스크롤을 맨 위로 이동
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [postId]);
 
   const {
     data: post,
