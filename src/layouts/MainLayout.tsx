@@ -1,6 +1,6 @@
 import { Outlet, useLocation } from 'react-router-dom';
 
-import Header from '@components/header/Header.tsx';
+import MainHeader from '@components/header/MainHeader';
 import MobileDetailHeader from '@components/header/mobile/MobileDetailHeader';
 import MobileMainHeader from '@components/header/mobile/MobileMainHeader';
 
@@ -8,7 +8,7 @@ import { useDeviceStore } from '@stores/useDeviceStore';
 
 const MainLayout = () => {
   const { isMobile } = useDeviceStore();
-  
+
   const location = useLocation();
 
   const isEditorPage = location.pathname.includes('create');
@@ -26,7 +26,7 @@ const MainLayout = () => {
 
   return (
     <div className="min-h-screen">
-      {isMobile ? renderMobileHeader() : <Header />}
+      {isMobile ? renderMobileHeader() : <MainHeader />}
 
       <main>
         <Outlet />

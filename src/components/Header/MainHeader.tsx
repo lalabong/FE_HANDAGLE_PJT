@@ -12,7 +12,7 @@ import { useMenuStore } from '@stores/useMenuStore';
 
 import { cn } from '@lib/cn';
 
-const Header = () => {
+const MainHeader = () => {
   const responsivePaddingClass = useDeviceStore((state) => state.responsivePaddingClass);
 
   const isNicknamePopoverOpen = useMenuStore((state) => state.isNicknamePopoverOpen);
@@ -98,4 +98,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default MainHeader;
