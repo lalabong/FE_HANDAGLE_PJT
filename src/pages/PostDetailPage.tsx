@@ -2,9 +2,9 @@ import { useCallback, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import DataStateHandler from '@components/common/DataStateHandler';
+import CommentSection from '@components/post/comment/CommentSection';
 import PostDetailContent from '@components/post/detail/PostDetailContent';
 import PostDetailHeader from '@components/post/detail/PostDetailHeader';
-import CommentSection from '@components/post/comment/CommentSection';
 import PostDetailSkeleton from '@components/skeleton/post/PostDetailSkeleton';
 
 import { PATH } from '@constants/path';
