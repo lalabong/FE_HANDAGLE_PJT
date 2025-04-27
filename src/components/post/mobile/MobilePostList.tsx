@@ -18,27 +18,18 @@ import { Post } from '@/types/post';
 
 import MobilePostListItem from './MobilePostListItem';
 
-interface MobilePostListProps {
-  className?: string;
-  isArchived?: boolean;
-}
-
-const MobilePostList = ({ className, isArchived = false }: MobilePostListProps) => {
+const MobilePostList = () => {
   const navigate = useNavigate();
 
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, error } =
-    usePostInfinite(isArchived);
+    usePostInfinite();
 
   const { loadMoreRef } = useInfiniteScroll({
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
   });
-
-  const handlePostClick = (postId: string) => {
-    navigate(PATH.DETAIL_POST(postId));
-  };
 
   const handleWriteButtonClick = () => {
     navigate(PATH.CREATE_POST);
@@ -83,10 +74,10 @@ const MobilePostList = ({ className, isArchived = false }: MobilePostListProps) 
             }
 
             return (
-              <div className={cn('w-full', className)}>
+              <div className={cn('w-full')}>
                 <ul className="space-y-4">
                   {posts.map((post: Post) => (
-                    <MobilePostListItem key={post.id} post={post} onClick={handlePostClick} />
+                    <MobilePostListItem key={post.id} post={post} />
                   ))}
                 </ul>
 
@@ -104,6 +95,7 @@ const MobilePostList = ({ className, isArchived = false }: MobilePostListProps) 
           }}
         </DataStateHandler>
       </div>
+
       {isAuthenticated && (
         <div className="fixed bottom-6 right-6 z-10">
           <FAB

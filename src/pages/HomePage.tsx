@@ -8,6 +8,7 @@ import { cn } from '@lib/cn';
 
 const HomePage = () => {
   const responsivePaddingClass = useDeviceStore((state) => state.responsivePaddingClass);
+
   const isMobile = useDeviceStore((state) => state.isMobile);
 
   return (

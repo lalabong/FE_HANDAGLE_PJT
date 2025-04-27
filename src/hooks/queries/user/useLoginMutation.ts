@@ -8,7 +8,8 @@ import { useAuthStore } from '@stores/useAuthStore';
 
 // 로그인
 export const useLoginMutation = () => {
-  const { setUser, setTokens } = useAuthStore();
+  const { setUser } = useAuthStore.getState();
+  const { setTokens } = useAuthStore.getState();
 
   return useMutation({
     mutationFn: (credentials: LoginParams) => postLogin(credentials),

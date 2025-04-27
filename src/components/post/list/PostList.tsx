@@ -32,10 +32,6 @@ const PostList = () => {
     navigate(PATH.CREATE_AND_EDIT_POST());
   };
 
-  const handlePostClick = (postId: string) => {
-    navigate(PATH.DETAIL_POST(postId));
-  };
-
   const handlePageChange = useCallback((page: number) => {
     setCurrentPage(page);
   }, []);
@@ -103,9 +99,7 @@ const PostList = () => {
                   {isFetching ? (
                     <PostListSkeleton count={API_DEFAULTS.POSTS.LIMIT} />
                   ) : (
-                    posts.map((post: Post) => (
-                      <PostListItem key={post.id} post={post} onClick={handlePostClick} />
-                    ))
+                    posts.map((post: Post) => <PostListItem key={post.id} post={post} />)
                   )}
                 </ul>
 

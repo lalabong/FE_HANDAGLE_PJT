@@ -14,7 +14,7 @@ interface MobileEditorHeaderProps {
 const MobileEditorHeader = ({ isEditMode, handleSubmit }: MobileEditorHeaderProps) => {
   const navigate = useNavigate();
 
-  const { responsivePaddingClass } = useDeviceStore();
+  const responsivePaddingClass = useDeviceStore((state) => state.responsivePaddingClass);
 
   const handleGoBack = () => {
     navigate(-1);

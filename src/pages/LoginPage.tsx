@@ -22,8 +22,10 @@ interface LoginFormErrors {
 
 const LoginPage = () => {
   const navigate = useNavigate();
+
   const location = useLocation();
-  const { isMobile } = useDeviceStore();
+
+  const isMobile = useDeviceStore((state) => state.isMobile);
 
   const [formData, setFormData] = useState<LoginFormState>({
     loginId: '',

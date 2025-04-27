@@ -8,8 +8,8 @@ import { useAuthStore } from '@stores/useAuthStore';
 
 // 로그아웃
 export const useLogoutMutation = () => {
-  const { clearAuth } = useAuthStore.getState();
   const { tokens } = useAuthStore.getState();
+  const { clearAuth } = useAuthStore.getState();
 
   return useMutation({
     mutationFn: () => postLogout({ refreshToken: tokens?.refreshToken || null }),

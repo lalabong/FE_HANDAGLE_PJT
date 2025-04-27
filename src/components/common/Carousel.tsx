@@ -81,6 +81,7 @@ const Carousel = () => {
           >
             <article className={cn('relative h-[391px] rounded-[20px] overflow-hidden', cardWidth)}>
               <figure className="h-full w-full">
+
                 <div
                   className="absolute inset-0 bg-cover bg-center"
                   style={{ backgroundImage: `url(${content.src})` }}
@@ -88,12 +89,14 @@ const Carousel = () => {
                   aria-label={`${content.title} 프로젝트 이미지`}
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+
                 <figcaption className="absolute inset-0 p-6 flex flex-col justify-between">
                   <header>
                     <h3 className="text-white text-2xl font-bold leading-9 tracking-tight">
                       {content.title}
                     </h3>
                   </header>
+
                   <footer className="flex flex-col gap-4">
                     <div className="h-px bg-[#D6D7DC]"></div>
                     <div className="flex flex-col gap-2">
@@ -106,6 +109,7 @@ const Carousel = () => {
                     </div>
                   </footer>
                 </figcaption>
+
               </figure>
             </article>
           </li>

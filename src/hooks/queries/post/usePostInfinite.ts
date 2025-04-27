@@ -2,7 +2,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { getPosts } from '@api/post/getPosts';
 
-import { QUERY_KEYS } from '@constants/index';
+import { API_DEFAULTS, QUERY_KEYS } from '@constants/index';
 
 import { Post } from '@/types/post';
 
@@ -14,13 +14,13 @@ interface PostInfiniteResponse {
   totalPages: number;
 }
 
-export const usePostInfinite = (isArchived: boolean = false) => {
+export const usePostInfinite = () => {
   return useInfiniteQuery({
-    queryKey: [QUERY_KEYS.GET_POSTS, { isArchived }],
+    queryKey: [QUERY_KEYS.GET_POSTS],
     queryFn: async ({ pageParam = 1 }) => {
       const response = await getPosts({
         page: pageParam,
-        limit: 10,
+        limit: API_DEFAULTS.POSTS.LIMIT,
       });
 
       return {

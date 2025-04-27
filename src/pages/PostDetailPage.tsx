@@ -22,6 +22,7 @@ const PostDetailPage = () => {
   const navigate = useNavigate();
 
   const responsivePaddingClass = useDeviceStore((state) => state.responsivePaddingClass);
+
   const isMobile = useDeviceStore((state) => state.isMobile);
 
   // 페이지 진입 시 스크롤을 맨 위로 이동

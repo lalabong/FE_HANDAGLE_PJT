@@ -13,9 +13,11 @@ import { useMenuStore } from '@stores/useMenuStore';
 import { cn } from '@lib/cn';
 
 const Header = () => {
-  const { responsivePaddingClass } = useDeviceStore();
+  const responsivePaddingClass = useDeviceStore((state) => state.responsivePaddingClass);
 
-  const { isNicknamePopoverOpen, toggleNicknamePopover, closeNicknamePopover } = useMenuStore();
+  const isNicknamePopoverOpen = useMenuStore((state) => state.isNicknamePopoverOpen);
+  const toggleNicknamePopover = useMenuStore((state) => state.toggleNicknamePopover);
+  const closeNicknamePopover = useMenuStore((state) => state.closeNicknamePopover);
 
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const user = useAuthStore((state) => state.user);
@@ -69,10 +71,12 @@ const Header = () => {
                     ) : (
                       <div className="h-8 w-8 rounded-full flex-shrink-0 bg-gray-300 flex items-center justify-center"></div>
                     )}
+
                     <div className="text-md text-gray-700 font-semibold">
                       {user?.nickname || '익명'} 님
                     </div>
                   </div>
+
                   <button
                     onClick={handleLogout}
                     className="text-left px-6 py-4 hover:bg-gray-50 w-full text-gray-700"

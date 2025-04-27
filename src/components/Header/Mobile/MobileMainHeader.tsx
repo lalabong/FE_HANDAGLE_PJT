@@ -15,7 +15,9 @@ import { cn } from '@lib/cn';
 const MobileMainHeader = () => {
   const { responsivePaddingClass } = useDeviceStore();
 
-  const { isMobileMenuOpen, toggleMobileMenu, closeMobileMenu } = useMenuStore();
+  const isMobileMenuOpen = useMenuStore((state) => state.isMobileMenuOpen);
+  const toggleMobileMenu = useMenuStore((state) => state.toggleMobileMenu);
+  const closeMobileMenu = useMenuStore((state) => state.closeMobileMenu);
 
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const user = useAuthStore((state) => state.user);

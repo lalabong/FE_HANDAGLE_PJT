@@ -14,6 +14,7 @@ interface PaginationProps {
 const Pagination = memo(
   ({ currentPage, totalPages, pageSize = 5, onPageChange }: PaginationProps) => {
     const currentSet = Math.ceil(currentPage / pageSize); // 현재 보여지는 페이지 그룹
+
     const startPage = (currentSet - 1) * pageSize + 1; // 현재 보여지는 페이지 그룹의 첫 번째 페이지
     const endPage = Math.min(startPage + pageSize - 1, totalPages); // 현재 보여지는 페이지 그룹의 마지막 페이지(최대 totalPages)
 

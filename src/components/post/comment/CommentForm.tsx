@@ -39,6 +39,7 @@ const CommentForm = ({ onSubmit }: CommentFormProps) => {
         className="flex-1 p-3 text-base text-black border-0 border-b-2 border-b-[#EEEFF1] focus:outline-none focus:border-b-black focus:ring-0"
         disabled={!isAuthenticated}
       />
+
       <Button variant={'black'} onClick={handleSubmit}>
         등록
       </Button>

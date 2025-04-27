@@ -8,6 +8,7 @@ import { ERROR_MESSAGES, PATH, QUERY_KEYS, STATUS_CODES, SUCCESS_MESSAGES } from
 // 게시글 작성
 export const useCreatePostMutation = () => {
   const queryClient = useQueryClient();
+  
   const navigate = useNavigate();
 
   return useMutation({

@@ -1,6 +1,10 @@
 import Skeleton from '@components/skeleton/Skeleton';
 
-const PostDetailSkeleton = () => {
+interface PostDetailSkeletonProps {
+  count?: number;
+}
+
+const PostDetailSkeleton = ({ count = 3 }: PostDetailSkeletonProps) => {
   return (
     <div
       className="w-full overflow-hidden bg-white rounded-xl border border-[#EEEFF1]"
@@ -29,7 +33,7 @@ const PostDetailSkeleton = () => {
       <div className="border-t border-[#EEEFF1] px-6 py-4">
         <Skeleton width="120px" height="20px" className="mb-4" />
 
-        {Array(3)
+        {Array(count)
           .fill(0)
           .map((_, index) => (
             <div key={`comment-skeleton-${index}`} className="border-b border-[#EEEFF1] pb-4 mb-4">

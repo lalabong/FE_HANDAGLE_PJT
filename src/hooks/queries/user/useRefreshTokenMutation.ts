@@ -8,7 +8,8 @@ import { useAuthStore } from '@stores/useAuthStore';
 
 // 토큰 갱신
 export const useRefreshTokenMutation = () => {
-  const { setTokens, tokens } = useAuthStore();
+  const { tokens } = useAuthStore.getState();
+  const { setTokens } = useAuthStore.getState();
 
   return useMutation({
     mutationFn: () => {

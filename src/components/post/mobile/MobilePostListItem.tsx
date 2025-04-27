@@ -1,6 +1,9 @@
 import { KeyboardEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { CommentIcon } from '@components/icons';
+
+import { PATH } from '@constants/path';
 
 import { formatDateToYYMMDD } from '@utils/formatDateToYYMMDD';
 
@@ -8,22 +11,25 @@ import { Post } from '@/types/post';
 
 interface MobilePostListItemProps {
   post: Post;
-  onClick: (postId: string) => void;
 }
 
-const MobilePostListItem = ({ post, onClick }: MobilePostListItemProps) => {
-  const handleClick = () => onClick(post.id);
+const MobilePostListItem = ({ post }: MobilePostListItemProps) => {
+  const navigate = useNavigate();
+
+  const handlePostClick = (postId: string) => {
+    navigate(PATH.DETAIL_POST(postId));
+  };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter' || e.key === ' ') {
-      onClick(post.id);
+      handlePostClick(post.id);
     }
   };
 
   return (
     <div
       className="flex flex-col gap-3 pb-4 border-b border-[#EEEFF1] cursor-pointer"
-      onClick={handleClick}
+      onClick={() => handlePostClick(post.id)}
       role="button"
       tabIndex={0}
       aria-label={`${post.title} 게시글, 작성일: ${formatDateToYYMMDD(post.createdAt)}, 댓글 수: ${post.commentCount}`}

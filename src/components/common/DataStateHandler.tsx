@@ -12,6 +12,7 @@ interface DataStateHandlerProps<T> {
   children: (data: T) => ReactNode;
 }
 
+// 로딩 및 에러 상태 처리
 const DataStateHandler = <T,>({
   data,
   isLoading,
