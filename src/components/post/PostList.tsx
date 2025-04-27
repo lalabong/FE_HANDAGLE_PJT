@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@components/common/Button';
 import DataStateHandler from '@components/common/DataStateHandler';
 import Pagination from '@components/common/Pagination';
-import { CommentIcon } from '@components/icons';
+import PostItem from '@components/post/PostItem';
 import PostListSkeleton from '@components/skeleton/post/PostListSkeleton';
 
 import { API_DEFAULTS } from '@constants/api';
@@ -13,8 +13,6 @@ import { PATH } from '@constants/path';
 import { usePostsQuery } from '@hooks/queries/post/usePostsQuery';
 
 import { useAuthStore } from '@stores/useAuthStore';
-
-import { formatDateToYYMMDD } from '@utils/formatDateToYYMMDD';
 
 import { Post } from '@/types/post';
 
@@ -103,50 +101,13 @@ const PostList = () => {
             return (
               <>
                 <ul className="divide-y divide-[#EEEFF1] relative">
-                  {isFetching && (
-                    <div
-                      className="absolute inset-0 bg-white bg-opacity-70 flex items-center justify-center"
-                      aria-live="polite"
-                    >
-                      <p className="text-gray-500">업데이트 중...</p>
-                    </div>
+                  {isFetching ? (
+                    <PostListSkeleton count={API_DEFAULTS.POSTS.LIMIT} />
+                  ) : (
+                    posts.map((post: Post) => (
+                      <PostItem key={post.id} post={post} onClick={handlePostClick} />
+                    ))
                   )}
-                  {posts.map((post: Post) => (
-                    <li
-                      key={post.id}
-                      className="px-6 py-4 flex justify-between items-center hover:bg-gray-50 cursor-pointer"
-                      onClick={() => handlePostClick(post.id)}
-                      role="button"
-                      tabIndex={0}
-                      aria-label={`제목: ${post.title}, 작성일: ${formatDateToYYMMDD(post.createdAt)}, 댓글 수: ${post.commentCount}개`}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                          handlePostClick(post.id);
-                        }
-                      }}
-                    >
-                      <h3 className="text-lg font-normal flex-1 truncate">{post.title}</h3>
-                      <div className="flex items-center gap-2 text-[#A7A9B4]">
-                        <time dateTime={post.createdAt} className="text-base">
-                          {formatDateToYYMMDD(post.createdAt)}
-                        </time>
-                        <div
-                          className="flex items-center gap-1"
-                          aria-label={`댓글 ${post.commentCount}개`}
-                        >
-                          <CommentIcon />
-
-                          <span>{post.commentCount}</span>
-                        </div>
-                        <div
-                          className="h-6 w-6 rounded-full flex-shrink-0 bg-gray-300 flex items-center justify-center"
-                          aria-hidden="true"
-                        >
-                          <span className="text-gray-500 font-semibold text-sm"></span>
-                        </div>
-                      </div>
-                    </li>
-                  ))}
                 </ul>
 
                 <Pagination
@@ -162,4 +123,5 @@ const PostList = () => {
     </section>
   );
 };
+
 export default PostList;
