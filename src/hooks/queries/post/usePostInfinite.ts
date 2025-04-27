@@ -4,8 +4,10 @@ import { getPosts } from '@api/post/getPosts';
 
 import { QUERY_KEYS } from '@constants/api';
 
+import { Post } from '@/types/post';
+
 interface PostInfiniteResponse {
-  content: any[];
+  content: Post[];
   last: boolean;
   pageNumber: number;
   totalElements: number;
