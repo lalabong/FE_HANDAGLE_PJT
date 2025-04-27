@@ -1,11 +1,11 @@
 import { CommentIcon } from '@components/icons';
 
-interface PostContentProps {
+interface PostDetailContentProps {
   content: string;
   commentCount: number;
 }
 
-const PostContent = ({ content, commentCount }: PostContentProps) => {
+const PostDetailContent = ({ content, commentCount }: PostDetailContentProps) => {
   return (
     <div className="flex flex-col h-[261px] py-6 px-6 border-b border-[#EEEFF1] bg-white">
       <div className="flex flex-col justify-between h-full">
@@ -21,4 +21,4 @@ const PostContent = ({ content, commentCount }: PostContentProps) => {
   );
 };
 
-export default PostContent;
+export default PostDetailContent;

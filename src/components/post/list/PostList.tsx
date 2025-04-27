@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@components/common/Button';
 import DataStateHandler from '@components/common/DataStateHandler';
 import Pagination from '@components/common/Pagination';
-import PostItem from '@components/post/PostItem';
+import PostListItem from '@components/post/list/PostListItem';
 import PostListSkeleton from '@components/skeleton/post/PostListSkeleton';
 
 import { API_DEFAULTS } from '@constants/api';
@@ -105,7 +105,7 @@ const PostList = () => {
                     <PostListSkeleton count={API_DEFAULTS.POSTS.LIMIT} />
                   ) : (
                     posts.map((post: Post) => (
-                      <PostItem key={post.id} post={post} onClick={handlePostClick} />
+                      <PostListItem key={post.id} post={post} onClick={handlePostClick} />
                     ))
                   )}
                 </ul>

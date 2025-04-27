@@ -12,7 +12,7 @@ import { cn } from '@lib/cn';
 
 import { Post } from '@/types/post';
 
-import MobilePostItem from './MobilePostItem';
+import MobilePostListItem from './MobilePostListItem';
 
 interface MobilePostListProps {
   className?: string;
@@ -71,7 +71,7 @@ const MobilePostList = ({ className, isArchived = false }: MobilePostListProps) 
           <div className={cn('w-full', className)}>
             <ul className="space-y-4">
               {posts.map((post: Post) => (
-                <MobilePostItem key={post.id} post={post} onClick={handlePostClick} />
+                <MobilePostListItem key={post.id} post={post} onClick={handlePostClick} />
               ))}
             </ul>
 

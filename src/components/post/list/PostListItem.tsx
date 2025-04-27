@@ -6,12 +6,12 @@ import { formatDateToYYMMDD } from '@utils/formatDateToYYMMDD';
 
 import { Post } from '@/types/post';
 
-interface PostItemProps {
+interface PostListItemProps {
   post: Post;
   onClick: (postId: string) => void;
 }
 
-const PostItem = ({ post, onClick }: PostItemProps) => {
+const PostListItem = ({ post, onClick }: PostListItemProps) => {
   const handleClick = () => onClick(post.id);
 
   const handleKeyDown = (e: KeyboardEvent<HTMLLIElement>) => {
@@ -49,4 +49,4 @@ const PostItem = ({ post, onClick }: PostItemProps) => {
   );
 };
 
-export default PostItem;
+export default PostListItem;

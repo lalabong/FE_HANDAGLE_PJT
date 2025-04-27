@@ -1,5 +1,5 @@
 import Carousel from '@components/common/Carousel';
-import PostList from '@components/post/PostList';
+import PostList from '@components/post/list/PostList';
 import MobilePostList from '@components/post/mobile/MobilePostList';
 
 import { useDeviceStore } from '@stores/useDeviceStore';

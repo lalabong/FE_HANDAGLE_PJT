@@ -6,12 +6,12 @@ import { formatDateToYYMMDD } from '@utils/formatDateToYYMMDD';
 
 import { Post } from '@/types/post';
 
-interface MobilePostItemProps {
+interface MobilePostListItemProps {
   post: Post;
   onClick: (postId: string) => void;
 }
 
-const MobilePostItem = ({ post, onClick }: MobilePostItemProps) => {
+const MobilePostListItem = ({ post, onClick }: MobilePostListItemProps) => {
   const handleClick = () => onClick(post.id);
 
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
@@ -52,4 +52,4 @@ const MobilePostItem = ({ post, onClick }: MobilePostItemProps) => {
   );
 };
 
-export default MobilePostItem;
+export default MobilePostListItem;

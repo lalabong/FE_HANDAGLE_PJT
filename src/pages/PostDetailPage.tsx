@@ -2,8 +2,8 @@ import { useCallback, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import DataStateHandler from '@components/common/DataStateHandler';
-import PostContent from '@components/post/PostContent';
-import PostDetailHeader from '@components/post/PostDetailHeader';
+import PostDetailContent from '@components/post/detail/PostDetailContent';
+import PostDetailHeader from '@components/post/detail/PostDetailHeader';
 import CommentSection from '@components/post/comment/CommentSection';
 import PostDetailSkeleton from '@components/skeleton/post/PostDetailSkeleton';
 
@@ -101,7 +101,7 @@ const PostDetailPage = () => {
                 onDelete={handleDeletePost}
               />
 
-              <PostContent content={postData.content} commentCount={postData.commentCount} />
+              <PostDetailContent content={postData.content} commentCount={postData.commentCount} />
 
               <CommentSection postId={postId || ''} />
             </article>
