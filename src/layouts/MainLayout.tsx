@@ -1,10 +1,11 @@
 import { Outlet, useLocation } from 'react-router-dom';
 
-import MainHeader from '@components/header/MainHeader';
 import MobileDetailHeader from '@components/header/mobile/MobileDetailHeader';
 import MobileMainHeader from '@components/header/mobile/MobileMainHeader';
 
 import { useDeviceStore } from '@stores/useDeviceStore';
+
+import MainHeader from '../components/header/MainHeader';
 
 const MainLayout = () => {
   const { isMobile } = useDeviceStore();
