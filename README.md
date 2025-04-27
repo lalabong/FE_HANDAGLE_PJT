@@ -11,6 +11,7 @@
 ![Image](https://github.com/user-attachments/assets/490172d6-88f7-4b9f-a0c1-3ce328023052)
 
 - 게시글 10개씩 페이지네이션
+- 글쓰기 버튼으로 게시글 작성 페이지 이동 가능
 
 ## 로그인 페이지
 
@@ -37,16 +38,16 @@
 
 ![Image](https://github.com/user-attachments/assets/b233f3af-5a57-4653-af44-1eca62bac3aa)
 ![Image](https://github.com/user-attachments/assets/a3d6387c-f180-4d53-96b2-f25724ab8a9c)
-![Image](https://github.com/user-attachments/assets/8d8297e3-2243-4394-84df-842480382858)
 
 - 햄버거 버튼 클릭시 슬라이드 메뉴 노출
+
+![Image](https://github.com/user-attachments/assets/8d8297e3-2243-4394-84df-842480382858)
+
 - 게시글 무한 스크롤 적용
 
 ![Image](https://github.com/user-attachments/assets/6fef0534-4114-4084-84e2-0b420641ce44)
 
 ![Image](https://github.com/user-attachments/assets/766fc946-f2e3-440e-b067-f7eb54f6c19f)
-
-![Image](https://github.com/user-attachments/assets/4fd6dd8e-e4ae-4b68-b83a-c264bf799bf6)
 
 ![Image](https://github.com/user-attachments/assets/b96ea655-47a3-4ec8-8798-6369fc816cb0)
 
@@ -66,7 +67,7 @@ React-Query는 클라이언트 상태와 서버 상태를 명확하게 구분하
 
 ## Zustand
 
-유일하게 사용해 본 전역 상태 관리 라이브러리로, 사용이 간편하고 직관적이라는 것이 큰 장점입니다. 러닝커브를 낮추고 단기간에 빠른 구현을 위해 선택했습니다.
+유일하게 사용해 본 전역 상태 관리 라이브러리로, 사용이 간편하고 직관적이라는 것이 큰 장점입니다. 러닝커브를 낮추고 단기간에 빠르게 구현하기 위해 선택했습니다.
 
 # 와이어프레임
 
