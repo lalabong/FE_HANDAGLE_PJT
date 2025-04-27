@@ -4,6 +4,8 @@ import { CAROUSEL_CONTENTS } from '@constants/carouselContents';
 
 import { useDeviceStore } from '@stores/useDeviceStore';
 
+import { cn } from '@lib/cn';
+
 const Carousel = () => {
   const [scrollPosition, setScrollPosition] = useState<number>(0);
   const [isPaused, setIsPaused] = useState<boolean>(false);
@@ -77,7 +79,7 @@ const Carousel = () => {
             className="shrink-0 px-2.5"
             aria-hidden={index >= CAROUSEL_CONTENTS.length ? 'true' : 'false'}
           >
-            <article className={`relative ${cardWidth} h-[391px] rounded-[20px] overflow-hidden`}>
+            <article className={cn('relative h-[391px] rounded-[20px] overflow-hidden', cardWidth)}>
               <figure className="h-full w-full">
                 <div
                   className="absolute inset-0 bg-cover bg-center"

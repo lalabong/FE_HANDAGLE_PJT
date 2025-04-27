@@ -1,5 +1,7 @@
 import { ChangeEvent, forwardRef, InputHTMLAttributes } from 'react';
 
+import { cn } from '@lib/cn';
+
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   placeholder?: string;
   value?: string;
@@ -16,9 +18,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         <div className="w-full">
           <input
             ref={ref}
-            className={`w-full py-3 px-4 text-base font-normal leading-6 tracking-[-0.3%] border ${
-              error ? 'border-[#D11111] border-2' : 'border-[#EEEFF1]'
-            } rounded-lg focus:outline-none focus:ring-1 focus:ring-[#000000]`}
+            className={cn(
+              'w-full py-3 px-4 text-base font-normal leading-6 tracking-[-0.3%] border rounded-lg focus:outline-none focus:ring-1 focus:ring-[#000000]',
+              error ? 'border-[#D11111] border-2' : 'border-[#EEEFF1]',
+            )}
             placeholder={placeholder}
             value={value}
             onChange={onChange}

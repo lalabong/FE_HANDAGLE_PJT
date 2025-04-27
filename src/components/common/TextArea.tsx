@@ -1,5 +1,7 @@
 import { ChangeEvent, forwardRef, TextareaHTMLAttributes } from 'react';
 
+import { cn } from '@lib/cn';
+
 interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   placeholder?: string;
   value?: string;
@@ -39,9 +41,11 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
         <div className="w-full relative">
           <textarea
             ref={ref}
-            className={`w-full ${height} py-4 px-4 text-base font-normal leading-6 tracking-[-0.3%] border ${
-              error ? 'border-[#D11111] border-2' : 'border-[#EEEFF1]'
-            } rounded-lg resize-none focus:outline-none focus:ring-1 focus:ring-[#000000]`}
+            className={cn(
+              'w-full py-4 px-4 text-base font-normal leading-6 tracking-[-0.3%] border rounded-lg resize-none focus:outline-none focus:ring-1 focus:ring-[#000000]',
+              height,
+              error ? 'border-[#D11111] border-2' : 'border-[#EEEFF1]',
+            )}
             placeholder={placeholder}
             value={value}
             onChange={handleChange}

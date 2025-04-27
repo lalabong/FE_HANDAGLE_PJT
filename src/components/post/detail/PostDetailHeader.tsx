@@ -3,6 +3,8 @@ import { useDeviceStore } from '@stores/useDeviceStore';
 
 import { formatDateToYYMMDD } from '@utils/formatDateToYYMMDD';
 
+import { cn } from '@lib/cn';
+
 interface PostDetailHeaderProps {
   title: string;
   author: string;
@@ -22,14 +24,17 @@ const PostDetailHeader = ({
 }: PostDetailHeaderProps) => {
   const currentUser = useAuthStore((state) => state.user);
   const isAuthor = currentUser?.id === authorId;
-  
+
   const isMobile = useDeviceStore((state) => state.isMobile);
 
   return (
     <div
-      className={`flex flex-col gap-4 py-4 ${isMobile ? 'px-4' : 'px-6'} border-b border-[#EEEFF1]`}
+      className={cn(
+        'flex flex-col gap-4 py-4 border-b border-[#EEEFF1]',
+        isMobile ? 'px-4' : 'px-6',
+      )}
     >
-      <h1 className={`${isMobile ? 'text-[18px]' : 'text-2xl'} font-bold text-[#212124]`}>
+      <h1 className={cn('font-bold text-[#212124]', isMobile ? 'text-[18px]' : 'text-2xl')}>
         {title}
       </h1>
 
@@ -44,16 +49,10 @@ const PostDetailHeader = ({
 
         {isAuthor && (
           <div className="flex items-center gap-3">
-            <button
-              onClick={onEdit}
-              className="text-[16px] text-gray-700 hover:opacity-70"
-            >
+            <button onClick={onEdit} className="text-[16px] text-gray-700 hover:opacity-70">
               수정
             </button>
-            <button
-              onClick={onDelete}
-              className="text-[16px] text-gray-700 hover:opacity-70"
-            >
+            <button onClick={onDelete} className="text-[16px] text-gray-700 hover:opacity-70">
               삭제
             </button>
           </div>

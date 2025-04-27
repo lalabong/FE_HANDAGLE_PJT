@@ -10,11 +10,13 @@ import { useAuthStore } from '@stores/useAuthStore';
 import { useDeviceStore } from '@stores/useDeviceStore';
 import { useMenuStore } from '@stores/useMenuStore';
 
+import { cn } from '@lib/cn';
+
 const MobileMainHeader = () => {
   const { responsivePaddingClass } = useDeviceStore();
 
   const { isMobileMenuOpen, toggleMobileMenu, closeMobileMenu } = useMenuStore();
-  
+
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const user = useAuthStore((state) => state.user);
 
@@ -31,7 +33,7 @@ const MobileMainHeader = () => {
   return (
     <>
       <header className="w-full bg-white">
-        <div className={`flex justify-between items-center ${responsivePaddingClass}`}>
+        <div className={cn('flex justify-between items-center', responsivePaddingClass)}>
           <button
             aria-label="메뉴 열기"
             onClick={toggleMobileMenu}
@@ -43,16 +45,18 @@ const MobileMainHeader = () => {
       </header>
 
       <div
-        className={`fixed inset-0 bg-black bg-opacity-70 z-40 transition-opacity duration-300 ${
-          isMobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
-        }`}
+        className={cn(
+          'fixed inset-0 bg-black bg-opacity-70 z-40 transition-opacity duration-300',
+          isMobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none',
+        )}
         onClick={closeMobileMenu}
       ></div>
 
       <div
-        className={`fixed top-0 left-0 w-[280px] h-full bg-white z-50 transform transition-transform duration-300 ease-in-out ${
-          isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
+        className={cn(
+          'fixed top-0 left-0 w-[280px] h-full bg-white z-50 transform transition-transform duration-300 ease-in-out',
+          isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full',
+        )}
       >
         <div className="flex flex-col h-full p-4">
           <div className="flex justify-end mb-6">

@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
 
+import { cn } from '@lib/cn';
+
 interface DataStateHandlerProps<T> {
   data: T | undefined | null;
   isLoading: boolean;
@@ -23,7 +25,7 @@ const DataStateHandler = <T,>({
     return loadingComponent ? (
       <>{loadingComponent}</>
     ) : (
-      <div className={`flex justify-center items-center p-4 ${className}`}>
+      <div className={cn('flex justify-center items-center p-4', className)}>
         <p className="text-gray-500">로딩 중...</p>
       </div>
     );
@@ -33,7 +35,7 @@ const DataStateHandler = <T,>({
     return errorComponent ? (
       <>{errorComponent}</>
     ) : (
-      <div className={`flex justify-center items-center p-4 ${className}`}>
+      <div className={cn('flex justify-center items-center p-4', className)}>
         <p className="text-red-500">데이터를 불러오는 중 오류가 발생했습니다.</p>
       </div>
     );

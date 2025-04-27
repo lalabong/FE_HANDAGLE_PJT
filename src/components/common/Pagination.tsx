@@ -2,6 +2,8 @@ import { memo, useMemo } from 'react';
 
 import { ChevronIcon } from '@components/icons';
 
+import { cn } from '@lib/cn';
+
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
@@ -45,15 +47,16 @@ const Pagination = memo(
             onClick={handlePrevSet}
             disabled={startPage <= 1}
           >
-            <ChevronIcon className={startPage <= 1 ? 'opacity-50' : ''} />
+            <ChevronIcon className={cn(startPage <= 1 && 'opacity-50')} />
           </button>
 
           {pageNumbers.map((pageNumber) => (
             <button
               key={pageNumber}
-              className={`w-8 h-8 flex items-center justify-center ${
-                currentPage === pageNumber ? 'bg-[#EEEFF1] rounded' : ''
-              }`}
+              className={cn(
+                'w-8 h-8 flex items-center justify-center',
+                currentPage === pageNumber && 'bg-[#EEEFF1] rounded',
+              )}
               onClick={() => onPageChange(pageNumber)}
               aria-current={currentPage === pageNumber ? 'page' : undefined}
             >
@@ -67,7 +70,7 @@ const Pagination = memo(
             onClick={handleNextSet}
             disabled={endPage >= totalPages}
           >
-            <ChevronIcon direction="right" className={endPage >= totalPages ? 'opacity-50' : ''} />
+            <ChevronIcon direction="right" className={cn(endPage >= totalPages && 'opacity-50')} />
           </button>
         </div>
       </nav>

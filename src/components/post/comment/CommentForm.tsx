@@ -5,6 +5,8 @@ import { Button } from '@components/common/Button';
 import { useAuthStore } from '@stores/useAuthStore';
 import { useDeviceStore } from '@stores/useDeviceStore';
 
+import { cn } from '@lib/cn';
+
 interface CommentFormProps {
   onSubmit: (content: string) => void;
 }
@@ -24,7 +26,10 @@ const CommentForm = ({ onSubmit }: CommentFormProps) => {
 
   return (
     <div
-      className={`flex items-center gap-3 p-6 bg-white rounded-b-xl ${isMobile ? 'fixed bottom-0 left-0 right-0 z-50' : ''}`}
+      className={cn(
+        'flex items-center gap-3 p-6 bg-white rounded-b-xl',
+        isMobile && 'fixed bottom-0 left-0 right-0 z-50',
+      )}
     >
       <input
         type="text"

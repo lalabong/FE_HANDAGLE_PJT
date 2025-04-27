@@ -4,6 +4,8 @@ import { BackIcon } from '@components/icons';
 
 import { useDeviceStore } from '@stores/useDeviceStore';
 
+import { cn } from '@lib/cn';
+
 interface MobileEditorHeaderProps {
   isEditMode: boolean;
   handleSubmit: () => void;
@@ -11,7 +13,7 @@ interface MobileEditorHeaderProps {
 
 const MobileEditorHeader = ({ isEditMode, handleSubmit }: MobileEditorHeaderProps) => {
   const navigate = useNavigate();
-  
+
   const { responsivePaddingClass } = useDeviceStore();
 
   const handleGoBack = () => {
@@ -20,7 +22,7 @@ const MobileEditorHeader = ({ isEditMode, handleSubmit }: MobileEditorHeaderProp
 
   return (
     <header className="w-full bg-white">
-      <div className={`flex justify-between items-center ${responsivePaddingClass}`}>
+      <div className={cn('flex justify-between items-center', responsivePaddingClass)}>
         <div className="flex items-center gap-2">
           <button onClick={handleGoBack} aria-label="뒤로 가기" className="p-2 hover:opacity-70">
             <BackIcon />

@@ -12,6 +12,8 @@ import { usePostDetailQuery } from '@hooks/queries/post/usePostDetailQuery';
 
 import { useDeviceStore } from '@stores/useDeviceStore';
 
+import { cn } from '@lib/cn';
+
 interface CreatePostFormErrors {
   title?: string;
   content?: string;
@@ -98,11 +100,11 @@ const CreatePostPage = () => {
     <>
       {isMobile && <MobileEditorHeader isEditMode={isEditMode} handleSubmit={handleSubmit} />}
       <main
-        className={`w-full ${responsivePaddingClass} ${!isMobile && 'bg-[#F5F5F5]'}`}
+        className={cn('w-full', responsivePaddingClass, isMobile ? '' : 'bg-[#F5F5F5]')}
         aria-labelledby="form-heading"
       >
         <section className="w-full">
-          <div className={`${!isMobile && 'bg-white border border-[#EEEFF1] rounded-xl p-6'}`}>
+          <div className={cn(isMobile ? '' : 'bg-white border border-[#EEEFF1] rounded-xl p-6')}>
             {!isMobile && (
               <h1 id="form-heading" className="text-xl font-bold mb-6">
                 {isEditMode ? '게시글 수정' : '게시글 작성'}

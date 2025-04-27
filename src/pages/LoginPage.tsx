@@ -8,6 +8,8 @@ import { useLoginMutation } from '@hooks/queries/user/useLoginMutation';
 
 import { useDeviceStore } from '@stores/useDeviceStore';
 
+import { cn } from '@lib/cn';
+
 interface LoginFormState {
   loginId: string;
   password: string;
@@ -20,9 +22,7 @@ interface LoginFormErrors {
 
 const LoginPage = () => {
   const navigate = useNavigate();
-
   const location = useLocation();
-
   const { isMobile } = useDeviceStore();
 
   const [formData, setFormData] = useState<LoginFormState>({
@@ -111,78 +111,23 @@ const LoginPage = () => {
     }
   };
 
-  if (isMobile) {
-    return (
-      <main className="flex flex-col min-h-[calc(100vh-var(--header-height,0px))] w-full bg-white">
-        <section
-          className="flex flex-col px-4 pt-6 pb-12 gap-6"
-          aria-labelledby="login-heading-mobile"
-        >
-          <header>
-            <h1
-              id="login-heading-mobile"
-              className="text-[32px] font-bold leading-[1.6em] tracking-[-1.5%]"
-            >
-              안녕하세요
-              <br />
-              <span className="text-[#320397]">한다글다글</span>입니다.
-            </h1>
-            <p className="text-base font-semibold leading-6 text-[#A7A9B4] tracking-[-0.3%]">
-              로그인을 통해 더 많은 기능을 이용하세요
-            </p>
-          </header>
-
-          <form onSubmit={handleSubmit} className="w-full space-y-6" aria-label="로그인 폼">
-            <div className="flex flex-col gap-3">
-              <div>
-                <Input
-                  name="loginId"
-                  value={formData.loginId}
-                  onChange={handleChange}
-                  placeholder="아이디를 입력해주세요."
-                  error={formErrors.loginId}
-                  aria-label="아이디"
-                  aria-required="true"
-                  aria-invalid={!!formErrors.loginId}
-                />
-              </div>
-              <div>
-                <Input
-                  name="password"
-                  type="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  placeholder="비밀번호를 입력해주세요."
-                  error={formErrors.password}
-                  aria-label="비밀번호"
-                  aria-required="true"
-                  aria-invalid={!!formErrors.password}
-                />
-              </div>
-            </div>
-
-            <Button
-              type="submit"
-              variant="black"
-              className="w-full rounded-xl"
-              disabled={loginMutation.isPending}
-              aria-busy={loginMutation.isPending}
-            >
-              {loginMutation.isPending ? '로그인 중...' : '로그인'}
-            </Button>
-          </form>
-        </section>
-      </main>
-    );
-  }
-
   return (
-    <main className="flex justify-center items-center h-[calc(100vh-var(--header-height,0px))] w-full bg-[#F5F5F5]">
+    <main
+      className={cn(
+        'flex min-h-[calc(100vh-var(--header-height,0px))] w-full',
+        isMobile ? 'flex-col bg-white' : 'justify-center items-center bg-[#F5F5F5]',
+      )}
+    >
       <section
-        className="flex flex-col justify-center items-center p-10 gap-4 bg-white border border-[#EEEFF1] rounded-xl shadow-[0px_18px_30px_0px_rgba(177,177,177,0.06)] max-w-md w-full"
+        className={cn(
+          'flex flex-col gap-6',
+          isMobile
+            ? 'px-4 pt-6 pb-12'
+            : 'p-10 justify-center items-center bg-white border border-[#EEEFF1] rounded-xl shadow-[0px_18px_30px_0px_rgba(177,177,177,0.06)] max-w-md w-full',
+        )}
         aria-labelledby="login-heading"
       >
-        <header className="w-full">
+        <header className={cn(isMobile ? '' : 'w-full')}>
           <h1 id="login-heading" className="text-[32px] font-bold leading-[1.6em] tracking-[-1.5%]">
             안녕하세요
             <br />

@@ -14,6 +14,8 @@ import { usePostDetailQuery } from '@hooks/queries/post/usePostDetailQuery';
 
 import { useDeviceStore } from '@stores/useDeviceStore';
 
+import { cn } from '@lib/cn';
+
 const PostDetailPage = () => {
   const { postId } = useParams<{ postId: string }>();
 
@@ -52,7 +54,7 @@ const PostDetailPage = () => {
   }, [deletePostMutation, postId]);
 
   const postDetailLoadingComponent = (
-    <div className={`w-full ${isMobile ? 'pb-[80px]' : responsivePaddingClass}`}>
+    <div className={cn('w-full', isMobile ? 'pb-[80px]' : responsivePaddingClass)}>
       <PostDetailSkeleton />
       <span id="loading-status" className="sr-only">
         게시글을 불러오는 중입니다
@@ -77,7 +79,10 @@ const PostDetailPage = () => {
 
   return (
     <main
-      className={`flex flex-col items-center min-h-[calc(100vh-var(--header-height,0px))] ${isMobile ? 'bg-white' : 'bg-[#F5F5F5]'}`}
+      className={cn(
+        'flex flex-col items-center min-h-[calc(100vh-var(--header-height,0px))]',
+        isMobile ? 'bg-white' : 'bg-[#F5F5F5]',
+      )}
       aria-labelledby="post-title"
     >
       <DataStateHandler
@@ -88,9 +93,12 @@ const PostDetailPage = () => {
         errorComponent={postDetailErrorComponent}
       >
         {(postData) => (
-          <div className={`w-full ${isMobile ? 'pb-[80px]' : responsivePaddingClass}`}>
+          <div className={cn('w-full', isMobile ? 'pb-[80px]' : responsivePaddingClass)}>
             <article
-              className={`w-full overflow-hidden bg-white ${!isMobile && 'rounded-xl border border-[#EEEFF1]'}`}
+              className={cn(
+                'w-full overflow-hidden bg-white',
+                !isMobile && 'rounded-xl border border-[#EEEFF1]',
+              )}
             >
               <PostDetailHeader
                 title={postData.title}
