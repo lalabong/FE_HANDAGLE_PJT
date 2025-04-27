@@ -6,6 +6,7 @@ import { useDeviceStore } from '@stores/useDeviceStore';
 
 const MobileDetailHeader = () => {
   const navigate = useNavigate();
+  
   const { responsivePaddingClass } = useDeviceStore();
 
   const handleGoBack = () => {

@@ -20,11 +20,12 @@ import { Post } from '@/types/post';
 
 const PostList = () => {
   const navigate = useNavigate();
+
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const limit = API_DEFAULTS.POSTS.LIMIT;
 
+  const limit = API_DEFAULTS.POSTS.LIMIT;
   const { data, isPending, error, refetch, isFetching } = usePostsQuery({
     page: currentPage,
     limit,

@@ -12,7 +12,9 @@ import { useMenuStore } from '@stores/useMenuStore';
 
 const MobileMainHeader = () => {
   const { responsivePaddingClass } = useDeviceStore();
+
   const { isMobileMenuOpen, toggleMobileMenu, closeMobileMenu } = useMenuStore();
+  
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const user = useAuthStore((state) => state.user);
 

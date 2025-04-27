@@ -22,6 +22,7 @@ const PostDetailHeader = ({
 }: PostDetailHeaderProps) => {
   const currentUser = useAuthStore((state) => state.user);
   const isAuthor = currentUser?.id === authorId;
+  
   const isMobile = useDeviceStore((state) => state.isMobile);
 
   return (

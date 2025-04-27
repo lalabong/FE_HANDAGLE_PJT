@@ -12,14 +12,16 @@ import { useMenuStore } from '@stores/useMenuStore';
 
 const Header = () => {
   const { responsivePaddingClass } = useDeviceStore();
+
   const { isNicknamePopoverOpen, toggleNicknamePopover, closeNicknamePopover } = useMenuStore();
+
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const user = useAuthStore((state) => state.user);
 
-  const logoutMutation = useLogoutMutation();
-
   const location = useLocation();
   const isHomePage = location.pathname === PATH.ROOT;
+
+  const logoutMutation = useLogoutMutation();
 
   const handleLogoClick = (e: React.MouseEvent) => {
     if (isHomePage) {

@@ -1,4 +1,4 @@
-import Carousel from '@components/home/Carousel';
+import Carousel from '@components/common/Carousel';
 import PostList from '@components/post/PostList';
 import MobilePostList from '@components/post/mobile/MobilePostList';
 
@@ -6,6 +6,7 @@ import { useDeviceStore } from '@stores/useDeviceStore';
 
 const HomePage = () => {
   const responsivePaddingClass = useDeviceStore((state) => state.responsivePaddingClass);
+
   const isMobile = useDeviceStore((state) => state.isMobile);
 
   return (

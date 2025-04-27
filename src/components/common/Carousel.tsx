@@ -1,37 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { useDeviceStore } from '@stores/useDeviceStore';
+import { CAROUSEL_CONTENTS } from '@constants/carouselContents';
 
-const carouselContents = [
-  {
-    id: 1,
-    src: 'carousel/sparta-bg.png',
-    title: '스파르타빌더스',
-    subtitle: '팀스파르타',
-    description: '물류 관계자 비교견적 솔루션',
-  },
-  {
-    id: 2,
-    src: 'carousel/kosta-bg.png',
-    title: 'KOSTA-EDU',
-    subtitle: '한국소프트웨어 기술진흥협회',
-    description: '학습관리 시스템',
-  },
-  {
-    id: 3,
-    src: 'carousel/printi-bg.png',
-    title: '프린티',
-    subtitle: '주식회사 프린티',
-    description: '작가와 팬을 잇는 일러스트 출력 플랫폼',
-  },
-  {
-    id: 4,
-    src: 'carousel/dalcom-bg.png',
-    title: '달콤수학',
-    subtitle: '달콤교육',
-    description: '엄마표 온라인 수학교육 강의 플랫폼',
-  },
-];
+import { useDeviceStore } from '@stores/useDeviceStore';
 
 const Carousel = () => {
   const [scrollPosition, setScrollPosition] = useState<number>(0);
@@ -43,7 +14,7 @@ const Carousel = () => {
   const isMobile = useDeviceStore((state) => state.isMobile);
   const cardWidth = isMobile ? 'w-[280px]' : 'w-[319px]';
 
-  const allContents = [...carouselContents, ...carouselContents, ...carouselContents];
+  const allContents = [...CAROUSEL_CONTENTS, ...CAROUSEL_CONTENTS, ...CAROUSEL_CONTENTS];
 
   useEffect(() => {
     let animationId: number;
@@ -56,7 +27,7 @@ const Carousel = () => {
 
       setScrollPosition((prev) => {
         const contentWidth = contentRef.current?.firstElementChild?.clientWidth || 0; // 각 콘텐츠의 너비
-        const firstSetWidth = contentWidth * carouselContents.length; // 한 콘텐츠 세트의 총 너비
+        const firstSetWidth = contentWidth * CAROUSEL_CONTENTS.length; // 한 콘텐츠 세트의 총 너비
         let newPosition = prev + 0.8; // 속도 조절
 
         // 첫 번째 콘텐츠 세트의 너비만큼 이동했다면, 보이지 않게 처음 위치로 이동
@@ -104,7 +75,7 @@ const Carousel = () => {
           <li
             key={`${content.id}-${index}`}
             className="shrink-0 px-2.5"
-            aria-hidden={index >= carouselContents.length ? 'true' : 'false'}
+            aria-hidden={index >= CAROUSEL_CONTENTS.length ? 'true' : 'false'}
           >
             <article className={`relative ${cardWidth} h-[391px] rounded-[20px] overflow-hidden`}>
               <figure className="h-full w-full">

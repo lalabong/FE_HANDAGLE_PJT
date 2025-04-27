@@ -20,13 +20,15 @@ interface LoginFormErrors {
 
 const LoginPage = () => {
   const navigate = useNavigate();
+
   const location = useLocation();
+
   const { isMobile } = useDeviceStore();
+
   const [formData, setFormData] = useState<LoginFormState>({
     loginId: '',
     password: '',
   });
-
   const [formErrors, setFormErrors] = useState<LoginFormErrors>({});
   const [submitted, setSubmitted] = useState(false);
 

@@ -20,7 +20,12 @@ interface CreatePostFormErrors {
 const CreatePostPage = () => {
   const [searchParams] = useSearchParams();
   const postId = searchParams.get('postId');
+
   const isEditMode = Boolean(postId);
+
+  const isMobile = useDeviceStore((state) => state.isMobile);
+
+  const responsivePaddingClass = useDeviceStore((state) => state.responsivePaddingClass);
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -29,10 +34,8 @@ const CreatePostPage = () => {
 
   const [formErrors, setFormErrors] = useState<CreatePostFormErrors>({});
 
-  const isMobile = useDeviceStore((state) => state.isMobile);
-  const responsivePaddingClass = useDeviceStore((state) => state.responsivePaddingClass);
-
   const { data: post } = usePostDetailQuery({ postId: postId || '' });
+
   const { mutate: createPost } = useCreatePostMutation();
   const { mutate: editPost } = useEditPostMutation();
 
@@ -53,6 +56,12 @@ const CreatePostPage = () => {
     setContent(e.target.value);
   };
 
+  const hasChanges = useMemo(() => {
+    if (!isEditMode) return true;
+
+    return title.trim() !== originalTitle.trim() || content.trim() !== originalContent.trim();
+  }, [isEditMode, title, content, originalTitle, originalContent]);
+
   const validateForm = (): boolean => {
     const errors: CreatePostFormErrors = {};
     let isValid = true;
@@ -70,12 +79,6 @@ const CreatePostPage = () => {
     setFormErrors(errors);
     return isValid;
   };
-
-  const hasChanges = useMemo(() => {
-    if (!isEditMode) return true;
-
-    return title.trim() !== originalTitle.trim() || content.trim() !== originalContent.trim();
-  }, [isEditMode, title, content, originalTitle, originalContent]);
 
   const handleSubmit = () => {
     if (validateForm()) {

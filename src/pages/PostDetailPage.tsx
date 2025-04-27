@@ -16,7 +16,9 @@ import { useDeviceStore } from '@stores/useDeviceStore';
 
 const PostDetailPage = () => {
   const { postId } = useParams<{ postId: string }>();
+
   const navigate = useNavigate();
+
   const responsivePaddingClass = useDeviceStore((state) => state.responsivePaddingClass);
   const isMobile = useDeviceStore((state) => state.isMobile);
 

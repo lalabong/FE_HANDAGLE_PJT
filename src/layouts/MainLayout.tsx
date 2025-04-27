@@ -8,6 +8,7 @@ import { useDeviceStore } from '@stores/useDeviceStore';
 
 const MainLayout = () => {
   const { isMobile } = useDeviceStore();
+  
   const location = useLocation();
 
   const isEditorPage = location.pathname.includes('create');
