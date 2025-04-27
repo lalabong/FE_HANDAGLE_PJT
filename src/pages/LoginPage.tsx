@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@components/common/Button';
 import Input from '@components/common/Input';
 
-import { useLoginMutation } from '@hooks/queries/useLoginMutation';
+import { useLoginMutation } from '@hooks/queries/user/useLoginMutation';
 
 import { useDeviceStore } from '@stores/useDeviceStore';
 

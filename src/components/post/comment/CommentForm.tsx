@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
+import { Button } from '@components/common/Button';
+
 import { useAuthStore } from '@stores/useAuthStore';
 import { useDeviceStore } from '@stores/useDeviceStore';
-
-import { Button } from '../common/Button';
 
 interface CommentFormProps {
   onSubmit: (content: string) => void;

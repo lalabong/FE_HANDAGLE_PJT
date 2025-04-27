@@ -2,15 +2,15 @@ import { useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import DataStateHandler from '@components/common/DataStateHandler';
-import CommentSection from '@components/post/CommentSection';
 import PostContent from '@components/post/PostContent';
 import PostDetailHeader from '@components/post/PostDetailHeader';
-import PostDetailSkeleton from '@components/skeleton/PostDetailSkeleton';
+import CommentSection from '@components/post/comment/CommentSection';
+import PostDetailSkeleton from '@components/skeleton/post/PostDetailSkeleton';
 
 import { PATH } from '@constants/path';
 
-import { useDeletePostMutation } from '@hooks/queries/useDeletePostMutation';
-import { usePostDetailQuery } from '@hooks/queries/usePostDetailQuery';
+import { useDeletePostMutation } from '@hooks/queries/post/useDeletePostMutation';
+import { usePostDetailQuery } from '@hooks/queries/post/usePostDetailQuery';
 
 import { useDeviceStore } from '@stores/useDeviceStore';
 

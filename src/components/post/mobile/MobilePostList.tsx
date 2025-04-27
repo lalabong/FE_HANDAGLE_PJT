@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { FAB } from '@components/common/Button';
 import DataStateHandler from '@components/common/DataStateHandler';
 import { CommentIcon, PencilIcon } from '@components/icons';
-import MobilePostListSkeleton from '@components/skeleton/MobilePostListSkeleton';
+import MobilePostListSkeleton from '@components/skeleton/post/MobilePostListSkeleton';
 
 import { getPosts } from '@api/post/getPosts';
 

@@ -1,13 +1,13 @@
 import { useState } from 'react';
 
 import DataStateHandler from '@components/common/DataStateHandler';
-import CommentForm from '@components/post/CommentForm';
-import CommentItem from '@components/post/CommentItem';
+import CommentForm from '@components/post/comment/CommentForm';
+import CommentItem from '@components/post/comment/CommentItem';
 
-import { useGetCommentsQuery } from '@hooks/queries/useCommentsQuery';
-import { useCreateCommentMutation } from '@hooks/queries/useCreateCommentMutation';
-import { useDeleteCommentMutation } from '@hooks/queries/useDeleteCommentMutation';
-import { useEditCommentMutation } from '@hooks/queries/useEditCommentMutation';
+import { useGetCommentsQuery } from '@hooks/queries/comment/useCommentsQuery';
+import { useCreateCommentMutation } from '@hooks/queries/comment/useCreateCommentMutation';
+import { useDeleteCommentMutation } from '@hooks/queries/comment/useDeleteCommentMutation';
+import { useEditCommentMutation } from '@hooks/queries/comment/useEditCommentMutation';
 
 interface CommentSectionProps {
   postId: string;

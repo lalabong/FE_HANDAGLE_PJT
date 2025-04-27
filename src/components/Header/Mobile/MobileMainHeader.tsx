@@ -4,7 +4,7 @@ import { CloseIcon, HamburgerIcon } from '@components/icons';
 
 import { PATH } from '@constants/path';
 
-import { useLogoutMutation } from '@hooks/queries/useLogoutMutation';
+import { useLogoutMutation } from '@hooks/queries/user/useLogoutMutation';
 
 import { useAuthStore } from '@stores/useAuthStore';
 import { useDeviceStore } from '@stores/useDeviceStore';

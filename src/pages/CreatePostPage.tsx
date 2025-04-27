@@ -6,9 +6,9 @@ import Input from '@components/common/Input';
 import TextArea from '@components/common/TextArea';
 import MobileEditorHeader from '@components/header/mobile/MobileEditorHeader';
 
-import { useCreatePostMutation } from '@hooks/queries/useCreatePostMutation';
-import { useEditPostMutation } from '@hooks/queries/useEditPostMutation';
-import { usePostDetailQuery } from '@hooks/queries/usePostDetailQuery';
+import { useCreatePostMutation } from '@hooks/queries/post/useCreatePostMutation';
+import { useEditPostMutation } from '@hooks/queries/post/useEditPostMutation';
+import { usePostDetailQuery } from '@hooks/queries/post/usePostDetailQuery';
 
 import { useDeviceStore } from '@stores/useDeviceStore';
 
