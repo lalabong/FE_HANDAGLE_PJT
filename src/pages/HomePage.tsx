@@ -13,7 +13,7 @@ const HomePage = () => {
   return (
     <main
       className={cn(
-        'flex flex-col items-center gap-10 py-8 md:py-16 lg:py-24',
+        'flex flex-col items-center gap-5 py-8 md:py-16 lg:py-24',
         isMobile ? 'bg-white' : 'bg-[#F5F5F5]',
       )}
       aria-labelledby="main-heading"

@@ -4,8 +4,11 @@ import { Button } from '@components/common/Button';
 import TextArea from '@components/common/TextArea';
 
 import { useAuthStore } from '@stores/useAuthStore';
+import { useDeviceStore } from '@stores/useDeviceStore';
 
 import { formatDateToYYMMDD } from '@utils/formatDateToYYMMDD';
+
+import { cn } from '@lib/cn';
 
 interface CommentItemProps {
   author: string;
@@ -36,6 +39,8 @@ const CommentItem = ({
 }: CommentItemProps) => {
   const currentUser = useAuthStore((state) => state.user);
   const isAuthor = currentUser?.id === authorId;
+
+  const isMobile = useDeviceStore((state) => state.isMobile);
 
   if (isEditing) {
     return (
@@ -72,7 +77,13 @@ const CommentItem = ({
   }
 
   return (
-    <div className="flex flex-col gap-4 p-6 bg-[#F9FAFA] border-b border-[#EEEFF1]">
+    <div
+      className={cn(
+        'flex flex-col gap-4',
+        isMobile ? 'p-4' : 'p-6',
+        'bg-[#F9FAFA] border-b border-[#EEEFF1]',
+      )}
+    >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-6 h-6 rounded-full bg-[#A7A9B4] flex items-center justify-center">

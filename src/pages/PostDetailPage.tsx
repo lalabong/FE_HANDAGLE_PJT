@@ -81,7 +81,7 @@ const PostDetailPage = () => {
     <main
       className={cn(
         'flex flex-col items-center min-h-[calc(100vh-var(--header-height,0px))]',
-        isMobile ? 'bg-white' : 'bg-[#F5F5F5]',
+        isMobile ? 'bg-[#F9FAFA]' : 'bg-[#F5F5F5]',
       )}
       aria-labelledby="post-title"
     >

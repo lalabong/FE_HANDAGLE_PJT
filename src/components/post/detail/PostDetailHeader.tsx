@@ -30,8 +30,8 @@ const PostDetailHeader = ({
   return (
     <div
       className={cn(
-        'flex flex-col gap-4 py-4 border-b border-[#EEEFF1]',
-        isMobile ? 'px-4' : 'px-6',
+        'flex flex-col gap-4',
+        isMobile ? 'p-4' : 'p-6 border-b border-[#EEEFF1]',
       )}
     >
       <h1 className={cn('font-bold text-[#212124]', isMobile ? 'text-[18px]' : 'text-2xl')}>

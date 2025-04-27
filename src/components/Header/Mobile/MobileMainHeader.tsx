@@ -46,15 +46,16 @@ const MobileMainHeader = () => {
 
       <div
         className={cn(
-          'fixed inset-0 bg-black bg-opacity-70 z-40 transition-opacity duration-300',
-          isMobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none',
+          'fixed inset-0 z-[100] transition-opacity duration-300',
+          isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none',
         )}
         onClick={closeMobileMenu}
+        style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)' }}
       ></div>
 
       <div
         className={cn(
-          'fixed top-0 left-0 w-[280px] h-full bg-white z-50 transform transition-transform duration-300 ease-in-out',
+          'fixed top-0 left-0 w-[280px] h-full bg-white z-[101] transform transition-transform duration-300 ease-in-out',
           isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full',
         )}
       >

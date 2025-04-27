@@ -100,7 +100,11 @@ const CreatePostPage = () => {
     <>
       {isMobile && <MobileEditorHeader isEditMode={isEditMode} handleSubmit={handleSubmit} />}
       <main
-        className={cn('w-full', responsivePaddingClass, isMobile ? '' : 'bg-[#F5F5F5]')}
+        className={cn(
+          'w-full h-[calc(100vh-var(--header-height,0px))]',
+          responsivePaddingClass,
+          isMobile ? '' : 'bg-[#F5F5F5]',
+        )}
         aria-labelledby="form-heading"
       >
         <section className="w-full">

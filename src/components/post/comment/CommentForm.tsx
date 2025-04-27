@@ -27,7 +27,7 @@ const CommentForm = ({ onSubmit }: CommentFormProps) => {
   return (
     <div
       className={cn(
-        'flex items-center gap-3 p-6 bg-white rounded-b-xl',
+        'flex items-center gap-3 p-6 bg-white border-t border-[#EEEFF1] rounded-b-xl',
         isMobile && 'fixed bottom-0 left-0 right-0 z-50',
       )}
     >
