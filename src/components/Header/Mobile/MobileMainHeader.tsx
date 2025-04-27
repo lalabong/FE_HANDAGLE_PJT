@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import { CloseIcon, HamburgerIcon } from '@components/icons';
 
-import { PATH } from '@constants/path';
+import { PATH } from '@constants/index';
 
 import { useLogoutMutation } from '@hooks/queries/user/useLogoutMutation';
 

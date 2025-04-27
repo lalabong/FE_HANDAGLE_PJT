@@ -2,8 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { LoginParams, LoginResponse, postLogin } from '@api/user/postLogin';
 
-import { ERROR_MESSAGES, SUCCESS_MESSAGES } from '@constants/messages';
-import { STATUS_CODES } from '@constants/statusCodes';
+import { ERROR_MESSAGES, STATUS_CODES, SUCCESS_MESSAGES } from '@constants/index';
 
 import { useAuthStore } from '@stores/useAuthStore';
 

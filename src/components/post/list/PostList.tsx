@@ -7,8 +7,7 @@ import Pagination from '@components/common/Pagination';
 import PostListItem from '@components/post/list/PostListItem';
 import PostListSkeleton from '@components/skeleton/post/PostListSkeleton';
 
-import { API_DEFAULTS } from '@constants/api';
-import { PATH } from '@constants/path';
+import { API_DEFAULTS, PATH } from '@constants/index';
 
 import { usePostsQuery } from '@hooks/queries/post/usePostsQuery';
 

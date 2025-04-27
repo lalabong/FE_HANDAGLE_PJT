@@ -7,7 +7,7 @@ import PostDetailContent from '@components/post/detail/PostDetailContent';
 import PostDetailHeader from '@components/post/detail/PostDetailHeader';
 import PostDetailSkeleton from '@components/skeleton/post/PostDetailSkeleton';
 
-import { PATH } from '@constants/path';
+import { PATH } from '@constants/index';
 
 import { useDeletePostMutation } from '@hooks/queries/post/useDeletePostMutation';
 import { usePostDetailQuery } from '@hooks/queries/post/usePostDetailQuery';

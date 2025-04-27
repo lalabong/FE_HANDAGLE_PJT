@@ -2,7 +2,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { getPosts } from '@api/post/getPosts';
 
-import { QUERY_KEYS } from '@constants/api';
+import { QUERY_KEYS } from '@constants/index';
 
 import { Post } from '@/types/post';
 

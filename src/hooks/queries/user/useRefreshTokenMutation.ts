@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { postRefreshToken } from '@api/user/postRefreshToken';
 
-import { ERROR_MESSAGES } from '@constants/messages';
+import { ERROR_MESSAGES } from '@constants/index';
 
 import { useAuthStore } from '@stores/useAuthStore';
 

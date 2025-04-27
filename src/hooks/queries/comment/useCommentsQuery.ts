@@ -3,9 +3,7 @@ import { useEffect } from 'react';
 
 import { getComments, GetCommentsParams } from '@api/post/comment/getComments';
 
-import { QUERY_KEYS } from '@constants/api';
-import { ERROR_MESSAGES } from '@constants/messages';
-import { STATUS_CODES } from '@constants/statusCodes';
+import { ERROR_MESSAGES, QUERY_KEYS, STATUS_CODES } from '@constants/index';
 
 // 댓글 목록 조회
 export const useGetCommentsQuery = ({ postId }: GetCommentsParams) => {

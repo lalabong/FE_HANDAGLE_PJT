@@ -3,9 +3,7 @@ import { useEffect } from 'react';
 
 import { getPostDetail, GetPostDetailParams } from '@api/post/getPostDetail';
 
-import { QUERY_KEYS } from '@constants/api';
-import { ERROR_MESSAGES } from '@constants/messages';
-import { STATUS_CODES } from '@constants/statusCodes';
+import { ERROR_MESSAGES, QUERY_KEYS, STATUS_CODES } from '@constants/index';
 
 // 게시글 상세 조회
 export const usePostDetailQuery = ({ postId }: GetPostDetailParams) => {

@@ -3,10 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { postPost } from '@api/post/postPost';
 
-import { QUERY_KEYS } from '@constants/api';
-import { ERROR_MESSAGES, SUCCESS_MESSAGES } from '@constants/messages';
-import { PATH } from '@constants/path';
-import { STATUS_CODES } from '@constants/statusCodes';
+import { ERROR_MESSAGES, PATH, QUERY_KEYS, STATUS_CODES, SUCCESS_MESSAGES } from '@constants/index';
 
 // 게시글 작성
 export const useCreatePostMutation = () => {

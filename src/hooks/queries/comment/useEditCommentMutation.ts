@@ -2,9 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { EditCommentParams, patchComment } from '@api/post/comment/patchComment';
 
-import { QUERY_KEYS } from '@constants/api';
-import { ERROR_MESSAGES, SUCCESS_MESSAGES } from '@constants/messages';
-import { STATUS_CODES } from '@constants/statusCodes';
+import { ERROR_MESSAGES, QUERY_KEYS, STATUS_CODES, SUCCESS_MESSAGES } from '@constants/index';
 
 // 댓글 수정
 export const useEditCommentMutation = ({ postId }: { postId: string }) => {
