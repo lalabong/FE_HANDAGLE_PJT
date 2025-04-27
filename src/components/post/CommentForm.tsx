@@ -11,7 +11,9 @@ interface CommentFormProps {
 
 const CommentForm = ({ onSubmit }: CommentFormProps) => {
   const [content, setContent] = useState('');
+
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+
   const isMobile = useDeviceStore((state) => state.isMobile);
 
   const handleSubmit = () => {

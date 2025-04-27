@@ -1,5 +1,7 @@
 import { memo, useMemo } from 'react';
 
+import { ChevronIcon } from '@components/icons';
+
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
@@ -43,22 +45,7 @@ const Pagination = memo(
             onClick={handlePrevSet}
             disabled={startPage <= 1}
           >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className={startPage <= 1 ? 'opacity-50' : ''}
-            >
-              <path
-                d="M10 12L6 8L10 4"
-                stroke="#A7A9B4"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <ChevronIcon className={startPage <= 1 ? 'opacity-50' : ''} />
           </button>
 
           {pageNumbers.map((pageNumber) => (
@@ -75,27 +62,12 @@ const Pagination = memo(
           ))}
 
           <button
-            className="p-2 rotate-180"
+            className="p-2"
             aria-label="다음 페이지 세트"
             onClick={handleNextSet}
             disabled={endPage >= totalPages}
           >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className={endPage >= totalPages ? 'opacity-50' : ''}
-            >
-              <path
-                d="M10 12L6 8L10 4"
-                stroke="#A7A9B4"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <ChevronIcon direction="right" className={endPage >= totalPages ? 'opacity-50' : ''} />
           </button>
         </div>
       </nav>

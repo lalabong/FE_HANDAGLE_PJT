@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
+import { BackIcon } from '@components/icons';
+
 import { useDeviceStore } from '@stores/useDeviceStore';
 
 interface MobileEditorHeaderProps {
@@ -20,17 +22,7 @@ const MobileEditorHeader = ({ isEditMode, handleSubmit }: MobileEditorHeaderProp
       <div className={`flex justify-between items-center ${responsivePaddingClass}`}>
         <div className="flex items-center gap-2">
           <button onClick={handleGoBack} aria-label="뒤로 가기" className="p-2 hover:opacity-70">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-            </svg>
+            <BackIcon />
           </button>
           <h1 className="text-base font-bold">{isEditMode ? '게시글 수정' : '게시글 작성'}</h1>
         </div>

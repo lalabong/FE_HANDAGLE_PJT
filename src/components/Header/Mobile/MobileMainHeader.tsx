@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 
+import { CloseIcon, HamburgerIcon } from '@components/icons';
+
 import { PATH } from '@constants/path';
 
 import { useLogoutMutation } from '@hooks/queries/useLogoutMutation';
@@ -33,21 +35,7 @@ const MobileMainHeader = () => {
             onClick={toggleMobileMenu}
             className="w-8 h-8 flex items-center justify-center"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-              />
-            </svg>
+            <HamburgerIcon />
           </button>
         </div>
       </header>
@@ -67,17 +55,7 @@ const MobileMainHeader = () => {
         <div className="flex flex-col h-full p-4">
           <div className="flex justify-end mb-6">
             <button aria-label="메뉴 닫기" onClick={closeMobileMenu} className="p-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="#A7A9B4"
-                strokeWidth="2"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
+              <CloseIcon />
             </button>
           </div>
 
