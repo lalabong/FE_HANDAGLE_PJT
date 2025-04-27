@@ -3,6 +3,7 @@ import { useState } from 'react';
 import DataStateHandler from '@components/common/DataStateHandler';
 import CommentForm from '@components/post/comment/CommentForm';
 import CommentItem from '@components/post/comment/CommentItem';
+import CommentSkeleton from '@components/skeleton/comment/CommentSkeleton';
 
 import { useGetCommentsQuery } from '@hooks/queries/comment/useCommentsQuery';
 import { useCreateCommentMutation } from '@hooks/queries/comment/useCreateCommentMutation';
@@ -67,7 +68,11 @@ const CommentSection = ({ postId }: CommentSectionProps) => {
     }
   };
 
-  const commentListLoadingComponent = <div className="p-4 text-center">댓글을 불러오는 중...</div>;
+  const commentListLoadingComponent = (
+    <div aria-live="polite" aria-busy="true">
+      <CommentSkeleton count={1} />
+    </div>
+  );
 
   const commentListErrorComponent = (
     <div className="p-4 text-center text-red-500">댓글을 불러오는 중 오류가 발생했습니다.</div>
